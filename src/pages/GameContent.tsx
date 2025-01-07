@@ -53,7 +53,7 @@ export function GameContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#2E294E] py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-b from-mystic-dark to-black py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <GameHeader
           currentRound={currentRound}
@@ -69,7 +69,7 @@ export function GameContent() {
           />
         )}
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2 mb-8">
           {sortedPlayers.map((player, index) => (
             <PlayerCard
               key={player.id}
@@ -94,9 +94,9 @@ export function GameContent() {
         </div>
 
         {players.length === 0 && (
-          <div className="text-center py-12">
+          <div className="text-center py-12 bg-mystic-dark/50 rounded-lg border border-primary/20">
             <p className="text-mystic-light/80">No players added yet.</p>
-            <p className="text-mystic-light/80">Click the + button to add players.</p>
+            <p className="text-mystic-light/80 mt-2">Click the + button to add players.</p>
           </div>
         )}
 
