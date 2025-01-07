@@ -12,6 +12,7 @@ import { useGameState } from "@/hooks/useGameState";
 function GameContent() {
   const {
     players,
+    setPlayers,
     selectedPlayer,
     setSelectedPlayer,
     isEditing,
@@ -115,7 +116,7 @@ function GameContent() {
                 return p;
               });
               setSelectedPlayer(null);
-              players = updatedPlayers;
+              setPlayers(updatedPlayers);
             }
           }}
         />
@@ -148,7 +149,7 @@ function GameContent() {
               });
               setSelectedPlayer(null);
               setIsEditing(false);
-              players = updatedPlayers;
+              setPlayers(updatedPlayers);
             }
           }}
         />
