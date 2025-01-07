@@ -83,7 +83,7 @@ export function GameControls({
             )}
           </>
         )}
-        {!gameStarted && (
+        {!gameStarted && !showEndGameDialog && (
           <Button
             onClick={onResetGame}
             disabled={!canStartGame}
