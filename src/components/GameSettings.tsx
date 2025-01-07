@@ -19,7 +19,9 @@ export function GameSettings({ onStartGame, canStartGame }: GameSettingsProps) {
           onClick={() => setGameMode("rounds")}
           className={cn(
             "rounded-md px-3",
-            gameMode === "rounds" && "bg-accent text-accent-foreground"
+            gameMode === "rounds" 
+              ? "bg-accent text-accent-foreground" 
+              : "text-[#FFFFFF]"
           )}
         >
           5 Rounds
@@ -30,7 +32,9 @@ export function GameSettings({ onStartGame, canStartGame }: GameSettingsProps) {
           onClick={() => setGameMode("points")}
           className={cn(
             "rounded-md px-3",
-            gameMode === "points" && "bg-accent text-accent-foreground"
+            gameMode === "points" 
+              ? "bg-accent text-accent-foreground" 
+              : "text-[#FFFFFF]"
           )}
         >
           100 Points

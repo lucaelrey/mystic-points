@@ -10,6 +10,7 @@ import { GameSettings } from "@/components/GameSettings";
 import { GameModeProvider, useGameMode } from "@/contexts/GameModeContext";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { EndGameDialog } from "@/components/EndGameDialog";
 
 interface PlayerPoints {
   [round: number]: number;
@@ -33,6 +34,7 @@ function GameContent() {
   const [showWinner, setShowWinner] = useState(false);
   const { toast } = useToast();
   const { gameMode, pointLimit } = useGameMode();
+  const [showEndGameDialog, setShowEndGameDialog] = useState(false);
 
   const addPlayer = (name: string) => {
     if (gameStarted) {
@@ -262,11 +264,10 @@ function GameContent() {
           onEndGame={endGame}
           onResetGame={resetGame}
           canGoBack={currentRound > 1}
+          canStartGame={canStartGame}
         />
 
-        {!gameStarted && (
-          <AddPlayerDialog onAddPlayer={addPlayer} />
-        )}
+        {!gameStarted && <AddPlayerDialog onAddPlayer={addPlayer} />}
         
         <AddPointsDialog
           playerName={selectedPlayer?.name ?? ""}
@@ -285,6 +286,15 @@ function GameContent() {
             }
           }}
           onEditPoints={editPoints}
+        />
+
+        <EndGameDialog
+          open={showEndGameDialog}
+          onOpenChange={setShowEndGameDialog}
+          onConfirm={() => {
+            setShowEndGameDialog(false);
+            endGame();
+          }}
         />
       </div>
     </div>
