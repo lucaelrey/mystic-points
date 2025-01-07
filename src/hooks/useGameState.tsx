@@ -135,6 +135,7 @@ export function useGameState() {
 
   return {
     players,
+    setPlayers,
     selectedPlayer,
     setSelectedPlayer,
     isEditing,
