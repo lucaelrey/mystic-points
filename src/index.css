@@ -99,3 +99,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .toaster {
+    --toast-background: theme('colors.mystic.dark');
+    --toast-border: theme('colors.primary.DEFAULT');
+    --toast-text: theme('colors.mystic.light');
+  }
+}

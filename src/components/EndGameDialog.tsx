@@ -1,13 +1,12 @@
+import { Button } from "@/components/ui/button";
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface EndGameDialogProps {
   open: boolean;
@@ -17,28 +16,30 @@ interface EndGameDialogProps {
 
 export function EndGameDialog({ open, onOpenChange, onConfirm }: EndGameDialogProps) {
   return (
-    <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent className="bg-white dark:bg-mystic-dark border-2 border-primary/20 shadow-lg">
-        <AlertDialogHeader className="space-y-3">
-          <AlertDialogTitle className="text-2xl font-bold text-mystic-dark dark:text-white">
-            End Game Early?
-          </AlertDialogTitle>
-          <AlertDialogDescription className="text-base text-mystic-dark/80 dark:text-white/80">
-            Are you sure you want to end the game now? This will determine the winner based on current scores.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter className="mt-6">
-          <AlertDialogCancel className="bg-mystic-light/10 hover:bg-mystic-light/20 text-mystic-dark dark:text-white border-2 border-primary/20">
-            Return to Game
-          </AlertDialogCancel>
-          <AlertDialogAction 
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="bg-mystic-dark/90 backdrop-blur-lg border-2 border-primary/20 shadow-xl">
+        <DialogHeader>
+          <DialogTitle className="text-2xl font-bold text-primary">End Game Early</DialogTitle>
+          <DialogDescription className="text-mystic-light/90 mt-2">
+            Are you sure you want to end the game now? Final scores will be calculated based on current points.
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter className="flex gap-2 sm:justify-center mt-6">
+          <Button
+            variant="outline"
+            onClick={() => onOpenChange(false)}
+            className="bg-transparent border-2 border-primary/20 text-mystic-light hover:bg-primary/10"
+          >
+            Cancel
+          </Button>
+          <Button
             onClick={onConfirm}
-            className="bg-primary hover:bg-primary/90 text-white font-semibold"
+            className="bg-primary hover:bg-primary/90 text-white"
           >
             End Game
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }

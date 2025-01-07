@@ -1,5 +1,4 @@
 import { Crown, Sparkles, ArrowBigDown } from "lucide-react";
-import { Button } from "./ui/button";
 
 interface WinnerDisplayProps {
   winnerName: string;
@@ -7,7 +6,7 @@ interface WinnerDisplayProps {
   onStartNewGame: () => void;
 }
 
-export function WinnerDisplay({ winnerName, winnerScore, onStartNewGame }: WinnerDisplayProps) {
+export function WinnerDisplay({ winnerName, winnerScore }: WinnerDisplayProps) {
   return (
     <div className="text-center mb-8 p-8 bg-mystic-dark/50 rounded-lg border-2 border-primary animate-mystic-glow">
       <div className="flex justify-center items-center gap-2 mb-4">
@@ -29,14 +28,7 @@ export function WinnerDisplay({ winnerName, winnerScore, onStartNewGame }: Winne
         </p>
       </div>
       
-      <Sparkles className="h-8 w-8 text-primary mx-auto mb-6" />
-      
-      <Button 
-        onClick={onStartNewGame}
-        className="w-full max-w-md mx-auto bg-primary hover:bg-primary/90 text-white"
-      >
-        Start New Game
-      </Button>
+      <Sparkles className="h-8 w-8 text-primary mx-auto" />
     </div>
   );
 }

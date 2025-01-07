@@ -11,7 +11,15 @@ const Toaster = ({ ...props }: ToasterProps) => {
       theme={theme as ToasterProps["theme"]}
       className="toaster group"
       position="bottom-left"
-      duration={4000}
+      duration={3000}
+      toastOptions={{
+        style: {
+          background: "rgba(26, 31, 44, 0.9)",
+          color: "#D6BCFA",
+          border: "2px solid rgba(155, 135, 245, 0.2)",
+          backdropFilter: "blur(8px)",
+        },
+      }}
       {...props}
     />
   )
