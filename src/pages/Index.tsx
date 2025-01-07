@@ -6,6 +6,7 @@ import { EditPointsDialog } from "@/components/EditPointsDialog";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { Crown, Sparkles } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface PlayerPoints {
   [round: number]: number;
