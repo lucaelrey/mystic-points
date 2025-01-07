@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { PlayerCard } from "@/components/PlayerCard";
 import { AddPlayerDialog } from "@/components/AddPlayerDialog";
 import { AddPointsDialog } from "@/components/AddPointsDialog";
@@ -6,219 +5,44 @@ import { EditPointsDialog } from "@/components/EditPointsDialog";
 import { GameHeader } from "@/components/GameHeader";
 import { WinnerDisplay } from "@/components/WinnerDisplay";
 import { GameControls } from "@/components/GameControls";
-import { GameSettings } from "@/components/GameSettings";
-import { GameModeProvider, useGameMode } from "@/contexts/GameModeContext";
-import { useToast } from "@/hooks/use-toast";
-import { cn } from "@/lib/utils";
 import { EndGameDialog } from "@/components/EndGameDialog";
-
-interface PlayerPoints {
-  [round: number]: number;
-}
-
-interface Player {
-  id: string;
-  name: string;
-  points: number;
-  roundPoints: PlayerPoints;
-}
-
-const MAX_ROUNDS = 5;
+import { GameModeProvider } from "@/contexts/GameModeContext";
+import { useGameState } from "@/hooks/useGameState";
 
 function GameContent() {
-  const [players, setPlayers] = useState<Player[]>([]);
-  const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [currentRound, setCurrentRound] = useState(1);
-  const [gameStarted, setGameStarted] = useState(false);
-  const [showWinner, setShowWinner] = useState(false);
-  const { toast } = useToast();
-  const { gameMode, pointLimit } = useGameMode();
-  const [showEndGameDialog, setShowEndGameDialog] = useState(false);
+  const {
+    players,
+    selectedPlayer,
+    setSelectedPlayer,
+    isEditing,
+    setIsEditing,
+    currentRound,
+    gameStarted,
+    showWinner,
+    showEndGameDialog,
+    setShowEndGameDialog,
+    addPlayer,
+    deletePlayer,
+    startGame,
+    resetGame,
+    handlePreviousRound,
+    canAdvanceRound,
+    handleAdvanceRound,
+    endGame,
+  } = useGameState();
 
-  const addPlayer = (name: string) => {
-    if (gameStarted) {
-      toast({
-        title: "Cannot add players",
-        description: "Players can only be added before the game starts",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    const newPlayer: Player = {
-      id: crypto.randomUUID(),
-      name,
-      points: 0,
-      roundPoints: {},
-    };
-    setPlayers((prev) => [...prev, newPlayer]);
-    toast({
-      title: "Player added",
-      description: `${name} has been added to the game`,
-    });
-  };
-
-  const canStartGame = players.length >= 2;
-
-  const startGame = () => {
-    if (canStartGame) {
-      setGameStarted(true);
-      toast({
-        title: "Game Started",
-        description: `${gameMode === 'rounds' ? '5 Rounds' : '100 Points'} mode selected`,
-      });
-    }
-  };
-
-  const handlePreviousRound = () => {
-    if (currentRound > 1) {
-      setCurrentRound(prev => prev - 1);
-      toast({
-        title: "Round Changed",
-        description: `Returned to round ${currentRound - 1}`,
-      });
-    }
-  };
-
-  const deletePlayer = (id: string) => {
-    if (gameStarted) {
-      toast({
-        title: "Cannot remove players",
-        description: "Players cannot be removed during an active game",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    setPlayers((prev) => prev.filter((p) => p.id !== id));
-    toast({
-      title: "Player removed",
-      description: "Player has been removed from the game",
-    });
-  };
-
-  const addPoints = (points: number) => {
-    if (selectedPlayer) {
-      setPlayers((prev) =>
-        prev.map((p) => {
-          if (p.id === selectedPlayer.id) {
-            const updatedRoundPoints = {
-              ...p.roundPoints,
-              [currentRound]: Math.max(0, points),
-            };
-            const totalPoints = Object.values(updatedRoundPoints).reduce((a, b) => a + b, 0);
-            return {
-              ...p,
-              points: totalPoints,
-              roundPoints: updatedRoundPoints,
-            };
-          }
-          return p;
-        })
-      );
-      setSelectedPlayer(null);
-      toast({
-        title: "Points added",
-        description: `${points} points added for round ${currentRound}`,
-      });
-    }
-  };
-
-  const editPoints = (round: number, points: number) => {
-    if (selectedPlayer) {
-      setPlayers((prev) =>
-        prev.map((p) => {
-          if (p.id === selectedPlayer.id) {
-            const updatedRoundPoints = {
-              ...p.roundPoints,
-              [round]: Math.max(0, points),
-            };
-            const totalPoints = Object.values(updatedRoundPoints).reduce((a, b) => a + b, 0);
-            return {
-              ...p,
-              points: totalPoints,
-              roundPoints: updatedRoundPoints,
-            };
-          }
-          return p;
-        })
-      );
-      setSelectedPlayer(null);
-      setIsEditing(false);
-      toast({
-        title: "Points updated",
-        description: `Points updated for round ${round}`,
-      });
-    }
-  };
-
-  const canAdvanceRound = () => {
-    if (gameMode === "points") {
-      const highestScore = Math.max(...players.map(p => p.points));
-      return highestScore >= pointLimit;
-    }
-    return players.length > 0 && players.every((player) => 
-      player.roundPoints[currentRound] !== undefined
-    );
-  };
-
-  const handleAdvanceRound = () => {
-    if (gameMode === "points" && canAdvanceRound()) {
-      endGame();
-    } else if (currentRound < MAX_ROUNDS && canAdvanceRound()) {
-      setCurrentRound((prev) => prev + 1);
-      setGameStarted(true);
-      toast({
-        title: "Round advanced",
-        description: `Starting round ${currentRound + 1}`,
-      });
-    } else if (currentRound === MAX_ROUNDS && canAdvanceRound()) {
-      endGame();
-    }
-  };
-
-  const endGame = () => {
-    const winner = [...players].sort((a, b) => a.points - b.points)[0];
-    setShowWinner(true);
-    setGameStarted(false);
-    toast({
-      title: "Game Over!",
-      description: `${winner.name} is crowned as the King of Mystara!`,
-    });
-  };
-
-  const resetGame = () => {
-    setPlayers([]);
-    setCurrentRound(1);
-    setGameStarted(false);
-    setShowWinner(false);
-    setSelectedPlayer(null);
-    setIsEditing(false);
-    toast({
-      title: "Game Reset",
-      description: "Start a new game by adding players",
-    });
-  };
-
-  const sortedPlayers = [...players].sort((a, b) => a.points - b.points);
+  const sortedPlayers = [...players].sort((a, b) => b.points - a.points);
   const winner = sortedPlayers[0];
+  const canStartGame = players.length >= 2;
 
   return (
     <div className="min-h-screen bg-[#2E294E] py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <GameHeader
           currentRound={currentRound}
-          maxRounds={MAX_ROUNDS}
+          maxRounds={5}
           gameStarted={gameStarted}
         />
-
-        {!gameStarted && !showWinner && (
-          <GameSettings
-            onStartGame={startGame}
-            canStartGame={canStartGame}
-          />
-        )}
 
         {showWinner && winner && (
           <WinnerDisplay winnerName={winner.name} />
@@ -257,12 +81,12 @@ function GameContent() {
         <GameControls
           gameStarted={gameStarted}
           currentRound={currentRound}
-          maxRounds={MAX_ROUNDS}
+          maxRounds={5}
           canAdvanceRound={canAdvanceRound()}
           onAdvanceRound={handleAdvanceRound}
           onPreviousRound={handlePreviousRound}
           onEndGame={endGame}
-          onResetGame={resetGame}
+          onResetGame={startGame}
           canGoBack={currentRound > 1}
           canStartGame={canStartGame}
         />
@@ -273,7 +97,27 @@ function GameContent() {
           playerName={selectedPlayer?.name ?? ""}
           open={!!selectedPlayer && !isEditing}
           onOpenChange={(open) => !open && setSelectedPlayer(null)}
-          onAddPoints={addPoints}
+          onAddPoints={(points) => {
+            if (selectedPlayer) {
+              const updatedPlayers = players.map((p) => {
+                if (p.id === selectedPlayer.id) {
+                  const updatedRoundPoints = {
+                    ...p.roundPoints,
+                    [currentRound]: Math.max(0, points),
+                  };
+                  const totalPoints = Object.values(updatedRoundPoints).reduce((a, b) => a + b, 0);
+                  return {
+                    ...p,
+                    points: totalPoints,
+                    roundPoints: updatedRoundPoints,
+                  };
+                }
+                return p;
+              });
+              setSelectedPlayer(null);
+              players = updatedPlayers;
+            }
+          }}
         />
 
         <EditPointsDialog
@@ -285,7 +129,28 @@ function GameContent() {
               setIsEditing(false);
             }
           }}
-          onEditPoints={editPoints}
+          onEditPoints={(round, points) => {
+            if (selectedPlayer) {
+              const updatedPlayers = players.map((p) => {
+                if (p.id === selectedPlayer.id) {
+                  const updatedRoundPoints = {
+                    ...p.roundPoints,
+                    [round]: Math.max(0, points),
+                  };
+                  const totalPoints = Object.values(updatedRoundPoints).reduce((a, b) => a + b, 0);
+                  return {
+                    ...p,
+                    points: totalPoints,
+                    roundPoints: updatedRoundPoints,
+                  };
+                }
+                return p;
+              });
+              setSelectedPlayer(null);
+              setIsEditing(false);
+              players = updatedPlayers;
+            }
+          }}
         />
 
         <EndGameDialog
