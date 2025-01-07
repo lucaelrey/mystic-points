@@ -28,17 +28,21 @@ export function AddPlayerDialog({ onAddPlayer }: AddPlayerDialogProps) {
           <Plus className="h-6 w-6" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] bg-mystic-dark/90 backdrop-blur-lg border-2 border-primary/20 shadow-xl">
         <DialogHeader>
-          <DialogTitle>Add New Player</DialogTitle>
+          <DialogTitle className="text-2xl font-bold text-primary">Add New Player</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
           <Input
             placeholder="Enter player name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            className="bg-transparent border-2 border-primary/20 text-mystic-light placeholder:text-mystic-light/50"
           />
-          <Button type="submit" className="w-full">
+          <Button 
+            type="submit" 
+            className="w-full bg-primary hover:bg-primary/90 text-white"
+          >
             Add Player
           </Button>
         </form>
