@@ -33,13 +33,23 @@ function GameContent() {
     resetPlayerScores,
   } = useGameState();
 
-  const sortedPlayers = [...players].sort((a, b) => a.points - b.points);
+  const sortedPlayers = [...players].sort((a, b) => b.points - a.points);
   const winner = sortedPlayers[0];
   const canStartGame = players.length >= 2;
 
   const handleStartNewGame = () => {
     resetPlayerScores();
     resetGame();
+  };
+
+  const handleNameChange = (playerId: string, newName: string) => {
+    setPlayers((prev) =>
+      prev.map((p) =>
+        p.id === playerId
+          ? { ...p, name: newName }
+          : p
+      )
+    );
   };
 
   return (
@@ -86,6 +96,7 @@ function GameContent() {
                 setIsEditing(true);
               }}
               gameStarted={gameStarted}
+              onNameChange={(newName) => handleNameChange(player.id, newName)}
             />
           ))}
         </div>
