@@ -74,12 +74,12 @@ export default {
         },
         glow: {
           "0%, 100%": { 
-            boxShadow: "0 0 15px #9b87f5",
-            borderColor: "#9b87f5"
+            boxShadow: "0 0 15px rgba(155, 135, 245, 0.2)",
+            borderColor: "rgba(155, 135, 245, 0.4)"
           },
           "50%": { 
-            boxShadow: "0 0 30px #7E69AB",
-            borderColor: "#7E69AB"
+            boxShadow: "0 0 30px rgba(126, 105, 171, 0.3)",
+            borderColor: "rgba(126, 105, 171, 0.6)"
           }
         }
       },

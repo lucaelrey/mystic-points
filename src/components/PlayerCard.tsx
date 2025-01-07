@@ -30,7 +30,7 @@ export function PlayerCard({
 }: PlayerCardProps) {
   const [isEditingName, setIsEditingName] = useState(false);
   const [editedName, setEditedName] = useState(name);
-  const isTopPlayer = rank === 1;
+  const isTopPlayer = rank === 1 && Object.keys(roundPoints).length > 0;
   const hasCurrentRoundPoints = roundPoints[currentRound] !== undefined;
 
   const handleNameSubmit = () => {
@@ -42,10 +42,10 @@ export function PlayerCard({
 
   return (
     <div className={cn(
-      "group relative p-6 rounded-lg border-2 transition-all duration-300",
+      "group relative p-6 rounded-lg border-2 transition-all duration-500",
       "bg-gradient-to-br from-mystic-dark to-black backdrop-blur-sm",
       "hover:shadow-lg hover:shadow-primary/20",
-      isTopPlayer ? "border-primary animate-mystic-glow" : "border-accent/30"
+      isTopPlayer ? "border-primary animate-[glow_4s_ease-in-out_infinite]" : "border-accent/30"
     )}>
       <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
         {!gameStarted && !isEditingName && (

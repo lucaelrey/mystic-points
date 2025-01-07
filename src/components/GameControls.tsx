@@ -75,8 +75,8 @@ export function GameControls({
             {currentRound > 1 && (
               <Button
                 onClick={() => setShowEndGameDialog(true)}
-                variant="destructive"
-                className="px-8 py-4 text-lg bg-destructive hover:bg-destructive/80 text-white"
+                className="px-4 py-2 bg-mystic-dark hover:bg-mystic-dark/80 text-mystic-light border-2 border-accent/50"
+                variant="outline"
               >
                 End Game Early
               </Button>
@@ -98,18 +98,18 @@ export function GameControls({
       </div>
 
       <Dialog open={showRestartDialog} onOpenChange={setShowRestartDialog}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="bg-mystic-dark/90 backdrop-blur-lg border-2 border-primary/20 shadow-xl">
           <DialogHeader>
-            <DialogTitle>Restart Game</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-2xl font-bold text-primary">Restart Game</DialogTitle>
+            <DialogDescription className="text-mystic-light/90 mt-2">
               Are you sure you want to restart the game? All progress will be lost, but players will remain.
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter className="flex gap-2 sm:justify-center">
+          <DialogFooter className="flex gap-2 sm:justify-center mt-6">
             <Button
               variant="outline"
               onClick={() => setShowRestartDialog(false)}
-              className="border-white text-white"
+              className="bg-transparent border-2 border-primary/20 text-mystic-light hover:bg-primary/10"
             >
               Cancel
             </Button>
@@ -118,7 +118,7 @@ export function GameControls({
                 setShowRestartDialog(false);
                 onPreviousRound();
               }}
-              className="bg-[#B08FFF] hover:bg-[#9B7FEF] text-white"
+              className="bg-primary hover:bg-primary/90 text-white"
             >
               Restart
             </Button>
