@@ -14,6 +14,7 @@ export function useGameState() {
     addPlayer,
     deletePlayer,
     updatePlayerPoints,
+    resetPlayerScores,
   } = usePlayerManagement();
 
   const {
@@ -50,6 +51,7 @@ export function useGameState() {
     addPlayer,
     deletePlayer,
     updatePlayerPoints,
+    resetPlayerScores,
     
     // Round Management
     currentRound,
