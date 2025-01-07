@@ -5,6 +5,8 @@ interface PlayerCardProps {
   name: string;
   points: number;
   rank: number;
+  currentRound: number;
+  roundPoints: { [key: number]: number };
   onDelete: () => void;
   onAddPoints: () => void;
   onEditPoints: () => void;
@@ -13,12 +15,15 @@ interface PlayerCardProps {
 export function PlayerCard({ 
   name, 
   points, 
-  rank, 
+  rank,
+  currentRound,
+  roundPoints, 
   onDelete, 
   onAddPoints,
   onEditPoints 
 }: PlayerCardProps) {
   const isTopPlayer = rank === 1;
+  const hasCurrentRoundPoints = roundPoints[currentRound] !== undefined;
 
   return (
     <div className={cn(
@@ -50,14 +55,28 @@ export function PlayerCard({
         </h3>
       </div>
       
-      <div className="flex justify-between items-center">
-        <div className="text-3xl font-bold text-primary">{points}</div>
-        <button
-          onClick={onAddPoints}
-          className="px-4 py-2 bg-accent hover:bg-accent/90 text-white rounded-md transition-colors"
-        >
-          Add Points
-        </button>
+      <div className="flex flex-col gap-4">
+        <div className="flex justify-between items-center">
+          <div className="text-3xl font-bold text-primary">{points}</div>
+          <div className="text-sm text-mystic-light">
+            Round {currentRound}/5
+          </div>
+        </div>
+        
+        {!hasCurrentRoundPoints && (
+          <button
+            onClick={onAddPoints}
+            className="w-full px-4 py-2 bg-accent hover:bg-accent/90 text-white rounded-md transition-colors animate-mystic-glow"
+          >
+            Add Round {currentRound} Points
+          </button>
+        )}
+        
+        {hasCurrentRoundPoints && (
+          <div className="text-sm text-mystic-light">
+            Round {currentRound} Points: {roundPoints[currentRound]}
+          </div>
+        )}
       </div>
     </div>
   );
