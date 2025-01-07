@@ -36,7 +36,7 @@ export function GameControls({
             variant="outline"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Previous Round
+            {currentRound === 1 ? "Restart Game" : "Previous Round"}
           </Button>
           <Button
             onClick={onAdvanceRound}

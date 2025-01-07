@@ -10,6 +10,7 @@ interface PlayerCardProps {
   onDelete: () => void;
   onAddPoints: () => void;
   onEditPoints: () => void;
+  gameStarted: boolean;
 }
 
 export function PlayerCard({ 
@@ -20,7 +21,8 @@ export function PlayerCard({
   roundPoints, 
   onDelete, 
   onAddPoints,
-  onEditPoints 
+  onEditPoints,
+  gameStarted 
 }: PlayerCardProps) {
   const isTopPlayer = rank === 1;
   const hasCurrentRoundPoints = roundPoints[currentRound] !== undefined;
@@ -37,12 +39,14 @@ export function PlayerCard({
         >
           <Edit className="h-4 w-4" />
         </button>
-        <button
-          onClick={onDelete}
-          className="p-2 text-destructive hover:text-destructive/80 rounded-full hover:bg-mystic-dark/50"
-        >
-          <Trash2 className="h-4 w-4" />
-        </button>
+        {!gameStarted && (
+          <button
+            onClick={onDelete}
+            className="p-2 text-destructive hover:text-destructive/80 rounded-full hover:bg-mystic-dark/50"
+          >
+            <Trash2 className="h-4 w-4" />
+          </button>
+        )}
       </div>
       
       <div className="flex items-center gap-3 mb-4">
