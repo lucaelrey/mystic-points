@@ -60,12 +60,7 @@ export function PlayerCard({
       </div>
       
       <div className="flex flex-col gap-4">
-        <div className="flex justify-between items-center">
-          <div className="text-3xl font-bold text-primary">{points}</div>
-          <div className="text-sm text-mystic-light">
-            Round {currentRound}/5
-          </div>
-        </div>
+        <div className="text-3xl font-bold text-primary">{points}</div>
         
         {!hasCurrentRoundPoints && (
           <button
@@ -78,7 +73,7 @@ export function PlayerCard({
         
         {hasCurrentRoundPoints && (
           <div className="text-sm text-mystic-light">
-            Round {currentRound} Points: {roundPoints[currentRound]}
+            Current Round Points: {roundPoints[currentRound]}
           </div>
         )}
       </div>
