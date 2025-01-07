@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { PlayerCard } from "@/components/PlayerCard";
 import { AddPlayerDialog } from "@/components/AddPlayerDialog";
 import { AddPointsDialog } from "@/components/AddPointsDialog";
 import { EditPointsDialog } from "@/components/EditPointsDialog";
+import { GameHeader } from "@/components/GameHeader";
+import { WinnerDisplay } from "@/components/WinnerDisplay";
+import { GameControls } from "@/components/GameControls";
 import { useToast } from "@/components/ui/use-toast";
-import { Button } from "@/components/ui/button";
-import { Crown, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface PlayerPoints {
@@ -26,10 +27,20 @@ const Index = () => {
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [currentRound, setCurrentRound] = useState(1);
+  const [gameStarted, setGameStarted] = useState(false);
   const [showWinner, setShowWinner] = useState(false);
   const { toast } = useToast();
 
   const addPlayer = (name: string) => {
+    if (gameStarted) {
+      toast({
+        title: "Cannot add players",
+        description: "Players can only be added before the game starts",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     const newPlayer: Player = {
       id: crypto.randomUUID(),
       name,
@@ -44,6 +55,15 @@ const Index = () => {
   };
 
   const deletePlayer = (id: string) => {
+    if (gameStarted) {
+      toast({
+        title: "Cannot remove players",
+        description: "Players cannot be removed during an active game",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setPlayers((prev) => prev.filter((p) => p.id !== id));
     toast({
       title: "Player removed",
@@ -58,7 +78,7 @@ const Index = () => {
           if (p.id === selectedPlayer.id) {
             const updatedRoundPoints = {
               ...p.roundPoints,
-              [currentRound]: points,
+              [currentRound]: Math.max(0, points),
             };
             const totalPoints = Object.values(updatedRoundPoints).reduce((a, b) => a + b, 0);
             return {
@@ -70,9 +90,10 @@ const Index = () => {
           return p;
         })
       );
+      setSelectedPlayer(null);
       toast({
         title: "Points added",
-        description: `${points} points added to ${selectedPlayer.name} for round ${currentRound}`,
+        description: `${points} points added for round ${currentRound}`,
       });
     }
   };
@@ -84,7 +105,7 @@ const Index = () => {
           if (p.id === selectedPlayer.id) {
             const updatedRoundPoints = {
               ...p.roundPoints,
-              [round]: points,
+              [round]: Math.max(0, points),
             };
             const totalPoints = Object.values(updatedRoundPoints).reduce((a, b) => a + b, 0);
             return {
@@ -96,58 +117,71 @@ const Index = () => {
           return p;
         })
       );
+      setSelectedPlayer(null);
+      setIsEditing(false);
       toast({
         title: "Points updated",
-        description: `Points updated for ${selectedPlayer.name} in round ${round}`,
+        description: `Points updated for round ${round}`,
       });
     }
   };
 
   const canAdvanceRound = () => {
-    return players.every((player) => player.roundPoints[currentRound] !== undefined);
+    return players.length > 0 && players.every((player) => 
+      player.roundPoints[currentRound] !== undefined
+    );
   };
 
-  const advanceRound = () => {
+  const handleAdvanceRound = () => {
     if (currentRound < MAX_ROUNDS && canAdvanceRound()) {
       setCurrentRound((prev) => prev + 1);
+      setGameStarted(true);
       toast({
         title: "Round advanced",
         description: `Starting round ${currentRound + 1}`,
       });
     } else if (currentRound === MAX_ROUNDS && canAdvanceRound()) {
-      const winner = [...players].sort((a, b) => b.points - a.points)[0];
-      setShowWinner(true);
-      toast({
-        title: "Game Over!",
-        description: `${winner.name} is crowned as the King of Mystara!`,
-      });
+      endGame();
     }
   };
 
-  const sortedPlayers = [...players].sort((a, b) => b.points - a.points);
+  const endGame = () => {
+    const winner = [...players].sort((a, b) => a.points - b.points)[0];
+    setShowWinner(true);
+    setGameStarted(false);
+    toast({
+      title: "Game Over!",
+      description: `${winner.name} is crowned as the King of Mystara!`,
+    });
+  };
+
+  const resetGame = () => {
+    setPlayers([]);
+    setCurrentRound(1);
+    setGameStarted(false);
+    setShowWinner(false);
+    setSelectedPlayer(null);
+    setIsEditing(false);
+    toast({
+      title: "Game Reset",
+      description: "Start a new game by adding players",
+    });
+  };
+
+  const sortedPlayers = [...players].sort((a, b) => a.points - b.points);
   const winner = sortedPlayers[0];
 
   return (
     <div className="min-h-screen bg-mystic-dark py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-primary mb-2">
-            Mystara Points Tracker
-          </h1>
-          <p className="text-mystic-light">
-            Round {currentRound} of {MAX_ROUNDS}
-          </p>
-        </div>
+        <GameHeader
+          currentRound={currentRound}
+          maxRounds={MAX_ROUNDS}
+          gameStarted={gameStarted}
+        />
 
         {showWinner && winner && (
-          <div className="text-center mb-8 p-8 bg-mystic-dark/50 rounded-lg border-2 border-primary animate-mystic-glow">
-            <Crown className="h-16 w-16 text-primary mx-auto mb-4" />
-            <h2 className="text-3xl font-bold text-primary mb-2">
-              All hail the King of Mystara!
-            </h2>
-            <p className="text-2xl text-mystic-light mb-4">{winner.name}</p>
-            <Sparkles className="h-8 w-8 text-primary mx-auto" />
-          </div>
+          <WinnerDisplay winnerName={winner.name} />
         )}
 
         <div className="grid gap-6 md:grid-cols-2">
@@ -179,20 +213,15 @@ const Index = () => {
           </div>
         )}
 
-        {players.length > 0 && currentRound <= MAX_ROUNDS && (
-          <div className="mt-8 flex justify-center">
-            <Button
-              onClick={advanceRound}
-              disabled={!canAdvanceRound()}
-              className={cn(
-                "px-8 py-4 text-lg",
-                canAdvanceRound() ? "animate-mystic-glow" : ""
-              )}
-            >
-              {currentRound === MAX_ROUNDS ? "End Game" : "Next Round"}
-            </Button>
-          </div>
-        )}
+        <GameControls
+          gameStarted={gameStarted}
+          currentRound={currentRound}
+          maxRounds={MAX_ROUNDS}
+          canAdvanceRound={canAdvanceRound()}
+          onAdvanceRound={handleAdvanceRound}
+          onEndGame={endGame}
+          onResetGame={resetGame}
+        />
 
         <AddPlayerDialog onAddPlayer={addPlayer} />
         
