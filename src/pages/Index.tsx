@@ -240,6 +240,7 @@ function GameContent() {
                 setSelectedPlayer(player);
                 setIsEditing(true);
               }}
+              gameStarted={gameStarted}
             />
           ))}
         </div>
