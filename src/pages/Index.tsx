@@ -6,7 +6,9 @@ import { EditPointsDialog } from "@/components/EditPointsDialog";
 import { GameHeader } from "@/components/GameHeader";
 import { WinnerDisplay } from "@/components/WinnerDisplay";
 import { GameControls } from "@/components/GameControls";
-import { useToast } from "@/components/ui/use-toast";
+import { GameSettings } from "@/components/GameSettings";
+import { GameModeProvider, useGameMode } from "@/contexts/GameModeContext";
+import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
 interface PlayerPoints {
@@ -22,7 +24,7 @@ interface Player {
 
 const MAX_ROUNDS = 5;
 
-const Index = () => {
+function GameContent() {
   const [players, setPlayers] = useState<Player[]>([]);
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -30,6 +32,7 @@ const Index = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [showWinner, setShowWinner] = useState(false);
   const { toast } = useToast();
+  const { gameMode, pointLimit } = useGameMode();
 
   const addPlayer = (name: string) => {
     if (gameStarted) {
@@ -52,6 +55,28 @@ const Index = () => {
       title: "Player added",
       description: `${name} has been added to the game`,
     });
+  };
+
+  const canStartGame = players.length >= 2;
+
+  const startGame = () => {
+    if (canStartGame) {
+      setGameStarted(true);
+      toast({
+        title: "Game Started",
+        description: `${gameMode === 'rounds' ? '5 Rounds' : '100 Points'} mode selected`,
+      });
+    }
+  };
+
+  const handlePreviousRound = () => {
+    if (currentRound > 1) {
+      setCurrentRound(prev => prev - 1);
+      toast({
+        title: "Round Changed",
+        description: `Returned to round ${currentRound - 1}`,
+      });
+    }
   };
 
   const deletePlayer = (id: string) => {
@@ -127,13 +152,19 @@ const Index = () => {
   };
 
   const canAdvanceRound = () => {
+    if (gameMode === "points") {
+      const highestScore = Math.max(...players.map(p => p.points));
+      return highestScore >= pointLimit;
+    }
     return players.length > 0 && players.every((player) => 
       player.roundPoints[currentRound] !== undefined
     );
   };
 
   const handleAdvanceRound = () => {
-    if (currentRound < MAX_ROUNDS && canAdvanceRound()) {
+    if (gameMode === "points" && canAdvanceRound()) {
+      endGame();
+    } else if (currentRound < MAX_ROUNDS && canAdvanceRound()) {
       setCurrentRound((prev) => prev + 1);
       setGameStarted(true);
       toast({
@@ -172,13 +203,20 @@ const Index = () => {
   const winner = sortedPlayers[0];
 
   return (
-    <div className="min-h-screen bg-mystic-dark py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#2E294E] py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <GameHeader
           currentRound={currentRound}
           maxRounds={MAX_ROUNDS}
           gameStarted={gameStarted}
         />
+
+        {!gameStarted && !showWinner && (
+          <GameSettings
+            onStartGame={startGame}
+            canStartGame={canStartGame}
+          />
+        )}
 
         {showWinner && winner && (
           <WinnerDisplay winnerName={winner.name} />
@@ -219,11 +257,15 @@ const Index = () => {
           maxRounds={MAX_ROUNDS}
           canAdvanceRound={canAdvanceRound()}
           onAdvanceRound={handleAdvanceRound}
+          onPreviousRound={handlePreviousRound}
           onEndGame={endGame}
           onResetGame={resetGame}
+          canGoBack={currentRound > 1}
         />
 
-        <AddPlayerDialog onAddPlayer={addPlayer} />
+        {!gameStarted && (
+          <AddPlayerDialog onAddPlayer={addPlayer} />
+        )}
         
         <AddPointsDialog
           playerName={selectedPlayer?.name ?? ""}
@@ -246,6 +288,12 @@ const Index = () => {
       </div>
     </div>
   );
-};
+}
 
-export default Index;
+export default function IndexPage() {
+  return (
+    <GameModeProvider>
+      <GameContent />
+    </GameModeProvider>
+  );
+}
