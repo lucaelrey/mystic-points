@@ -35,7 +35,10 @@ export function PlayerCard({
       <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
         <button
           onClick={onEditPoints}
-          className="p-2 text-primary hover:text-primary/80 rounded-full hover:bg-mystic-dark/50"
+          className={cn(
+            "p-2 rounded-full hover:bg-mystic-dark/50",
+            gameStarted ? "text-primary hover:text-primary/80" : "hidden"
+          )}
         >
           <Edit className="h-4 w-4" />
         </button>
@@ -53,28 +56,32 @@ export function PlayerCard({
         <span className="text-2xl font-bold text-primary">#{rank}</span>
         <h3 className="text-xl font-semibold text-mystic-light flex items-center gap-2">
           {name}
-          {isTopPlayer && (
+          {isTopPlayer && gameStarted && points > 0 && (
             <Crown className="h-5 w-5 text-primary animate-pulse" />
           )}
         </h3>
       </div>
       
       <div className="flex flex-col gap-4">
-        <div className="text-3xl font-bold text-primary">{points}</div>
-        
-        {!hasCurrentRoundPoints && (
-          <button
-            onClick={onAddPoints}
-            className="w-full px-4 py-2 bg-accent hover:bg-accent/90 text-white rounded-md transition-colors animate-mystic-glow"
-          >
-            Add Round {currentRound} Points
-          </button>
-        )}
-        
-        {hasCurrentRoundPoints && (
-          <div className="text-sm text-mystic-light">
-            Current Round Points: {roundPoints[currentRound]}
-          </div>
+        {gameStarted && (
+          <>
+            <div className="text-3xl font-bold text-primary">{points}</div>
+            
+            {!hasCurrentRoundPoints && (
+              <button
+                onClick={onAddPoints}
+                className="w-full px-4 py-2 bg-accent hover:bg-accent/90 text-white rounded-md transition-colors animate-mystic-glow"
+              >
+                Add Round {currentRound} Points
+              </button>
+            )}
+            
+            {hasCurrentRoundPoints && (
+              <div className="text-sm text-mystic-light">
+                Current Round Points: {roundPoints[currentRound]}
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

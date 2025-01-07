@@ -14,11 +14,16 @@ export function GameHeader({ currentRound, maxRounds, gameStarted }: GameHeaderP
         <Crown className="h-8 w-8 text-primary animate-pulse" />
       </h1>
       {gameStarted && (
-        <div className="mt-4 mb-8">
+        <div className="mt-4 mb-8 animate-fade-in">
           <p className="text-2xl font-bold text-mystic-light bg-mystic-dark/50 inline-block px-6 py-2 rounded-full border-2 border-primary/30">
             Round {currentRound} of {maxRounds}
           </p>
         </div>
+      )}
+      {!gameStarted && (
+        <p className="text-lg text-mystic-light/80 mt-4">
+          Add players to begin your mystical journey
+        </p>
       )}
     </div>
   );

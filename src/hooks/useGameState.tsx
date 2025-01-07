@@ -19,6 +19,7 @@ export function useGameState() {
 
   const {
     currentRound,
+    setCurrentRound,
     canAdvanceRound,
     handlePreviousRound,
     handleAdvanceRound,
@@ -34,13 +35,23 @@ export function useGameState() {
     endGame: endGameBase,
   } = useGameFlow();
 
-  // Compose the functions with necessary dependencies
-  const startGame = () => startGameBase(players);
-  const resetGame = () => {
-    resetGameBase();
-    setPlayers([]);
+  const startGame = () => {
+    resetPlayerScores();
+    setCurrentRound(1);
+    startGameBase(players);
   };
-  const endGame = () => endGameBase(players);
+
+  const resetGame = () => {
+    resetPlayerScores();
+    setCurrentRound(1);
+    resetGameBase();
+  };
+
+  const endGame = () => {
+    endGameBase(players);
+    resetPlayerScores();
+    setCurrentRound(1);
+  };
 
   return {
     // Player Management
