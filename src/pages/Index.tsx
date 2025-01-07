@@ -30,11 +30,17 @@ function GameContent() {
     canAdvanceRound,
     handleAdvanceRound,
     endGame,
+    resetPlayerScores,
   } = useGameState();
 
-  const sortedPlayers = [...players].sort((a, b) => b.points - a.points);
+  const sortedPlayers = [...players].sort((a, b) => a.points - b.points);
   const winner = sortedPlayers[0];
   const canStartGame = players.length >= 2;
+
+  const handleStartNewGame = () => {
+    resetPlayerScores();
+    resetGame();
+  };
 
   return (
     <div className="min-h-screen bg-[#2E294E] py-8 px-4 sm:px-6 lg:px-8">
@@ -46,7 +52,19 @@ function GameContent() {
         />
 
         {showWinner && winner && (
-          <WinnerDisplay winnerName={winner.name} />
+          <WinnerDisplay 
+            winnerName={winner.name} 
+            winnerScore={winner.points}
+            onStartNewGame={handleStartNewGame}
+          />
+        )}
+
+        {gameStarted && (
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-primary">
+              Round {currentRound} of 5
+            </h2>
+          </div>
         )}
 
         <div className="grid gap-6 md:grid-cols-2">

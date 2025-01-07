@@ -28,13 +28,20 @@ export function useGameFlow() {
     });
   };
 
+  const findWinners = (players: Player[]): Player[] => {
+    if (players.length === 0) return [];
+    const lowestScore = Math.min(...players.map(p => p.points));
+    return players.filter(p => p.points === lowestScore);
+  };
+
   const endGame = (players: Player[]) => {
-    const winner = [...players].sort((a, b) => b.points - a.points)[0];
+    const winners = findWinners(players);
+    const winnerNames = winners.map(w => w.name).join(" & ");
     setShowWinner(true);
     setGameStarted(false);
     toast({
       title: "Game Over!",
-      description: `${winner.name} is crowned as the King of Mystara!`,
+      description: `${winnerNames} ${winners.length > 1 ? 'are' : 'is'} crowned as the ${winners.length > 1 ? 'Kings' : 'King'} of Mystara!`,
     });
   };
 
@@ -46,5 +53,6 @@ export function useGameFlow() {
     startGame,
     resetGame,
     endGame,
+    findWinners,
   };
 }

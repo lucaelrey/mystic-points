@@ -49,6 +49,16 @@ export function usePlayerManagement() {
     );
   };
 
+  const resetPlayerScores = () => {
+    setPlayers((prevPlayers) =>
+      prevPlayers.map((p) => ({
+        ...p,
+        points: 0,
+        roundPoints: {},
+      }))
+    );
+  };
+
   return {
     players,
     setPlayers,
@@ -57,5 +67,6 @@ export function usePlayerManagement() {
     addPlayer,
     deletePlayer,
     updatePlayerPoints,
+    resetPlayerScores,
   };
 }
