@@ -62,7 +62,7 @@ export default function GameGuide() {
   const [flippedCards, setFlippedCards] = useState<number[]>([]);
 
   const filteredCards = guideCards.filter(
-    card => selectedCategory === "all" || card.selectedCategory === selectedCategory
+    card => selectedCategory === "all" || card.category === selectedCategory
   );
 
   const toggleCard = (cardId: number) => {
