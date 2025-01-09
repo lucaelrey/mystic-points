@@ -1,65 +1,68 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Filter, Book, Sword, Trophy, Sparkles } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Book, Flame, Shield, Wand2, Sword } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
-type Category = "setup" | "gameplay" | "winning" | "abilities";
-
-interface GuideCard {
+type Category = "basics" | "elements" | "combat" | "special";
+type GuideCard = {
   id: number;
   title: string;
   description: string;
   category: Category;
-  icon: typeof Book | typeof Sword | typeof Trophy | typeof Sparkles;
-}
+  icon: typeof Book;
+  details: string;
+};
 
 const guideCards: GuideCard[] = [
   {
     id: 1,
     title: "Game Setup",
-    description: "Begin by gathering 2-4 players. Each player starts with 5 cards and 20 life points. Shuffle the deck thoroughly before dealing.",
-    category: "setup",
-    icon: Book
+    description: "Learn how to set up your first game",
+    category: "basics",
+    icon: Book,
+    details: "Start by shuffling the deck and dealing 5 cards to each player. Place the Crystal of Mystara in the center."
   },
   {
     id: 2,
-    title: "Basic Actions",
-    description: "On your turn, draw a card and play one action. Actions include attacking, defending, or using special abilities.",
-    category: "gameplay",
-    icon: Sword
+    title: "Elemental Powers",
+    description: "Master the four elements",
+    category: "elements",
+    icon: Flame,
+    details: "Each element has unique properties: Fire attacks, Water defends, Air mobilizes, Earth strengthens."
   },
   {
     id: 3,
-    title: "Victory Conditions",
-    description: "The last player standing wins! Reduce your opponents' life points to zero while protecting your own.",
-    category: "winning",
-    icon: Trophy
+    title: "Combat Basics",
+    description: "Understanding attack and defense",
+    category: "combat",
+    icon: Sword,
+    details: "Attack by playing element cards. Defend with shield cards or counter-elements."
   },
   {
     id: 4,
     title: "Special Abilities",
-    description: "Each card has unique abilities. Combine them strategically to create powerful combinations and overcome your opponents.",
-    category: "abilities",
-    icon: Sparkles
+    description: "Unlock powerful combinations",
+    category: "special",
+    icon: Wand2,
+    details: "Combine elements to create powerful effects. Match three of the same element for a bonus action."
   }
 ];
 
-const GameGuide = () => {
-  const [selectedCategory, setSelectedCategory] = useState<Category | "all">("all");
+const categories = [
+  { value: "all", label: "All Rules" },
+  { value: "basics", label: "Basics" },
+  { value: "elements", label: "Elements" },
+  { value: "combat", label: "Combat" },
+  { value: "special", label: "Special" }
+] as const;
+
+export default function GameGuide() {
+  const [selectedCategory, setSelectedCategory] = useState<"all" | Category>("all");
   const [flippedCards, setFlippedCards] = useState<number[]>([]);
 
-  const categories: { value: Category | "all"; label: string }[] = [
-    { value: "all", label: "All Rules" },
-    { value: "setup", label: "Setup" },
-    { value: "gameplay", label: "Gameplay" },
-    { value: "winning", label: "Winning" },
-    { value: "abilities", label: "Abilities" }
-  ];
-
   const filteredCards = guideCards.filter(
-    card => selectedCategory === "all" || card.category === selectedCategory
+    card => selectedCategory === "all" || card.selectedCategory === selectedCategory
   );
 
   const toggleCard = (cardId: number) => {
@@ -71,29 +74,45 @@ const GameGuide = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen py-12 px-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center mb-12"
+      >
+        <h1 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent mb-4">
+          Game Guide
+        </h1>
+        <p className="text-mystic-light/60 text-lg max-w-2xl mx-auto">
+          Master the art of Mystic Cards with our comprehensive guide
+        </p>
+      </motion.div>
+
       {/* Category Filter */}
-      <div className="mb-8 flex flex-wrap gap-2">
+      <div className="flex flex-wrap justify-center gap-2 mb-12">
         {categories.map(category => (
           <Button
             key={category.value}
-            variant="outline"
-            size="sm"
             onClick={() => setSelectedCategory(category.value)}
+            variant="ghost"
             className={cn(
-              "border-primary/20 hover:bg-primary/20",
-              selectedCategory === category.value && "bg-primary/20 text-primary"
+              "rounded-full px-6",
+              selectedCategory === category.value
+                ? "bg-primary text-primary-foreground"
+                : "text-mystic-light/60 hover:text-mystic-light"
             )}
           >
-            <Filter className="mr-2 h-4 w-4" />
             {category.label}
           </Button>
         ))}
       </div>
 
       {/* Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <AnimatePresence mode="popLayout">
+      <motion.div
+        layout
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto"
+      >
+        <AnimatePresence mode="wait">
           {filteredCards.map(card => (
             <motion.div
               key={card.id}
@@ -101,51 +120,32 @@ const GameGuide = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.3 }}
-              className="perspective-1000"
+              className={cn(
+                "perspective-1000 cursor-pointer h-[300px]",
+                "transform-style-3d transition-transform duration-500",
+                flippedCards.includes(card.id) && "rotate-y-180"
+              )}
+              onClick={() => toggleCard(card.id)}
             >
-              <div
-                className={cn(
-                  "relative w-full h-[300px] cursor-pointer transition-transform duration-500 transform-style-3d",
-                  flippedCards.includes(card.id) && "rotate-y-180"
-                )}
-                onClick={() => toggleCard(card.id)}
-              >
-                {/* Front of card */}
-                <Card className="absolute w-full h-full backface-hidden glass-card p-6 flex flex-col items-center justify-center gap-4 hover:border-primary/40 transition-colors">
-                  <card.icon className="h-12 w-12 text-primary animate-float" />
-                  <h3 className="text-2xl font-bold text-center text-gradient">
-                    {card.title}
-                  </h3>
-                  <p className="text-sm text-center text-mystic-light/60">
-                    Click to learn more
-                  </p>
-                </Card>
+              {/* Card Front */}
+              <div className="absolute inset-0 backface-hidden">
+                <div className="h-full glass-card p-6 flex flex-col items-center justify-center gap-4 animate-mystic-glow">
+                  <card.icon className="w-12 h-12 text-primary" />
+                  <h3 className="text-xl font-semibold text-primary">{card.title}</h3>
+                  <p className="text-mystic-light/60 text-center">{card.description}</p>
+                </div>
+              </div>
 
-                {/* Back of card */}
-                <Card className="absolute w-full h-full backface-hidden glass-card p-6 flex flex-col items-center justify-center gap-4 rotate-y-180 hover:border-primary/40 transition-colors">
-                  <p className="text-mystic-light/80 text-center">
-                    {card.description}
-                  </p>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="mt-4 border-primary/20 hover:bg-primary/20"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleCard(card.id);
-                    }}
-                  >
-                    Back to Front
-                  </Button>
-                </Card>
+              {/* Card Back */}
+              <div className="absolute inset-0 backface-hidden rotate-y-180">
+                <div className="h-full glass-card p-6 flex flex-col items-center justify-center gap-4">
+                  <p className="text-mystic-light text-center">{card.details}</p>
+                </div>
               </div>
             </motion.div>
           ))}
         </AnimatePresence>
-      </div>
+      </motion.div>
     </div>
   );
-};
-
-export default GameGuide;
+}
