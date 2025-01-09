@@ -20,6 +20,22 @@
   background: linear-gradient(135deg, rgba(26, 31, 44, 0.9), rgba(34, 31, 38, 0.9));
 }
 
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
 @keyframes float {
   0% {
     transform: translateY(0px);
