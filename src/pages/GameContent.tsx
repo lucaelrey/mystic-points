@@ -55,7 +55,7 @@ export function GameContent() {
         />
 
         {!gameStarted && showWinner && (
-          <WinnerDisplay players={sortedPlayers} />
+          <WinnerDisplay players={players} />
         )}
 
         {(!showWinner || gameStarted) && (
