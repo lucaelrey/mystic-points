@@ -7,6 +7,8 @@ interface WinnerDisplayProps {
 }
 
 export function WinnerDisplay({ winnerName, winnerScore, onStartNewGame }: WinnerDisplayProps) {
+  console.log("WinnerDisplay rendered with score:", winnerScore); // Debug log
+
   return (
     <div className="text-center mb-8 p-8 bg-mystic-dark/50 rounded-lg border-2 border-primary animate-mystic-glow">
       <div className="flex justify-center items-center gap-2 mb-4">

@@ -34,31 +34,21 @@ export function GameContent() {
 
   // Hilfsfunktion zur Berechnung der Gesamtpunkte
   const calculateTotalPoints = (roundPoints: { [key: number]: number }) => {
+    console.log("Calculating total points from:", roundPoints); // Debug log
     return Object.values(roundPoints).reduce((sum, points) => sum + points, 0);
   };
 
   // Sortiere Spieler nach Punkten (aufsteigend - niedrigste Punkte zuerst)
   const sortedPlayers = [...players].sort((a, b) => {
-    return calculateTotalPoints(a.roundPoints) - calculateTotalPoints(b.roundPoints);
+    const totalPointsA = calculateTotalPoints(a.roundPoints);
+    const totalPointsB = calculateTotalPoints(b.roundPoints);
+    console.log(`Player ${a.name}: ${totalPointsA} points, Player ${b.name}: ${totalPointsB} points`); // Debug log
+    return totalPointsA - totalPointsB;
   });
   
   const winner = sortedPlayers[0];
-  const canStartGame = players.length >= 2;
-
-  const handleStartNewGame = () => {
-    resetPlayerScores();
-    resetGame();
-  };
-
-  const handleNameChange = (playerId: string, newName: string) => {
-    setPlayers((prev) =>
-      prev.map((p) =>
-        p.id === playerId
-          ? { ...p, name: newName }
-          : p
-      )
-    );
-  };
+  const winnerScore = winner ? calculateTotalPoints(winner.roundPoints) : 0;
+  console.log("Winner score calculated:", winnerScore); // Debug log
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-mystic-dark to-black py-8 px-4 sm:px-6 lg:px-8">
@@ -71,9 +61,9 @@ export function GameContent() {
 
         {!gameStarted && showWinner && winner && (
           <WinnerDisplay 
-            winnerName={winner.name} 
-            winnerScore={calculateTotalPoints(winner.roundPoints)}
-            onStartNewGame={handleStartNewGame}
+            winnerName={winner.name}
+            winnerScore={winnerScore}
+            onStartNewGame={resetGame}
           />
         )}
 
@@ -96,7 +86,11 @@ export function GameContent() {
                 setIsEditing(true);
               }}
               gameStarted={gameStarted}
-              onNameChange={(newName) => handleNameChange(player.id, newName)}
+              onNameChange={(newName) => {
+                setPlayers(players.map(p =>
+                  p.id === player.id ? { ...p, name: newName } : p
+                ));
+              }}
             />
           ))}
         </div>
