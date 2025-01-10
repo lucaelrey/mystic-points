@@ -30,6 +30,7 @@ export function GameContent() {
     handleAdvanceRound,
     endGame,
     resetPlayerScores,
+    updatePlayerPoints,
   } = useGameState();
 
   // Calculate total points for each player
@@ -89,8 +90,8 @@ export function GameContent() {
 
         {players.length === 0 && (
           <div className="text-center py-12 bg-mystic-dark/50 rounded-lg border border-primary/20">
-            <p className="text-mystic-light/80">No players added yet.</p>
-            <p className="text-mystic-light/80 mt-2">Click the + button to add players.</p>
+            <p className="text-mystic-light/80">Noch keine Spieler hinzugefügt.</p>
+            <p className="text-mystic-light/80 mt-2">Klicke auf + um Spieler hinzuzufügen.</p>
           </div>
         )}
 
@@ -115,21 +116,8 @@ export function GameContent() {
           onOpenChange={(open) => !open && setSelectedPlayer(null)}
           onAddPoints={(points) => {
             if (selectedPlayer) {
-              const updatedPlayers = players.map((p) => {
-                if (p.id === selectedPlayer.id) {
-                  const updatedRoundPoints = {
-                    ...p.roundPoints,
-                    [currentRound]: Math.max(0, points),
-                  };
-                  return {
-                    ...p,
-                    roundPoints: updatedRoundPoints,
-                  };
-                }
-                return p;
-              });
+              updatePlayerPoints(selectedPlayer.id, currentRound, points);
               setSelectedPlayer(null);
-              setPlayers(updatedPlayers);
             }
           }}
         />
@@ -145,22 +133,9 @@ export function GameContent() {
           }}
           onEditPoints={(round, points) => {
             if (selectedPlayer) {
-              const updatedPlayers = players.map((p) => {
-                if (p.id === selectedPlayer.id) {
-                  const updatedRoundPoints = {
-                    ...p.roundPoints,
-                    [round]: Math.max(0, points),
-                  };
-                  return {
-                    ...p,
-                    roundPoints: updatedRoundPoints,
-                  };
-                }
-                return p;
-              });
+              updatePlayerPoints(selectedPlayer.id, round, points);
               setSelectedPlayer(null);
               setIsEditing(false);
-              setPlayers(updatedPlayers);
             }
           }}
         />
