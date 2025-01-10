@@ -3,7 +3,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { BackgroundGradient } from "./ui/background-gradient";
 
 interface AddPointsDialogProps {
   playerName: string;
@@ -38,71 +37,73 @@ export function AddPointsDialog({ playerName, open, onOpenChange, onAddPoints }:
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-white/10 dark:bg-zinc-900/50 backdrop-blur-sm border-accent">
-        <BackgroundGradient className="rounded-[22px] p-6">
-          <DialogHeader>
-            <DialogTitle className="text-white">Add Points for {playerName}</DialogTitle>
-          </DialogHeader>
-          <form onSubmit={handleSubmit} className="space-y-4 mt-4">
-            {isMobile ? (
-              <div className="space-y-4">
-                <Input
-                  type="text"
-                  value={points}
-                  readOnly
-                  className="text-center text-2xl h-12 bg-white/5 border-accent text-white"
-                />
-                <div className="grid grid-cols-3 gap-2">
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-                    <button
-                      key={num}
-                      type="button"
-                      onClick={() => handleNumberClick(num.toString())}
-                      className="h-16 text-2xl bg-white/5 hover:bg-accent/20 border border-accent text-white rounded-lg"
-                    >
-                      {num}
-                    </button>
-                  ))}
-                  <button
-                    type="button"
-                    onClick={() => handleNumberClick("clear")}
-                    className="h-16 text-xl bg-white/5 hover:bg-accent/20 border border-accent text-white rounded-lg"
-                  >
-                    C
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleNumberClick("0")}
-                    className="h-16 text-2xl bg-white/5 hover:bg-accent/20 border border-accent text-white rounded-lg"
-                  >
-                    0
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleNumberClick("backspace")}
-                    className="h-16 text-xl bg-white/5 hover:bg-accent/20 border border-accent text-white rounded-lg"
-                  >
-                    ←
-                  </button>
-                </div>
-              </div>
-            ) : (
+      <DialogContent className="sm:max-w-[425px] bg-mystic-dark border-accent">
+        <DialogHeader>
+          <DialogTitle className="text-mystic-light">Add Points for {playerName}</DialogTitle>
+        </DialogHeader>
+        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+          {isMobile ? (
+            <div className="space-y-4">
               <Input
-                type="number"
-                placeholder="Enter points"
+                type="text"
                 value={points}
-                onChange={(e) => setPoints(e.target.value)}
-                className="bg-white/5 border-accent text-white placeholder:text-white/50"
+                readOnly
+                className="text-center text-2xl h-12 bg-mystic-dark border-accent text-mystic-light"
               />
-            )}
-            <button 
-              type="submit" 
-              className="w-full bg-violet-500 hover:bg-violet-600 text-white rounded-lg py-2 transition-colors"
-            >
-              Add Points
-            </button>
-          </form>
-        </BackgroundGradient>
+              <div className="grid grid-cols-3 gap-2">
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+                  <Button
+                    key={num}
+                    type="button"
+                    variant="outline"
+                    onClick={() => handleNumberClick(num.toString())}
+                    className="h-16 text-2xl bg-mystic-dark hover:bg-accent/20 border-accent text-mystic-light"
+                  >
+                    {num}
+                  </Button>
+                ))}
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => handleNumberClick("clear")}
+                  className="h-16 text-xl bg-mystic-dark hover:bg-accent/20 border-accent text-mystic-light"
+                >
+                  C
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => handleNumberClick("0")}
+                  className="h-16 text-2xl bg-mystic-dark hover:bg-accent/20 border-accent text-mystic-light"
+                >
+                  0
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => handleNumberClick("backspace")}
+                  className="h-16 text-xl bg-mystic-dark hover:bg-accent/20 border-accent text-mystic-light"
+                >
+                  ←
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <Input
+              type="number"
+              placeholder="Enter points"
+              value={points}
+              onChange={(e) => setPoints(e.target.value)}
+              className="bg-mystic-dark border-accent text-mystic-light placeholder:text-mystic-light/50"
+            />
+          )}
+          <Button 
+            type="submit" 
+            className="w-full bg-primary hover:bg-primary/90 text-white"
+          >
+            Add Points
+          </Button>
+        </form>
       </DialogContent>
     </Dialog>
   );
