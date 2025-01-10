@@ -44,9 +44,6 @@ export function GameContent() {
     return totalPointsA - totalPointsB;
   });
 
-  const winner = sortedPlayers[0];
-  const winnerScore = winner ? calculateTotalPoints(winner.roundPoints) : 0;
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-mystic-dark to-black py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
@@ -56,12 +53,8 @@ export function GameContent() {
           gameStarted={gameStarted}
         />
 
-        {!gameStarted && showWinner && winner && (
-          <WinnerDisplay 
-            winnerName={winner.name}
-            winnerScore={winnerScore}
-            players={sortedPlayers}
-          />
+        {!gameStarted && showWinner && (
+          <WinnerDisplay players={sortedPlayers} />
         )}
 
         {(!showWinner || gameStarted) && (
