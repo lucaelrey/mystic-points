@@ -44,108 +44,113 @@ export function GameContent() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-mystic-dark to-black py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        <GameHeader
-          currentRound={currentRound}
-          maxRounds={5}
-          gameStarted={gameStarted}
-        />
-
-        {!gameStarted && showWinner && (
-          <WinnerDisplay players={players} />
-        )}
-
-        {(!showWinner || gameStarted) && (
-          <div className="grid gap-6 md:grid-cols-2 mb-8">
-            {sortedPlayers.map((player, index) => (
-              <PlayerCard
-                key={player.id}
-                name={player.name}
-                points={calculateTotalPoints(player.roundPoints)}
-                rank={index + 1}
-                currentRound={currentRound}
-                roundPoints={player.roundPoints}
-                onDelete={() => deletePlayer(player.id)}
-                onAddPoints={() => {
-                  setSelectedPlayer(player);
-                  setIsEditing(false);
-                }}
-                onEditPoints={() => {
-                  setSelectedPlayer(player);
-                  setIsEditing(true);
-                }}
-                gameStarted={gameStarted}
-                onNameChange={(newName) => {
-                  setPlayers(players.map(p =>
-                    p.id === player.id ? { ...p, name: newName } : p
-                  ));
-                }}
-              />
-            ))}
-          </div>
-        )}
-
-        {players.length === 0 && (
-          <div className="text-center py-12 bg-mystic-dark/50 rounded-lg border border-primary/20">
-            <p className="text-mystic-light/80">Noch keine Spieler hinzugefügt.</p>
-            <p className="text-mystic-light/80 mt-2">Klicke auf + um Spieler hinzuzufügen.</p>
-          </div>
-        )}
-
-        <GameControls
-          gameStarted={gameStarted}
-          currentRound={currentRound}
-          maxRounds={5}
-          canAdvanceRound={canAdvanceRound()}
-          onAdvanceRound={handleAdvanceRound}
-          onPreviousRound={handlePreviousRound}
-          onEndGame={endGame}
-          onResetGame={startGame}
-          canGoBack={currentRound > 1}
-          canStartGame={players.length >= 2}
-        />
-
-        {!gameStarted && <AddPlayerDialog onAddPlayer={addPlayer} />}
+    <div className="min-h-screen bg-gradient-to-b from-violet-950 to-indigo-950 py-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <div className="relative">
+        <div className="absolute inset-0 bg-gradient-radial from-violet-500/20 via-transparent to-transparent opacity-50"></div>
+        <div className="absolute inset-0 bg-gradient-conic from-violet-500/30 via-transparent to-transparent opacity-30"></div>
         
-        <AddPointsDialog
-          playerName={selectedPlayer?.name ?? ""}
-          open={!!selectedPlayer && !isEditing}
-          onOpenChange={(open) => !open && setSelectedPlayer(null)}
-          onAddPoints={(points) => {
-            if (selectedPlayer) {
-              updatePlayerPoints(selectedPlayer.id, currentRound, points);
-              setSelectedPlayer(null);
-            }
-          }}
-        />
+        <div className="relative max-w-4xl mx-auto">
+          <GameHeader
+            currentRound={currentRound}
+            maxRounds={5}
+            gameStarted={gameStarted}
+          />
 
-        <EditPointsDialog
-          playerName={selectedPlayer?.name ?? ""}
-          open={!!selectedPlayer && isEditing}
-          onOpenChange={(open) => {
-            if (!open) {
-              setSelectedPlayer(null);
-              setIsEditing(false);
-            }
-          }}
-          onEditPoints={(round, points) => {
-            if (selectedPlayer) {
-              updatePlayerPoints(selectedPlayer.id, round, points);
-              setSelectedPlayer(null);
-              setIsEditing(false);
-            }
-          }}
-        />
+          {!gameStarted && showWinner && (
+            <WinnerDisplay players={players} />
+          )}
 
-        <EndGameDialog
-          open={showEndGameDialog}
-          onOpenChange={setShowEndGameDialog}
-          onConfirm={() => {
-            setShowEndGameDialog(false);
-            endGame();
-          }}
-        />
+          {(!showWinner || gameStarted) && (
+            <div className="grid gap-6 md:grid-cols-2 mb-8">
+              {sortedPlayers.map((player, index) => (
+                <PlayerCard
+                  key={player.id}
+                  name={player.name}
+                  points={calculateTotalPoints(player.roundPoints)}
+                  rank={index + 1}
+                  currentRound={currentRound}
+                  roundPoints={player.roundPoints}
+                  onDelete={() => deletePlayer(player.id)}
+                  onAddPoints={() => {
+                    setSelectedPlayer(player);
+                    setIsEditing(false);
+                  }}
+                  onEditPoints={() => {
+                    setSelectedPlayer(player);
+                    setIsEditing(true);
+                  }}
+                  gameStarted={gameStarted}
+                  onNameChange={(newName) => {
+                    setPlayers(players.map(p =>
+                      p.id === player.id ? { ...p, name: newName } : p
+                    ));
+                  }}
+                />
+              ))}
+            </div>
+          )}
+
+          {players.length === 0 && (
+            <div className="text-center py-12 bg-white/5 backdrop-blur-lg rounded-xl border border-violet-500/20 shadow-lg">
+              <p className="text-violet-200/80">Noch keine Spieler hinzugefügt.</p>
+              <p className="text-violet-200/80 mt-2">Klicke auf + um Spieler hinzuzufügen.</p>
+            </div>
+          )}
+
+          <GameControls
+            gameStarted={gameStarted}
+            currentRound={currentRound}
+            maxRounds={5}
+            canAdvanceRound={canAdvanceRound()}
+            onAdvanceRound={handleAdvanceRound}
+            onPreviousRound={handlePreviousRound}
+            onEndGame={endGame}
+            onResetGame={startGame}
+            canGoBack={currentRound > 1}
+            canStartGame={players.length >= 2}
+          />
+
+          {!gameStarted && <AddPlayerDialog onAddPlayer={addPlayer} />}
+          
+          <AddPointsDialog
+            playerName={selectedPlayer?.name ?? ""}
+            open={!!selectedPlayer && !isEditing}
+            onOpenChange={(open) => !open && setSelectedPlayer(null)}
+            onAddPoints={(points) => {
+              if (selectedPlayer) {
+                updatePlayerPoints(selectedPlayer.id, currentRound, points);
+                setSelectedPlayer(null);
+              }
+            }}
+          />
+
+          <EditPointsDialog
+            playerName={selectedPlayer?.name ?? ""}
+            open={!!selectedPlayer && isEditing}
+            onOpenChange={(open) => {
+              if (!open) {
+                setSelectedPlayer(null);
+                setIsEditing(false);
+              }
+            }}
+            onEditPoints={(round, points) => {
+              if (selectedPlayer) {
+                updatePlayerPoints(selectedPlayer.id, round, points);
+                setSelectedPlayer(null);
+                setIsEditing(false);
+              }
+            }}
+          />
+
+          <EndGameDialog
+            open={showEndGameDialog}
+            onOpenChange={setShowEndGameDialog}
+            onConfirm={() => {
+              setShowEndGameDialog(false);
+              endGame();
+            }}
+          />
+        </div>
       </div>
     </div>
   );

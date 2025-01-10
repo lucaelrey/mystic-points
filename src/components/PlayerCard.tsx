@@ -45,16 +45,16 @@ export function PlayerCard({
 
   return (
     <div className={cn(
-      "group relative p-6 rounded-xl border-2 transition-all duration-500",
-      "bg-gradient-to-br from-violet-950/40 to-indigo-950/40 backdrop-blur-sm",
+      "group relative p-6 rounded-xl border transition-all duration-500",
+      "bg-white/5 backdrop-blur-lg",
       "hover:shadow-lg hover:shadow-violet-500/20",
-      isTopPlayer ? "border-violet-500 animate-[glow_4s_ease-in-out_infinite]" : "border-violet-500/30"
+      isTopPlayer ? "border-violet-400/50 animate-mystic-glow" : "border-violet-500/20"
     )}>
       <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
         {!gameStarted && !isEditingName && (
           <button
             onClick={() => setIsEditingName(true)}
-            className="p-2 text-violet-400 hover:text-violet-300 rounded-full hover:bg-white/5"
+            className="p-2 text-violet-300 hover:text-violet-200 rounded-full hover:bg-white/5"
           >
             <Edit className="h-4 w-4" />
           </button>
@@ -63,7 +63,7 @@ export function PlayerCard({
           onClick={onEditPoints}
           className={cn(
             "p-2 rounded-full hover:bg-white/5",
-            gameStarted ? "text-violet-400 hover:text-violet-300" : "hidden"
+            gameStarted ? "text-violet-300 hover:text-violet-200" : "hidden"
           )}
         >
           <Edit className="h-4 w-4" />
@@ -81,7 +81,7 @@ export function PlayerCard({
       <div className="flex items-center gap-3 mb-4">
         <span className={cn(
           "text-2xl font-bold",
-          isTopPlayer ? "text-violet-400" : "text-violet-500/60"
+          isTopPlayer ? "text-violet-400" : "text-violet-400/60"
         )}>#{rank}</span>
         {isEditingName ? (
           <div className="flex items-center gap-2">
@@ -116,7 +116,7 @@ export function PlayerCard({
       <div className="flex flex-col gap-4">
         <div className={cn(
           "text-3xl font-bold",
-          isTopPlayer ? "text-violet-400" : "text-violet-500/60"
+          isTopPlayer ? "text-violet-400" : "text-violet-400/60"
         )}>
           <NumberFlow value={totalPoints} trend={false} />
           <span className="text-sm text-white/60 ml-2">points</span>
@@ -129,10 +129,10 @@ export function PlayerCard({
                 onClick={onAddPoints}
                 className={cn(
                   "w-full px-4 py-2 rounded-lg transition-colors",
-                  "bg-gradient-to-r from-violet-500/20 to-indigo-600/20",
-                  "hover:from-violet-500/30 hover:to-indigo-600/30",
+                  "bg-gradient-to-r from-violet-500/20 to-indigo-500/20",
+                  "hover:from-violet-500/30 hover:to-indigo-500/30",
                   "border border-violet-500/20",
-                  "text-white font-medium"
+                  "text-white font-medium backdrop-blur-sm"
                 )}
               >
                 Add Round {currentRound} Points
