@@ -30,7 +30,14 @@ export function WinnerDisplay({ winnerName, winnerScore, onStartNewGame }: Winne
         </p>
       </div>
       
-      <Sparkles className="h-8 w-8 text-primary mx-auto" />
+      <button
+        onClick={onStartNewGame}
+        className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/80 transition-colors"
+      >
+        Neues Spiel starten
+      </button>
+      
+      <Sparkles className="h-8 w-8 text-primary mx-auto mt-4" />
     </div>
   );
 }
