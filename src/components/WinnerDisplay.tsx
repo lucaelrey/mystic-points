@@ -5,11 +5,10 @@ import { cn } from "@/lib/utils";
 interface WinnerDisplayProps {
   winnerName: string;
   winnerScore: number;
-  onStartNewGame: () => void;
   players: Player[];
 }
 
-export function WinnerDisplay({ winnerName, winnerScore, onStartNewGame, players }: WinnerDisplayProps) {
+export function WinnerDisplay({ winnerName, winnerScore, players }: WinnerDisplayProps) {
   // Sort players by total points (ascending - lowest points wins)
   const sortedPlayers = [...players].sort((a, b) => {
     const totalPointsA = Object.values(a.roundPoints).reduce((sum, points) => sum + points, 0);
@@ -78,7 +77,7 @@ export function WinnerDisplay({ winnerName, winnerScore, onStartNewGame, players
         })}
       </div>
 
-      <div className="text-sm text-mystic-light/60 italic mb-6">
+      <div className="text-sm text-mystic-light/60 italic">
         (Niedrigste Punktzahl gewinnt!)
       </div>
     </div>
