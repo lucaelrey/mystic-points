@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { NumberFlow, type Value } from "@number-flow/react";
+import { NumberFlow, type Value } from "@/components/ui/number-flow";
 
 const values: Value[] = [398.43, -3243.5, 1435237];
 
