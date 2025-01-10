@@ -32,13 +32,13 @@ export function GameContent() {
     resetPlayerScores,
   } = useGameState();
 
-  // Hilfsfunktion zur Berechnung der Gesamtpunkte
+  // Helper function to calculate total points
   const calculateTotalPoints = (roundPoints: { [key: number]: number }) => {
     console.log("Calculating total points from:", roundPoints); // Debug log
     return Object.values(roundPoints).reduce((sum, points) => sum + points, 0);
   };
 
-  // Sortiere Spieler nach Punkten (aufsteigend - niedrigste Punkte zuerst)
+  // Sort players by points (ascending - lowest points first)
   const sortedPlayers = [...players].sort((a, b) => {
     const totalPointsA = calculateTotalPoints(a.roundPoints);
     const totalPointsB = calculateTotalPoints(b.roundPoints);
@@ -50,7 +50,6 @@ export function GameContent() {
   const winnerScore = winner ? calculateTotalPoints(winner.roundPoints) : 0;
   console.log("Winner score calculated:", winnerScore); // Debug log
 
-  // Add this line back
   const canStartGame = players.length >= 2;
 
   return (
@@ -70,33 +69,35 @@ export function GameContent() {
           />
         )}
 
-        <div className="grid gap-6 md:grid-cols-2 mb-8">
-          {sortedPlayers.map((player, index) => (
-            <PlayerCard
-              key={player.id}
-              name={player.name}
-              points={calculateTotalPoints(player.roundPoints)}
-              rank={index + 1}
-              currentRound={currentRound}
-              roundPoints={player.roundPoints}
-              onDelete={() => deletePlayer(player.id)}
-              onAddPoints={() => {
-                setSelectedPlayer(player);
-                setIsEditing(false);
-              }}
-              onEditPoints={() => {
-                setSelectedPlayer(player);
-                setIsEditing(true);
-              }}
-              gameStarted={gameStarted}
-              onNameChange={(newName) => {
-                setPlayers(players.map(p =>
-                  p.id === player.id ? { ...p, name: newName } : p
-                ));
-              }}
-            />
-          ))}
-        </div>
+        {(!showWinner || gameStarted) && (
+          <div className="grid gap-6 md:grid-cols-2 mb-8">
+            {sortedPlayers.map((player, index) => (
+              <PlayerCard
+                key={player.id}
+                name={player.name}
+                points={calculateTotalPoints(player.roundPoints)}
+                rank={index + 1}
+                currentRound={currentRound}
+                roundPoints={player.roundPoints}
+                onDelete={() => deletePlayer(player.id)}
+                onAddPoints={() => {
+                  setSelectedPlayer(player);
+                  setIsEditing(false);
+                }}
+                onEditPoints={() => {
+                  setSelectedPlayer(player);
+                  setIsEditing(true);
+                }}
+                gameStarted={gameStarted}
+                onNameChange={(newName) => {
+                  setPlayers(players.map(p =>
+                    p.id === player.id ? { ...p, name: newName } : p
+                  ));
+                }}
+              />
+            ))}
+          </div>
+        )}
 
         {players.length === 0 && (
           <div className="text-center py-12 bg-mystic-dark/50 rounded-lg border border-primary/20">
