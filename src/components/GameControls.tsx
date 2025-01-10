@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { RainbowButton } from "@/components/ui/rainbow-button";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, Crown, RotateCcw } from "lucide-react";
 import { useState } from "react";
@@ -55,12 +56,12 @@ export function GameControls({
                 </>
               )}
             </Button>
-            <Button
+            <RainbowButton
               onClick={onAdvanceRound}
               disabled={!canAdvanceRound}
               className={cn(
-                "px-8 py-4 text-lg bg-primary hover:bg-primary/80 text-white",
-                canAdvanceRound && "animate-mystic-glow"
+                "px-8 py-4 text-lg",
+                !canAdvanceRound && "opacity-50 cursor-not-allowed"
               )}
             >
               {currentRound === maxRounds ? (
@@ -71,7 +72,7 @@ export function GameControls({
               ) : (
                 "Next Round"
               )}
-            </Button>
+            </RainbowButton>
             {currentRound > 1 && (
               <Button
                 onClick={() => setShowEndGameDialog(true)}
@@ -84,16 +85,16 @@ export function GameControls({
           </>
         )}
         {!gameStarted && !showEndGameDialog && (
-          <Button
+          <RainbowButton
             onClick={onResetGame}
             disabled={!canStartGame}
             className={cn(
-              "px-8 py-4 text-lg bg-primary hover:bg-primary/80 text-white",
-              canStartGame && "animate-mystic-glow"
+              "px-8 py-4 text-lg",
+              !canStartGame && "opacity-50 cursor-not-allowed"
             )}
           >
             Start New Game
-          </Button>
+          </RainbowButton>
         )}
       </div>
 

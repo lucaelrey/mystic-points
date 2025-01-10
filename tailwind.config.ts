@@ -49,6 +49,11 @@ export default {
           light: "#D6BCFA",
           dark: "#1A1F2C",
         },
+        "color-1": "hsl(var(--color-1))",
+        "color-2": "hsl(var(--color-2))",
+        "color-3": "hsl(var(--color-3))",
+        "color-4": "hsl(var(--color-4))",
+        "color-5": "hsl(var(--color-5))",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -81,7 +86,11 @@ export default {
             boxShadow: "0 0 30px rgba(139, 92, 246, 0.5)",
             borderColor: "rgba(139, 92, 246, 0.8)"
           }
-        }
+        },
+        rainbow: {
+          "0%": { "background-position": "0%" },
+          "100%": { "background-position": "200%" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -89,6 +98,7 @@ export default {
         "slide-in": "slide-in 0.2s ease-out",
         "fade-in": "fade-in 0.3s ease-out",
         "mystic-glow": "glow 3s ease-in-out infinite",
+        "rainbow": "rainbow var(--speed, 2s) infinite linear",
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
