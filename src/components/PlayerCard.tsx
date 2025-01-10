@@ -2,6 +2,7 @@ import { Crown, Trash2, Edit, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Input } from "./ui/input";
+import NumberFlow from "./ui/number-flow";
 
 interface PlayerCardProps {
   name: string;
@@ -39,6 +40,9 @@ export function PlayerCard({
       setIsEditingName(false);
     }
   };
+
+  // Calculate total points from all rounds
+  const totalPoints = Object.values(roundPoints).reduce((sum, points) => sum + points, 0);
 
   return (
     <div className={cn(
@@ -103,7 +107,7 @@ export function PlayerCard({
         ) : (
           <h3 className="text-xl font-semibold text-white flex items-center gap-2">
             {name}
-            {isTopPlayer && gameStarted && points > 0 && (
+            {isTopPlayer && gameStarted && totalPoints > 0 && (
               <Crown className="h-5 w-5 text-primary animate-pulse" />
             )}
           </h3>
@@ -116,7 +120,9 @@ export function PlayerCard({
             <div className={cn(
               "text-3xl font-bold",
               isTopPlayer ? "text-primary" : "text-accent"
-            )}>{points}</div>
+            )}>
+              <NumberFlow value={totalPoints} trend={false} />
+            </div>
             
             {!hasCurrentRoundPoints && (
               <button
