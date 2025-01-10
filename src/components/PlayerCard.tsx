@@ -2,8 +2,8 @@ import { Crown, Trash2, Edit, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Input } from "./ui/input";
-import NumberFlow from "./ui/number-flow";
 import { BackgroundGradient } from "./ui/background-gradient";
+import { CountAnimation } from "./ui/count-animation";
 
 interface PlayerCardProps {
   name: string;
@@ -118,7 +118,10 @@ export function PlayerCard({
             "text-3xl font-bold",
             isTopPlayer ? "text-violet-400" : "text-violet-400/60"
           )}>
-            <NumberFlow value={totalPoints} trend={false} />
+            <CountAnimation 
+              number={totalPoints} 
+              className="inline-block"
+            />
             <span className="text-sm text-white/60 ml-2">points</span>
           </div>
           
