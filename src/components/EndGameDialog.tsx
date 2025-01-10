@@ -17,10 +17,10 @@ interface EndGameDialogProps {
 export function EndGameDialog({ open, onOpenChange, onConfirm }: EndGameDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-mystic-dark/90 backdrop-blur-lg border-2 border-primary/20 shadow-xl">
+      <DialogContent className="bg-white border border-gray-200 shadow-xl">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-primary">End Game Early</DialogTitle>
-          <DialogDescription className="text-mystic-light/90 mt-2">
+          <DialogTitle className="text-2xl font-bold text-black">End Game Early</DialogTitle>
+          <DialogDescription className="text-gray-600 mt-2">
             Are you sure you want to end the game now? Final scores will be calculated based on current points.
           </DialogDescription>
         </DialogHeader>
@@ -28,13 +28,13 @@ export function EndGameDialog({ open, onOpenChange, onConfirm }: EndGameDialogPr
           <Button
             variant="outline"
             onClick={() => onOpenChange(false)}
-            className="bg-transparent border-2 border-primary/20 text-mystic-light hover:bg-primary/10"
+            className="bg-white border-gray-300 text-black hover:bg-gray-100"
           >
             Cancel
           </Button>
           <Button
             onClick={onConfirm}
-            className="bg-primary hover:bg-primary/90 text-white"
+            className="bg-black hover:bg-uber-dark text-white"
           >
             End Game
           </Button>

@@ -42,16 +42,15 @@ export function PlayerCard({
 
   return (
     <div className={cn(
-      "group relative p-6 rounded-lg border-2 transition-all duration-500",
-      "bg-gradient-to-br from-mystic-dark to-black backdrop-blur-sm",
-      "hover:shadow-lg hover:shadow-primary/20",
-      isTopPlayer ? "border-primary animate-[glow_4s_ease-in-out_infinite]" : "border-accent/30"
+      "group relative p-6 rounded-lg border transition-all duration-300",
+      "bg-white shadow-md hover:shadow-lg",
+      isTopPlayer ? "border-uber-red" : "border-gray-200"
     )}>
       <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
         {!gameStarted && !isEditingName && (
           <button
             onClick={() => setIsEditingName(true)}
-            className="p-2 text-primary hover:text-primary/80 rounded-full hover:bg-white/5"
+            className="p-2 text-black hover:bg-gray-100 rounded-full"
           >
             <Edit className="h-4 w-4" />
           </button>
@@ -59,8 +58,8 @@ export function PlayerCard({
         <button
           onClick={onEditPoints}
           className={cn(
-            "p-2 rounded-full hover:bg-white/5",
-            gameStarted ? "text-primary hover:text-primary/80" : "hidden"
+            "p-2 rounded-full hover:bg-gray-100",
+            gameStarted ? "text-black" : "hidden"
           )}
         >
           <Edit className="h-4 w-4" />
@@ -68,7 +67,7 @@ export function PlayerCard({
         {!gameStarted && (
           <button
             onClick={onDelete}
-            className="p-2 text-destructive hover:text-destructive/80 rounded-full hover:bg-white/5"
+            className="p-2 text-uber-red hover:bg-red-50 rounded-full"
           >
             <Trash2 className="h-4 w-4" />
           </button>
@@ -78,14 +77,14 @@ export function PlayerCard({
       <div className="flex items-center gap-3 mb-4">
         <span className={cn(
           "text-2xl font-bold",
-          isTopPlayer ? "text-primary" : "text-accent"
+          isTopPlayer ? "text-uber-red" : "text-black"
         )}>#{rank}</span>
         {isEditingName ? (
           <div className="flex items-center gap-2">
             <Input
               value={editedName}
               onChange={(e) => setEditedName(e.target.value)}
-              className="text-xl font-semibold text-white bg-white/5 border-primary/20"
+              className="text-xl font-semibold text-black bg-white border-gray-300"
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   handleNameSubmit();
@@ -95,16 +94,16 @@ export function PlayerCard({
             />
             <button
               onClick={handleNameSubmit}
-              className="p-2 text-primary hover:text-primary/80 rounded-full hover:bg-white/5"
+              className="p-2 text-black hover:bg-gray-100 rounded-full"
             >
               <Check className="h-4 w-4" />
             </button>
           </div>
         ) : (
-          <h3 className="text-xl font-semibold text-white flex items-center gap-2">
+          <h3 className="text-xl font-semibold text-black flex items-center gap-2">
             {name}
             {isTopPlayer && gameStarted && points > 0 && (
-              <Crown className="h-5 w-5 text-primary animate-pulse" />
+              <Crown className="h-5 w-5 text-uber-red" />
             )}
           </h3>
         )}
@@ -115,7 +114,7 @@ export function PlayerCard({
           <>
             <div className={cn(
               "text-3xl font-bold",
-              isTopPlayer ? "text-primary" : "text-accent"
+              isTopPlayer ? "text-uber-red" : "text-black"
             )}>{points}</div>
             
             {!hasCurrentRoundPoints && (
@@ -123,9 +122,7 @@ export function PlayerCard({
                 onClick={onAddPoints}
                 className={cn(
                   "w-full px-4 py-2 rounded-md transition-colors",
-                  "bg-gradient-to-r from-primary/20 to-accent/20",
-                  "hover:from-primary/30 hover:to-accent/30",
-                  "border border-primary/20",
+                  "bg-black hover:bg-uber-dark",
                   "text-white font-medium"
                 )}
               >
@@ -134,7 +131,7 @@ export function PlayerCard({
             )}
             
             {hasCurrentRoundPoints && (
-              <div className="text-sm text-white/60">
+              <div className="text-sm text-gray-600">
                 Current Round Points: {roundPoints[currentRound]}
               </div>
             )}

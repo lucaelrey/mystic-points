@@ -34,26 +34,26 @@ export function EditPointsDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px] bg-mystic-dark border-accent">
+      <DialogContent className="sm:max-w-[425px] bg-white border border-gray-200">
         <DialogHeader>
-          <DialogTitle className="text-mystic-light">Edit Points for {playerName}</DialogTitle>
+          <DialogTitle className="text-black">Edit Points for {playerName}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
           <div className="space-y-2">
-            <label className="text-sm text-mystic-light">Select Round</label>
+            <label className="text-sm text-gray-600">Select Round</label>
             <Select
               value={selectedRound}
               onValueChange={setSelectedRound}
             >
-              <SelectTrigger className="bg-mystic-dark border-accent text-mystic-light">
+              <SelectTrigger className="bg-white border-gray-300 text-black">
                 <SelectValue placeholder="Select round" />
               </SelectTrigger>
-              <SelectContent className="bg-mystic-dark border-accent">
+              <SelectContent className="bg-white border-gray-200">
                 {[1, 2, 3, 4, 5].map((round) => (
                   <SelectItem 
                     key={round} 
                     value={round.toString()}
-                    className="text-mystic-light hover:bg-accent/20"
+                    className="text-black hover:bg-gray-100"
                   >
                     Round {round}
                   </SelectItem>
@@ -62,18 +62,18 @@ export function EditPointsDialog({
             </Select>
           </div>
           <div className="space-y-2">
-            <label className="text-sm text-mystic-light">Points</label>
+            <label className="text-sm text-gray-600">Points</label>
             <Input
               type="number"
               placeholder="Enter points"
               value={points}
               onChange={(e) => setPoints(e.target.value)}
-              className="bg-mystic-dark border-accent text-mystic-light placeholder:text-mystic-light/50"
+              className="bg-white border-gray-300 text-black placeholder:text-gray-500"
             />
           </div>
           <Button 
             type="submit" 
-            className="w-full bg-primary hover:bg-primary/90 text-white"
+            className="w-full bg-black hover:bg-uber-dark text-white"
           >
             Save Changes
           </Button>
