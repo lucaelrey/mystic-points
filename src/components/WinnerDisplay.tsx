@@ -72,11 +72,17 @@ export function WinnerDisplay({ winnerName, winnerScore, players }: WinnerDispla
                           Runde {round}: {points} Punkte
                         </p>
                       ))}
-                      <p className="text-sm font-semibold text-mystic-light mt-2">
-                        Gesamt: {totalPoints} Punkte
-                      </p>
                     </div>
                   </div>
+                </div>
+                <div className="text-right">
+                  <p className={cn(
+                    "text-2xl font-bold",
+                    rank === 1 ? "text-primary" : "text-mystic-light"
+                  )}>
+                    {totalPoints}
+                  </p>
+                  <p className="text-sm text-mystic-light/60">Punkte</p>
                 </div>
               </div>
             </div>
