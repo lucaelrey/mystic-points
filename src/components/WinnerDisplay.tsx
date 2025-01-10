@@ -21,7 +21,7 @@ export function WinnerDisplay({ winnerName, winnerScore }: WinnerDisplayProps) {
       <div className="mb-6">
         <p className="text-2xl text-mystic-light mb-2">{winnerName}</p>
         <p className="text-xl text-destructive font-bold animate-pulse">
-          Winning Score: {winnerScore}
+          Winning Score: {winnerScore.toLocaleString()}
         </p>
         <p className="text-sm text-mystic-light mt-2 italic">
           (Lowest Score Wins!)
