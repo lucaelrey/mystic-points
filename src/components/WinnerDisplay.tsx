@@ -28,11 +28,6 @@ export function WinnerDisplay({ players }: WinnerDisplayProps) {
     }
   };
 
-  // Helper function to calculate total points
-  const calculateTotalPoints = (roundPoints: { [key: number]: number }): number => {
-    return Object.values(roundPoints).reduce((sum, points) => sum + points, 0);
-  };
-
   return (
     <div className="text-center mb-8 p-8 bg-mystic-dark/50 rounded-lg border-2 border-primary animate-mystic-glow">
       <div className="flex justify-center mb-4">
@@ -45,7 +40,7 @@ export function WinnerDisplay({ players }: WinnerDisplayProps) {
 
       <div className="space-y-4 mb-8">
         {sortedPlayers.map((player, index) => {
-          const totalPoints = calculateTotalPoints(player.roundPoints);
+          const totalPoints = Object.values(player.roundPoints).reduce((sum, points) => sum + points, 0);
           const rank = index + 1;
           
           return (
