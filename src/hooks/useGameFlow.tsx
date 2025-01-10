@@ -30,8 +30,12 @@ export function useGameFlow() {
 
   const findWinners = (players: Player[]): Player[] => {
     if (players.length === 0) return [];
-    const lowestScore = Math.min(...players.map(p => p.points));
-    return players.filter(p => p.points === lowestScore);
+    const lowestScore = Math.min(...players.map(p => 
+      Object.values(p.roundPoints).reduce((sum, points) => sum + points, 0)
+    ));
+    return players.filter(p => 
+      Object.values(p.roundPoints).reduce((sum, points) => sum + points, 0) === lowestScore
+    );
   };
 
   const endGame = (players: Player[]) => {

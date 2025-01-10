@@ -8,7 +8,7 @@ interface WinnerDisplayProps {
   players: Player[];
 }
 
-export function WinnerDisplay({ winnerName, winnerScore, players }: WinnerDisplayProps) {
+export function WinnerDisplay({ players }: WinnerDisplayProps) {
   // Sort players by total points (ascending - lowest points wins)
   const sortedPlayers = [...players].sort((a, b) => {
     const totalPointsA = Object.values(a.roundPoints).reduce((sum, points) => sum + points, 0);
