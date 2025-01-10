@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { BackgroundGradient } from "@/components/ui/background-gradient";
 
 interface EditPointsDialogProps {
   playerName: string;
@@ -34,50 +35,52 @@ export function EditPointsDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px] bg-mystic-dark border-accent">
-        <DialogHeader>
-          <DialogTitle className="text-mystic-light">Edit Points for {playerName}</DialogTitle>
-        </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
-          <div className="space-y-2">
-            <label className="text-sm text-mystic-light">Select Round</label>
-            <Select
-              value={selectedRound}
-              onValueChange={setSelectedRound}
+      <DialogContent className="bg-white/10 dark:bg-zinc-900/50 backdrop-blur-sm border-accent">
+        <BackgroundGradient className="rounded-[22px] p-6">
+          <DialogHeader>
+            <DialogTitle className="text-white">Edit Points for {playerName}</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+            <div className="space-y-2">
+              <label className="text-sm text-white">Select Round</label>
+              <Select
+                value={selectedRound}
+                onValueChange={setSelectedRound}
+              >
+                <SelectTrigger className="bg-white/5 border-accent text-white">
+                  <SelectValue placeholder="Select round" />
+                </SelectTrigger>
+                <SelectContent className="bg-zinc-900 border-accent">
+                  {[1, 2, 3, 4, 5].map((round) => (
+                    <SelectItem 
+                      key={round} 
+                      value={round.toString()}
+                      className="text-white hover:bg-accent/20"
+                    >
+                      Round {round}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm text-white">Points</label>
+              <Input
+                type="number"
+                placeholder="Enter points"
+                value={points}
+                onChange={(e) => setPoints(e.target.value)}
+                className="bg-white/5 border-accent text-white placeholder:text-white/50"
+              />
+            </div>
+            <Button 
+              type="submit" 
+              className="w-full bg-violet-500 hover:bg-violet-600 text-white rounded-lg py-2 transition-colors"
             >
-              <SelectTrigger className="bg-mystic-dark border-accent text-mystic-light">
-                <SelectValue placeholder="Select round" />
-              </SelectTrigger>
-              <SelectContent className="bg-mystic-dark border-accent">
-                {[1, 2, 3, 4, 5].map((round) => (
-                  <SelectItem 
-                    key={round} 
-                    value={round.toString()}
-                    className="text-mystic-light hover:bg-accent/20"
-                  >
-                    Round {round}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-2">
-            <label className="text-sm text-mystic-light">Points</label>
-            <Input
-              type="number"
-              placeholder="Enter points"
-              value={points}
-              onChange={(e) => setPoints(e.target.value)}
-              className="bg-mystic-dark border-accent text-mystic-light placeholder:text-mystic-light/50"
-            />
-          </div>
-          <Button 
-            type="submit" 
-            className="w-full bg-primary hover:bg-primary/90 text-white"
-          >
-            Save Changes
-          </Button>
-        </form>
+              Save Changes
+            </Button>
+          </form>
+        </BackgroundGradient>
       </DialogContent>
     </Dialog>
   );
