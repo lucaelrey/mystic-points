@@ -115,15 +115,16 @@ export function PlayerCard({
       </div>
       
       <div className="flex flex-col gap-4">
+        <div className={cn(
+          "text-3xl font-bold",
+          isTopPlayer ? "text-primary" : "text-accent"
+        )}>
+          <NumberFlow value={totalPoints} trend={false} />
+          <span className="text-sm text-white/60 ml-2">points</span>
+        </div>
+        
         {gameStarted && (
           <>
-            <div className={cn(
-              "text-3xl font-bold",
-              isTopPlayer ? "text-primary" : "text-accent"
-            )}>
-              <NumberFlow value={totalPoints} trend={false} />
-            </div>
-            
             {!hasCurrentRoundPoints && (
               <button
                 onClick={onAddPoints}
@@ -141,7 +142,7 @@ export function PlayerCard({
             
             {hasCurrentRoundPoints && (
               <div className="text-sm text-white/60">
-                Current Round Points: {roundPoints[currentRound]}
+                Round {currentRound} Points: {roundPoints[currentRound]}
               </div>
             )}
           </>
