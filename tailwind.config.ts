@@ -81,10 +81,6 @@ export default {
             boxShadow: "0 0 30px rgba(126, 105, 171, 0.3)",
             borderColor: "rgba(126, 105, 171, 0.6)"
           }
-        },
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" }
         }
       },
       animation: {
@@ -93,7 +89,6 @@ export default {
         "slide-in": "slide-in 0.2s ease-out",
         "fade-in": "fade-in 0.3s ease-out",
         "mystic-glow": "glow 3s ease-in-out infinite",
-        "float": "float 6s ease-in-out infinite"
       },
     },
   },
