@@ -2,7 +2,9 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import { Value } from "@number-flow/react";
+
+// Export the Value type
+export type Value = number;
 
 interface NumberFlowProps {
   value: Value;
