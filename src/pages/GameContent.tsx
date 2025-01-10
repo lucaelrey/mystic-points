@@ -66,7 +66,6 @@ export function GameContent() {
           <WinnerDisplay 
             winnerName={winner.name}
             winnerScore={winnerScore}
-            onStartNewGame={resetGame}
             players={players}
           />
         )}
