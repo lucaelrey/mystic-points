@@ -32,8 +32,13 @@ export function GameContent() {
     resetPlayerScores,
   } = useGameState();
 
-  // Sort players by points (ascending - lowest points first)
-  const sortedPlayers = [...players].sort((a, b) => a.points - b.points);
+  // Sortiere Spieler nach Punkten (aufsteigend - niedrigste Punkte zuerst)
+  const sortedPlayers = [...players].sort((a, b) => {
+    const totalPointsA = Object.values(a.roundPoints).reduce((sum, points) => sum + points, 0);
+    const totalPointsB = Object.values(b.roundPoints).reduce((sum, points) => sum + points, 0);
+    return totalPointsA - totalPointsB;
+  });
+  
   const winner = sortedPlayers[0];
   const canStartGame = players.length >= 2;
 
@@ -64,7 +69,7 @@ export function GameContent() {
         {showWinner && winner && (
           <WinnerDisplay 
             winnerName={winner.name} 
-            winnerScore={winner.points}
+            winnerScore={Object.values(winner.roundPoints).reduce((sum, points) => sum + points, 0)}
             onStartNewGame={handleStartNewGame}
           />
         )}
@@ -74,7 +79,7 @@ export function GameContent() {
             <PlayerCard
               key={player.id}
               name={player.name}
-              points={player.points}
+              points={Object.values(player.roundPoints).reduce((sum, points) => sum + points, 0)}
               rank={index + 1}
               currentRound={currentRound}
               roundPoints={player.roundPoints}
@@ -127,10 +132,8 @@ export function GameContent() {
                     ...p.roundPoints,
                     [currentRound]: Math.max(0, points),
                   };
-                  const totalPoints = Object.values(updatedRoundPoints).reduce((a, b) => a + b, 0);
                   return {
                     ...p,
-                    points: totalPoints,
                     roundPoints: updatedRoundPoints,
                   };
                 }
@@ -159,10 +162,8 @@ export function GameContent() {
                     ...p.roundPoints,
                     [round]: Math.max(0, points),
                   };
-                  const totalPoints = Object.values(updatedRoundPoints).reduce((a, b) => a + b, 0);
                   return {
                     ...p,
-                    points: totalPoints,
                     roundPoints: updatedRoundPoints,
                   };
                 }
