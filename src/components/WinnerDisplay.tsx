@@ -6,7 +6,7 @@ interface WinnerDisplayProps {
   onStartNewGame: () => void;
 }
 
-export function WinnerDisplay({ winnerName, winnerScore }: WinnerDisplayProps) {
+export function WinnerDisplay({ winnerName, winnerScore, onStartNewGame }: WinnerDisplayProps) {
   return (
     <div className="text-center mb-8 p-8 bg-mystic-dark/50 rounded-lg border-2 border-primary animate-mystic-glow">
       <div className="flex justify-center items-center gap-2 mb-4">
@@ -21,10 +21,10 @@ export function WinnerDisplay({ winnerName, winnerScore }: WinnerDisplayProps) {
       <div className="mb-6">
         <p className="text-2xl text-mystic-light mb-2">{winnerName}</p>
         <p className="text-xl text-destructive font-bold animate-pulse">
-          Winning Score: {winnerScore.toLocaleString()}
+          Punkte: {winnerScore}
         </p>
         <p className="text-sm text-mystic-light mt-2 italic">
-          (Lowest Score Wins!)
+          (Niedrigste Punktzahl gewinnt!)
         </p>
       </div>
       
