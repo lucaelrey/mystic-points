@@ -3,8 +3,6 @@ import { Player } from "@/types/game";
 import { cn } from "@/lib/utils";
 
 interface WinnerDisplayProps {
-  winnerName: string;
-  winnerScore: number;
   players: Player[];
 }
 
@@ -30,6 +28,11 @@ export function WinnerDisplay({ players }: WinnerDisplayProps) {
     }
   };
 
+  // Helper function to calculate total points
+  const calculateTotalPoints = (roundPoints: { [key: number]: number }): number => {
+    return Object.values(roundPoints).reduce((sum, points) => sum + points, 0);
+  };
+
   return (
     <div className="text-center mb-8 p-8 bg-mystic-dark/50 rounded-lg border-2 border-primary animate-mystic-glow">
       <div className="flex justify-center mb-4">
@@ -42,7 +45,7 @@ export function WinnerDisplay({ players }: WinnerDisplayProps) {
 
       <div className="space-y-4 mb-8">
         {sortedPlayers.map((player, index) => {
-          const totalPoints = Object.values(player.roundPoints).reduce((sum, points) => sum + points, 0);
+          const totalPoints = calculateTotalPoints(player.roundPoints);
           const rank = index + 1;
           
           return (
@@ -82,7 +85,7 @@ export function WinnerDisplay({ players }: WinnerDisplayProps) {
                   )}>
                     {totalPoints}
                   </p>
-                  <p className="text-sm text-mystic-light/60">Punkte</p>
+                  <p className="text-sm text-mystic-light/60">Punkte Total</p>
                 </div>
               </div>
             </div>
