@@ -66,9 +66,16 @@ export function WinnerDisplay({ winnerName, winnerScore, players }: WinnerDispla
                     )}>
                       {player.name}
                     </p>
-                    <p className="text-sm text-mystic-light/80">
-                      Punkte: {totalPoints}
-                    </p>
+                    <div className="space-y-1">
+                      {Object.entries(player.roundPoints).map(([round, points]) => (
+                        <p key={round} className="text-sm text-mystic-light/60">
+                          Runde {round}: {points} Punkte
+                        </p>
+                      ))}
+                      <p className="text-sm font-semibold text-mystic-light mt-2">
+                        Gesamt: {totalPoints} Punkte
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
