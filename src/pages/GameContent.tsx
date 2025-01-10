@@ -44,7 +44,7 @@ export function GameContent() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-violet-950 to-indigo-950 py-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <div className="min-h-screen bg-black/80 py-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="relative">
         <div className="absolute inset-0 bg-gradient-radial from-violet-500/20 via-transparent to-transparent opacity-50"></div>
         <div className="absolute inset-0 bg-gradient-conic from-violet-500/30 via-transparent to-transparent opacity-30"></div>
@@ -91,7 +91,7 @@ export function GameContent() {
           )}
 
           {players.length === 0 && (
-            <div className="text-center py-12 bg-white/5 backdrop-blur-lg rounded-xl border border-violet-500/20 shadow-lg">
+            <div className="text-center py-12 bg-black/80 backdrop-blur-lg rounded-xl border border-violet-500/20 shadow-lg">
               <p className="text-violet-200/80">Noch keine Spieler hinzugefügt.</p>
               <p className="text-violet-200/80 mt-2">Klicke auf + um Spieler hinzuzufügen.</p>
             </div>
