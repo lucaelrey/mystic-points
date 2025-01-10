@@ -50,6 +50,9 @@ export function GameContent() {
   const winnerScore = winner ? calculateTotalPoints(winner.roundPoints) : 0;
   console.log("Winner score calculated:", winnerScore); // Debug log
 
+  // Add this line back
+  const canStartGame = players.length >= 2;
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-mystic-dark to-black py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
