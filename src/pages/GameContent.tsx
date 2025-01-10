@@ -32,25 +32,20 @@ export function GameContent() {
     resetPlayerScores,
   } = useGameState();
 
-  // Helper function to calculate total points
+  // Calculate total points for each player
   const calculateTotalPoints = (roundPoints: { [key: number]: number }) => {
-    console.log("Calculating total points from:", roundPoints); // Debug log
     return Object.values(roundPoints).reduce((sum, points) => sum + points, 0);
   };
 
-  // Sort players by points (ascending - lowest points first)
+  // Sort players by total points (ascending - lowest points wins)
   const sortedPlayers = [...players].sort((a, b) => {
     const totalPointsA = calculateTotalPoints(a.roundPoints);
     const totalPointsB = calculateTotalPoints(b.roundPoints);
-    console.log(`Player ${a.name}: ${totalPointsA} points, Player ${b.name}: ${totalPointsB} points`); // Debug log
     return totalPointsA - totalPointsB;
   });
-  
+
   const winner = sortedPlayers[0];
   const winnerScore = winner ? calculateTotalPoints(winner.roundPoints) : 0;
-  console.log("Winner score calculated:", winnerScore); // Debug log
-
-  const canStartGame = players.length >= 2;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-mystic-dark to-black py-8 px-4 sm:px-6 lg:px-8">
@@ -65,7 +60,7 @@ export function GameContent() {
           <WinnerDisplay 
             winnerName={winner.name}
             winnerScore={winnerScore}
-            players={players}
+            players={sortedPlayers}
           />
         )}
 
@@ -116,7 +111,7 @@ export function GameContent() {
           onEndGame={endGame}
           onResetGame={startGame}
           canGoBack={currentRound > 1}
-          canStartGame={canStartGame}
+          canStartGame={players.length >= 2}
         />
 
         {!gameStarted && <AddPlayerDialog onAddPlayer={addPlayer} />}
