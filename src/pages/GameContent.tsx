@@ -33,12 +33,10 @@ export function GameContent() {
     updatePlayerPoints,
   } = useGameState();
 
-  // Calculate total points for each player
   const calculateTotalPoints = (roundPoints: { [key: number]: number }) => {
     return Object.values(roundPoints).reduce((sum, points) => sum + points, 0);
   };
 
-  // Sort players by total points (ascending - lowest points wins)
   const sortedPlayers = [...players].sort((a, b) => {
     const totalPointsA = calculateTotalPoints(a.roundPoints);
     const totalPointsB = calculateTotalPoints(b.roundPoints);
