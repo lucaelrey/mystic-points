@@ -33,8 +33,7 @@ export function WinnerDisplay({ winnerName, winnerScore, onStartNewGame, players
 
   return (
     <div className="text-center mb-8 p-8 bg-mystic-dark/50 rounded-lg border-2 border-primary animate-mystic-glow">
-      <div className="flex justify-center items-center gap-2 mb-4">
-        <Crown className="h-16 w-16 text-primary" />
+      <div className="flex justify-center mb-4">
         <ArrowBigDown className="h-12 w-12 text-destructive animate-bounce" />
       </div>
       
@@ -82,13 +81,6 @@ export function WinnerDisplay({ winnerName, winnerScore, onStartNewGame, players
       <div className="text-sm text-mystic-light/60 italic mb-6">
         (Niedrigste Punktzahl gewinnt!)
       </div>
-      
-      <button
-        onClick={onStartNewGame}
-        className="px-6 py-3 bg-primary text-white rounded-md hover:bg-primary/80 transition-colors font-semibold"
-      >
-        Neues Spiel starten
-      </button>
     </div>
   );
 }
