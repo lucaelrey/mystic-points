@@ -66,7 +66,7 @@ export function GameContent() {
           gameStarted={gameStarted}
         />
 
-        {showWinner && winner && (
+        {!gameStarted && showWinner && winner && (
           <WinnerDisplay 
             winnerName={winner.name} 
             winnerScore={Object.values(winner.roundPoints).reduce((sum, points) => sum + points, 0)}
