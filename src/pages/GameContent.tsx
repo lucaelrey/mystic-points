@@ -47,7 +47,6 @@ export function GameContent() {
     <div className="min-h-screen bg-[#121212] py-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="relative">
         <div className="absolute inset-0 bg-gradient-radial from-violet-500/20 via-transparent to-transparent opacity-50"></div>
-        <div className="absolute inset-0 bg-gradient-conic from-violet-500/30 via-transparent to-transparent opacity-30"></div>
         
         <div className="relative max-w-4xl mx-auto">
           <GameHeader
