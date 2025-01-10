@@ -32,11 +32,14 @@ export function GameContent() {
     resetPlayerScores,
   } = useGameState();
 
+  // Hilfsfunktion zur Berechnung der Gesamtpunkte
+  const calculateTotalPoints = (roundPoints: { [key: number]: number }) => {
+    return Object.values(roundPoints).reduce((sum, points) => sum + points, 0);
+  };
+
   // Sortiere Spieler nach Punkten (aufsteigend - niedrigste Punkte zuerst)
   const sortedPlayers = [...players].sort((a, b) => {
-    const totalPointsA = Object.values(a.roundPoints).reduce((sum, points) => sum + points, 0);
-    const totalPointsB = Object.values(b.roundPoints).reduce((sum, points) => sum + points, 0);
-    return totalPointsA - totalPointsB;
+    return calculateTotalPoints(a.roundPoints) - calculateTotalPoints(b.roundPoints);
   });
   
   const winner = sortedPlayers[0];
@@ -69,7 +72,7 @@ export function GameContent() {
         {!gameStarted && showWinner && winner && (
           <WinnerDisplay 
             winnerName={winner.name} 
-            winnerScore={Object.values(winner.roundPoints).reduce((sum, points) => sum + points, 0)}
+            winnerScore={calculateTotalPoints(winner.roundPoints)}
             onStartNewGame={handleStartNewGame}
           />
         )}
@@ -79,7 +82,7 @@ export function GameContent() {
             <PlayerCard
               key={player.id}
               name={player.name}
-              points={Object.values(player.roundPoints).reduce((sum, points) => sum + points, 0)}
+              points={calculateTotalPoints(player.roundPoints)}
               rank={index + 1}
               currentRound={currentRound}
               roundPoints={player.roundPoints}
