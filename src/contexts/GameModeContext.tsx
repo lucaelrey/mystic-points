@@ -1,21 +1,18 @@
-import { createContext, useContext, ReactNode, useState } from "react";
-
-type GameMode = "rounds" | "points";
+import { createContext, useContext, ReactNode } from "react";
 
 interface GameModeContextType {
-  gameMode: GameMode;
-  setGameMode: (mode: GameMode) => void;
+  gameMode: "rounds";
   pointLimit: number;
 }
 
 const GameModeContext = createContext<GameModeContextType | undefined>(undefined);
 
 export function GameModeProvider({ children }: { children: ReactNode }) {
-  const [gameMode, setGameMode] = useState<GameMode>("rounds");
+  const gameMode = "rounds";
   const pointLimit = 100;
 
   return (
-    <GameModeContext.Provider value={{ gameMode, setGameMode, pointLimit }}>
+    <GameModeContext.Provider value={{ gameMode, pointLimit }}>
       {children}
     </GameModeContext.Provider>
   );
