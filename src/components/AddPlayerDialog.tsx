@@ -43,11 +43,11 @@ export function AddPlayerDialog({ onAddPlayer, children }: AddPlayerDialogProps)
           </Button>
         )}
       </DrawerTrigger>
-      <DrawerContent className="bg-mystic-dark/90 backdrop-blur-lg border-t-2 border-primary/20">
+      <DrawerContent className="bg-[#1A1F2C]/95 backdrop-blur-lg border-t-2 border-[#8B5CF6]/20">
         <div className="mx-auto w-full max-w-sm pb-6">
           <DrawerHeader>
-            <DrawerTitle className="text-2xl font-bold text-primary">Add New Player</DrawerTitle>
-            <DrawerDescription className="text-mystic-light/70">
+            <DrawerTitle className="text-2xl font-bold text-[#8B5CF6]">Add New Player</DrawerTitle>
+            <DrawerDescription className="text-[#D6BCFA]/70">
               Enter the name of the new player below.
             </DrawerDescription>
           </DrawerHeader>
@@ -56,17 +56,17 @@ export function AddPlayerDialog({ onAddPlayer, children }: AddPlayerDialogProps)
               placeholder="Enter player name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="bg-transparent border-2 border-primary/20 text-mystic-light placeholder:text-mystic-light/50"
+              className="bg-transparent border-2 border-[#8B5CF6]/20 text-[#D6BCFA] placeholder:text-[#D6BCFA]/50"
             />
             <div className="flex flex-col gap-2">
               <Button 
                 type="submit" 
-                className="w-full bg-primary hover:bg-primary/90 text-white"
+                className="w-full bg-[#8B5CF6] hover:bg-[#8B5CF6]/90 text-white"
               >
                 Add Player
               </Button>
               <DrawerClose asChild>
-                <Button variant="outline" className="w-full border-primary/20 text-mystic-light hover:bg-primary/10">
+                <Button variant="outline" className="w-full border-[#8B5CF6]/20 text-[#D6BCFA] hover:bg-[#8B5CF6]/10">
                   Cancel
                 </Button>
               </DrawerClose>
