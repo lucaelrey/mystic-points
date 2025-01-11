@@ -99,7 +99,7 @@ export function GameControls({
       </div>
 
       <Dialog open={showRestartDialog} onOpenChange={setShowRestartDialog}>
-        <DialogContent className="bg-black/95 backdrop-blur-lg border border-white/10 rounded-2xl shadow-2xl">
+        <DialogContent className="bg-black/95 backdrop-blur-lg border-2 animate-mystic-glow rounded-2xl shadow-2xl">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-white">Game Reset</DialogTitle>
             <DialogDescription className="text-white/80 text-lg mt-2">
