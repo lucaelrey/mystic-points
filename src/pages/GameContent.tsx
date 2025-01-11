@@ -60,45 +60,47 @@ export function GameContent() {
           )}
 
           {(!showWinner || gameStarted) && (
-            <div className="grid gap-6 md:grid-cols-2 mb-8">
-              {sortedPlayers.map((player, index) => (
-                <PlayerCard
-                  key={player.id}
-                  name={player.name}
-                  points={calculateTotalPoints(player.roundPoints)}
-                  rank={index + 1}
-                  currentRound={currentRound}
-                  roundPoints={player.roundPoints}
-                  onDelete={() => deletePlayer(player.id)}
-                  onAddPoints={() => {
-                    setSelectedPlayer(player);
-                    setIsEditing(false);
-                  }}
-                  onEditPoints={() => {
-                    setSelectedPlayer(player);
-                    setIsEditing(true);
-                  }}
-                  gameStarted={gameStarted}
-                  onNameChange={(newName) => {
-                    setPlayers(players.map(p =>
-                      p.id === player.id ? { ...p, name: newName } : p
-                    ));
-                  }}
-                />
-              ))}
-            </div>
-          )}
-
-          {players.length === 0 && (
-            <AddPlayerDialog onAddPlayer={addPlayer}>
-              <div className="text-center py-12 bg-black/80 backdrop-blur-lg rounded-xl border border-violet-500/20 shadow-lg hover:bg-violet-500/5 hover:border-violet-500/50 transition-all cursor-pointer">
-                <p className="text-violet-200/80 mb-2">Noch keine Spieler vorhanden</p>
-                <p className="text-violet-200/80">Hier klicken um Spieler hinzuzufügen</p>
+            <>
+              <div className="grid gap-6 md:grid-cols-2 mb-8">
+                {sortedPlayers.map((player, index) => (
+                  <PlayerCard
+                    key={player.id}
+                    name={player.name}
+                    points={calculateTotalPoints(player.roundPoints)}
+                    rank={index + 1}
+                    currentRound={currentRound}
+                    roundPoints={player.roundPoints}
+                    onDelete={() => deletePlayer(player.id)}
+                    onAddPoints={() => {
+                      setSelectedPlayer(player);
+                      setIsEditing(false);
+                    }}
+                    onEditPoints={() => {
+                      setSelectedPlayer(player);
+                      setIsEditing(true);
+                    }}
+                    gameStarted={gameStarted}
+                    onNameChange={(newName) => {
+                      setPlayers(players.map(p =>
+                        p.id === player.id ? { ...p, name: newName } : p
+                      ));
+                    }}
+                  />
+                ))}
               </div>
-            </AddPlayerDialog>
-          )}
 
-          {players.length > 0 && !gameStarted && <AddPlayerDialog onAddPlayer={addPlayer} />}
+              {players.length === 0 && (
+                <AddPlayerDialog onAddPlayer={addPlayer}>
+                  <div className="text-center py-12 bg-black/80 backdrop-blur-lg rounded-xl border border-violet-500/20 shadow-lg hover:bg-violet-500/5 hover:border-violet-500/50 transition-all cursor-pointer">
+                    <p className="text-violet-200/80 mb-2">Noch keine Spieler vorhanden</p>
+                    <p className="text-violet-200/80">Hier klicken um Spieler hinzuzufügen</p>
+                  </div>
+                </AddPlayerDialog>
+              )}
+
+              {players.length > 0 && !gameStarted && <AddPlayerDialog onAddPlayer={addPlayer} />}
+            </>
+          )}
 
           <GameControls
             gameStarted={gameStarted}
