@@ -99,18 +99,18 @@ export function GameControls({
       </div>
 
       <Dialog open={showRestartDialog} onOpenChange={setShowRestartDialog}>
-        <DialogContent className="bg-mystic-dark/90 backdrop-blur-lg border-2 border-primary/20 shadow-xl">
+        <DialogContent className="bg-black/95 backdrop-blur-lg border border-white/10 rounded-2xl shadow-2xl">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-primary">Restart Game</DialogTitle>
-            <DialogDescription className="text-mystic-light/90 mt-2">
-              Are you sure you want to restart the game? All progress will be lost, but players will remain.
+            <DialogTitle className="text-2xl font-bold text-white">Game Reset</DialogTitle>
+            <DialogDescription className="text-white/80 text-lg mt-2">
+              The game has been reset. Players are ready for a new game.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="flex gap-2 sm:justify-center mt-6">
             <Button
               variant="outline"
               onClick={() => setShowRestartDialog(false)}
-              className="bg-transparent border-2 border-primary/20 text-mystic-light hover:bg-primary/10"
+              className="bg-transparent border border-white/20 text-white hover:bg-white/10"
             >
               Cancel
             </Button>
@@ -119,7 +119,7 @@ export function GameControls({
                 setShowRestartDialog(false);
                 onPreviousRound();
               }}
-              className="bg-primary hover:bg-primary/90 text-white"
+              className="bg-white text-black hover:bg-white/90"
             >
               Restart
             </Button>
