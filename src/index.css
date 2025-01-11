@@ -31,26 +31,13 @@
     --color-5: 90 100% 63%;
   }
 
-  .dark {
-    --background: 0 0% 7%;
-    --foreground: 210 40% 98%;
-    --card: 0 0% 7%;
-    --card-foreground: 210 40% 98%;
-    --popover: 0 0% 7%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+  body {
+    @apply bg-[#121212] text-foreground;
+    background-image: url('/lovable-uploads/9d261055-eaf4-470e-a277-6d5d75bce527.png');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 }
 
@@ -79,4 +66,16 @@
   .number-flow-trend {
     @apply text-2xl transition-colors duration-300;
   }
+}
+
+.app-overlay {
+  @apply fixed inset-0 bg-black/60 pointer-events-none z-[-1];
+}
+
+.glass-card {
+  @apply bg-black/30 backdrop-blur-md border border-white/10 shadow-xl;
+}
+
+.glass-button {
+  @apply bg-black/40 backdrop-blur-sm border border-white/20 hover:bg-white/10 transition-colors;
 }
