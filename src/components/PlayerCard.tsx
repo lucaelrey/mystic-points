@@ -46,47 +46,47 @@ export function PlayerCard({
 
   return (
     <div className="w-full relative group">
-      <div className="absolute inset-0 rounded-3xl border border-white/10" />
-      <div className="p-6 rounded-3xl bg-black/90 backdrop-blur-xl relative">
-        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+      <div className="absolute inset-0 rounded-2xl border border-white/10" />
+      <div className="p-4 sm:p-6 rounded-2xl bg-black/90 backdrop-blur-xl relative">
+        <div className="absolute top-2 right-2 sm:top-4 sm:right-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1 sm:gap-2">
           {!gameStarted && !isEditingName && (
             <button
               onClick={() => setIsEditingName(true)}
-              className="p-2 text-white/70 hover:text-white rounded-full hover:bg-white/5"
+              className="p-1.5 sm:p-2 text-white/70 hover:text-white rounded-full hover:bg-white/5"
             >
-              <Edit className="h-4 w-4" />
+              <Edit className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </button>
           )}
           <button
             onClick={onEditPoints}
             className={cn(
-              "p-2 rounded-full hover:bg-white/5",
+              "p-1.5 sm:p-2 rounded-full hover:bg-white/5",
               gameStarted ? "text-white/70 hover:text-white" : "hidden"
             )}
           >
-            <Edit className="h-4 w-4" />
+            <Edit className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           </button>
           {!gameStarted && (
             <button
               onClick={onDelete}
-              className="p-2 text-red-400/70 hover:text-red-400 rounded-full hover:bg-white/5"
+              className="p-1.5 sm:p-2 text-red-400/70 hover:text-red-400 rounded-full hover:bg-white/5"
             >
-              <Trash2 className="h-4 w-4" />
+              <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </button>
           )}
         </div>
         
-        <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
           <span className={cn(
-            "text-2xl font-bold",
+            "text-xl sm:text-2xl font-bold",
             isTopPlayer ? "text-white" : "text-white/60"
           )}>#{rank}</span>
           {isEditingName ? (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-1">
               <Input
                 value={editedName}
                 onChange={(e) => setEditedName(e.target.value)}
-                className="text-xl font-semibold text-white bg-white/5 border-white/20"
+                className="text-base sm:text-xl font-semibold text-white bg-white/5 border-white/20"
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
                     handleNameSubmit();
@@ -96,31 +96,31 @@ export function PlayerCard({
               />
               <button
                 onClick={handleNameSubmit}
-                className="p-2 text-white/70 hover:text-white rounded-full hover:bg-white/5"
+                className="p-1.5 sm:p-2 text-white/70 hover:text-white rounded-full hover:bg-white/5"
               >
-                <Check className="h-4 w-4" />
+                <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </button>
             </div>
           ) : (
-            <h3 className="text-xl font-semibold text-white flex items-center gap-2">
+            <h3 className="text-base sm:text-xl font-semibold text-white flex items-center gap-2 truncate">
               {name}
               {isTopPlayer && gameStarted && totalPoints > 0 && (
-                <Crown className="h-5 w-5 text-yellow-400 animate-pulse" />
+                <Crown className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-400 animate-pulse" />
               )}
             </h3>
           )}
         </div>
         
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3 sm:gap-4">
           <div className={cn(
-            "text-3xl font-bold",
+            "text-2xl sm:text-3xl font-bold",
             isTopPlayer ? "text-white" : "text-white/60"
           )}>
             <CountAnimation 
               number={totalPoints} 
               className="inline-block"
             />
-            <span className="text-sm text-white/60 ml-2">points</span>
+            <span className="text-xs sm:text-sm text-white/60 ml-2">points</span>
           </div>
           
           {gameStarted && (
@@ -129,10 +129,10 @@ export function PlayerCard({
                 <button
                   onClick={onAddPoints}
                   className={cn(
-                    "w-full px-4 py-2 rounded-lg transition-colors",
+                    "w-full px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg transition-colors",
                     "bg-white/5 hover:bg-white/10",
                     "border border-white/10 hover:border-white/20",
-                    "text-white font-medium backdrop-blur-sm"
+                    "text-sm sm:text-base text-white font-medium backdrop-blur-sm"
                   )}
                 >
                   Add Round {currentRound} Points
@@ -140,7 +140,7 @@ export function PlayerCard({
               )}
               
               {hasCurrentRoundPoints && (
-                <div className="text-sm text-white/60">
+                <div className="text-xs sm:text-sm text-white/60">
                   Round {currentRound} Points: {roundPoints[currentRound]}
                 </div>
               )}
