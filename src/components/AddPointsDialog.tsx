@@ -31,7 +31,14 @@ export function AddPointsDialog({ playerName, open, onOpenChange, onAddPoints }:
     } else if (num === "backspace") {
       setPoints(prev => prev.slice(0, -1));
     } else {
-      setPoints(prev => prev + num);
+      setPoints(prev => {
+        // Only add the number if the result would be 3 digits or less
+        const newValue = prev + num;
+        if (newValue.length <= 3) {
+          return newValue;
+        }
+        return prev;
+      });
     }
   };
 
@@ -93,8 +100,14 @@ export function AddPointsDialog({ playerName, open, onOpenChange, onAddPoints }:
               type="number"
               placeholder="Enter points"
               value={points}
-              onChange={(e) => setPoints(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (value.length <= 3) {
+                  setPoints(value);
+                }
+              }}
               className="bg-mystic-dark border-accent text-mystic-light placeholder:text-mystic-light/50"
+              max="999"
             />
           )}
           <Button 
