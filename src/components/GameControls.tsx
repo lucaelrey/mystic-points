@@ -5,6 +5,7 @@ import { ArrowLeft, Crown, RotateCcw } from "lucide-react";
 import { useState } from "react";
 import { EndGameDialog } from "./EndGameDialog";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface GameControlsProps {
   gameStarted: boolean;
@@ -33,53 +34,64 @@ export function GameControls({
 }: GameControlsProps) {
   const [showEndGameDialog, setShowEndGameDialog] = useState(false);
   const [showRestartDialog, setShowRestartDialog] = useState(false);
+  const isMobile = useIsMobile();
 
   return (
     <>
-      <div className="mt-8 flex justify-center gap-4">
+      <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-3 px-4 w-full max-w-xl mx-auto">
         {gameStarted && (
           <>
             <Button
               onClick={() => currentRound === 1 ? setShowRestartDialog(true) : onPreviousRound()}
-              className="px-8 py-4 text-lg bg-mystic-dark hover:bg-mystic-dark/80 text-white border-2 border-primary/20 hover:border-primary/40 transition-all duration-300"
+              className={cn(
+                "w-full sm:w-auto px-6 py-3 text-base bg-mystic-dark hover:bg-mystic-dark/80 text-white",
+                "border-2 border-primary/20 hover:border-primary/40 transition-all duration-300",
+                "flex items-center justify-center gap-2"
+              )}
               variant="outline"
             >
               {currentRound === 1 ? (
                 <>
-                  <RotateCcw className="mr-2 h-4 w-4" />
-                  Restart Game
+                  <RotateCcw className="h-4 w-4" />
+                  <span>Restart</span>
                 </>
               ) : (
                 <>
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Previous Round
+                  <ArrowLeft className="h-4 w-4" />
+                  <span>Previous</span>
                 </>
               )}
             </Button>
+            
             <RainbowButton
               onClick={onAdvanceRound}
               disabled={!canAdvanceRound}
               className={cn(
-                "px-8 py-4 text-lg",
+                "w-full sm:w-auto px-6 py-3 text-base",
+                "flex items-center justify-center gap-2",
                 !canAdvanceRound && "opacity-50 cursor-not-allowed"
               )}
             >
               {currentRound === maxRounds ? (
                 <>
-                  <Crown className="mr-2 h-5 w-5" />
-                  End Game
+                  <Crown className="h-4 w-4" />
+                  <span>Finish</span>
                 </>
               ) : (
-                "Next Round"
+                <span>Next Round</span>
               )}
             </RainbowButton>
+
             {currentRound > 1 && (
               <Button
                 onClick={() => setShowEndGameDialog(true)}
-                className="px-8 py-4 text-lg bg-mystic-dark hover:bg-mystic-dark/80 text-white border-2 border-primary/20 hover:border-primary/40 transition-all duration-300"
+                className={cn(
+                  "w-full sm:w-auto px-6 py-3 text-base bg-mystic-dark hover:bg-mystic-dark/80 text-white",
+                  "border-2 border-primary/20 hover:border-primary/40 transition-all duration-300"
+                )}
                 variant="outline"
               >
-                End Game Early
+                End Early
               </Button>
             )}
           </>
@@ -88,7 +100,8 @@ export function GameControls({
           <Button
             onClick={onResetGame}
             className={cn(
-              "px-8 py-4 text-lg bg-mystic-dark hover:bg-mystic-dark/80 text-white border-2 border-primary/20 hover:border-primary/40 transition-all duration-300",
+              "w-full sm:w-auto px-8 py-4 text-lg bg-mystic-dark hover:bg-mystic-dark/80 text-white",
+              "border-2 border-primary/20 hover:border-primary/40 transition-all duration-300",
               !canStartGame && "opacity-50 cursor-not-allowed"
             )}
             disabled={!canStartGame}
