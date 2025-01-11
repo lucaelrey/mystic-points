@@ -42,7 +42,7 @@ export function AddPlayerDialog({ onAddPlayer, children }: AddPlayerDialogProps)
         >
           {children || (
             <Button 
-              className="w-full bg-black/50 border border-white/10 text-white/90 hover:bg-violet-500/20 hover:border-violet-500/50 transition-colors h-[72px] rounded-lg shadow-lg"
+              className="w-full bg-black/50 border border-white/10 text-white/90 hover:bg-[#debe5d]/20 hover:border-[#debe5d]/50 transition-colors h-[72px] rounded-lg shadow-lg"
             >
               <Plus className="h-6 w-6 mr-2" />
               Spieler hinzufügen
@@ -63,7 +63,7 @@ export function AddPlayerDialog({ onAddPlayer, children }: AddPlayerDialogProps)
               placeholder="Enter player name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="bg-transparent border border-white/10 text-white placeholder:text-white/50 focus-visible:ring-violet-500/50"
+              className="bg-transparent border border-white/10 text-white placeholder:text-white/50 focus-visible:ring-[#debe5d]/50"
               autoFocus
             />
             <div className="flex flex-col gap-2">
@@ -74,7 +74,7 @@ export function AddPlayerDialog({ onAddPlayer, children }: AddPlayerDialogProps)
                 Add Player
               </Button>
               <DrawerClose asChild>
-                <Button variant="outline" className="w-full bg-transparent border border-white/10 text-white/90 hover:bg-violet-500/20 hover:border-violet-500/50">
+                <Button variant="outline" className="w-full bg-transparent border border-white/10 text-white/90 hover:bg-[#debe5d]/20 hover:border-[#debe5d]/50">
                   Cancel
                 </Button>
               </DrawerClose>

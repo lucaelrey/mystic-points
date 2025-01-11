@@ -63,15 +63,15 @@ export function PlayerCard({
       <div 
         className={cn(
           "relative rounded-lg border transition-all duration-200",
-          isTopPlayer ? "border-violet-500/30 shadow-lg shadow-violet-500/10" : "border-white/10",
-          gameStarted && !hasCurrentRoundPoints && "hover:border-violet-500/50 cursor-pointer",
+          isTopPlayer ? "border-[#debe5d]/30 shadow-lg shadow-[#debe5d]/10" : "border-white/10",
+          gameStarted && !hasCurrentRoundPoints && "hover:border-[#debe5d]/50 cursor-pointer",
           isHighlighted && "animate-highlight-pulse"
         )}
       >
         <div 
           className={cn(
             "p-4 rounded-lg bg-black/50 backdrop-blur-sm relative transition-all duration-200",
-            gameStarted && !hasCurrentRoundPoints && "hover:bg-violet-500/5"
+            gameStarted && !hasCurrentRoundPoints && "hover:bg-[#debe5d]/5"
           )}
           onClick={() => {
             if (gameStarted && !hasCurrentRoundPoints) {
@@ -83,7 +83,7 @@ export function PlayerCard({
             <div className="flex items-center gap-3 flex-1 min-w-0">
               <div className={cn(
                 "flex items-center justify-center w-8 h-8 rounded-full shrink-0",
-                isTopPlayer ? "bg-violet-500/20 text-violet-300" : "bg-white/5 text-white/60"
+                isTopPlayer ? "bg-[#debe5d]/20 text-[#debe5d]" : "bg-white/5 text-white/60"
               )}>
                 <span className="text-sm font-bold">#{rank}</span>
               </div>
@@ -125,7 +125,7 @@ export function PlayerCard({
               <motion.div 
                 className={cn(
                   "flex items-center gap-1.5",
-                  isTopPlayer ? "text-violet-300" : "text-white/60"
+                  isTopPlayer ? "text-[#debe5d]" : "text-white/60"
                 )}
                 animate={{ scale: hasCurrentRoundPoints ? [1, 1.1, 1] : 1 }}
                 transition={{ duration: 0.3 }}

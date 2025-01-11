@@ -28,7 +28,7 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#8B5CF6",
+          DEFAULT: "#debe5d",
           foreground: "#FFFFFF",
         },
         secondary: {
@@ -36,20 +36,20 @@ export default {
           foreground: "#FFFFFF",
         },
         destructive: {
-          DEFAULT: "#D946EF",
+          DEFAULT: "#debe5d",
           foreground: "#FFFFFF",
         },
         muted: {
           DEFAULT: "#221F26",
-          foreground: "#D6BCFA",
+          foreground: "#debe5d",
         },
         accent: {
-          DEFAULT: "#7E69AB",
+          DEFAULT: "#debe5d",
           foreground: "#FFFFFF",
         },
         mystic: {
-          DEFAULT: "#6E59A5",
-          light: "#D6BCFA",
+          DEFAULT: "#debe5d",
+          light: "#debe5d",
           dark: "#1A1F2C",
         },
         "color-1": "hsl(var(--color-1))",
@@ -82,12 +82,12 @@ export default {
         },
         glow: {
           "0%, 100%": { 
-            boxShadow: "0 0 15px rgba(139, 92, 246, 0.3)",
-            borderColor: "rgba(139, 92, 246, 0.5)"
+            boxShadow: "0 0 15px rgba(222, 190, 93, 0.3)",
+            borderColor: "rgba(222, 190, 93, 0.5)"
           },
           "50%": { 
-            boxShadow: "0 0 30px rgba(139, 92, 246, 0.5)",
-            borderColor: "rgba(139, 92, 246, 0.8)"
+            boxShadow: "0 0 30px rgba(222, 190, 93, 0.5)",
+            borderColor: "rgba(222, 190, 93, 0.8)"
           }
         },
         rainbow: {
@@ -100,9 +100,9 @@ export default {
           "100%": { transform: "scale(1)" },
         },
         highlight: {
-          "0%": { backgroundColor: "rgba(139, 92, 246, 0)" },
-          "50%": { backgroundColor: "rgba(139, 92, 246, 0.1)" },
-          "100%": { backgroundColor: "rgba(139, 92, 246, 0)" },
+          "0%": { backgroundColor: "rgba(222, 190, 93, 0)" },
+          "50%": { backgroundColor: "rgba(222, 190, 93, 0.1)" },
+          "100%": { backgroundColor: "rgba(222, 190, 93, 0)" },
         }
       },
       animation: {

@@ -30,14 +30,14 @@ export function EndGameDialog({ open, onOpenChange, onConfirm }: EndGameDialogPr
           <div className="flex flex-col gap-2 p-4">
             <Button
               onClick={onConfirm}
-              className="bg-violet-500 hover:bg-violet-500/90 text-white"
+              className="bg-[#debe5d] hover:bg-[#debe5d]/90 text-white"
             >
               End Game
             </Button>
             <DrawerClose asChild>
               <Button 
                 variant="outline" 
-                className="bg-transparent border border-white/10 text-white/90 hover:bg-violet-500/20 hover:border-violet-500/50"
+                className="bg-transparent border border-white/10 text-white/90 hover:bg-[#debe5d]/20 hover:border-[#debe5d]/50"
               >
                 Cancel
               </Button>
