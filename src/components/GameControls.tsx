@@ -41,6 +41,25 @@ export function GameControls({
       <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-3 px-4 w-full max-w-xl mx-auto">
         {gameStarted && (
           <>
+            <RainbowButton
+              onClick={onAdvanceRound}
+              disabled={!canAdvanceRound}
+              className={cn(
+                "w-full sm:w-auto px-6 py-3 text-base",
+                "flex items-center justify-center gap-2",
+                !canAdvanceRound && "opacity-50 cursor-not-allowed"
+              )}
+            >
+              {currentRound === maxRounds ? (
+                <>
+                  <Crown className="h-4 w-4" />
+                  <span>Finish</span>
+                </>
+              ) : (
+                <span>Next Round</span>
+              )}
+            </RainbowButton>
+
             <Button
               onClick={() => currentRound === 1 ? setShowRestartDialog(true) : onPreviousRound()}
               className={cn(
@@ -62,25 +81,6 @@ export function GameControls({
                 </>
               )}
             </Button>
-            
-            <RainbowButton
-              onClick={onAdvanceRound}
-              disabled={!canAdvanceRound}
-              className={cn(
-                "w-full sm:w-auto px-6 py-3 text-base",
-                "flex items-center justify-center gap-2",
-                !canAdvanceRound && "opacity-50 cursor-not-allowed"
-              )}
-            >
-              {currentRound === maxRounds ? (
-                <>
-                  <Crown className="h-4 w-4" />
-                  <span>Finish</span>
-                </>
-              ) : (
-                <span>Next Round</span>
-              )}
-            </RainbowButton>
 
             {currentRound > 1 && (
               <Button
