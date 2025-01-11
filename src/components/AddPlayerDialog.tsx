@@ -43,7 +43,7 @@ export function AddPlayerDialog({ onAddPlayer, children }: AddPlayerDialogProps)
           </Button>
         )}
       </DrawerTrigger>
-      <DrawerContent className="bg-[#1A1F2C]/95 backdrop-blur-lg border-t-2 border-[#8B5CF6]/20">
+      <DrawerContent className="bg-[#1A1F2C]/95 backdrop-blur-lg border-t-2 border-[#8B5CF6]/20 z-50">
         <div className="mx-auto w-full max-w-sm pb-6">
           <DrawerHeader>
             <DrawerTitle className="text-2xl font-bold text-[#8B5CF6]">Add New Player</DrawerTitle>

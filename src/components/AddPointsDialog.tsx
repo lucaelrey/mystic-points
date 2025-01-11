@@ -49,7 +49,7 @@ export function AddPointsDialog({ playerName, open, onOpenChange, onAddPoints }:
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="bg-black/95 border-t border-white/10">
+      <DrawerContent className="bg-black/95 border-t border-white/10 z-50">
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
             <DrawerTitle className="text-white/90">Add Points for {playerName}</DrawerTitle>

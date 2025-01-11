@@ -1,6 +1,6 @@
 import { Crown, Trash2, Edit, Check, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "./ui/input";
 import { CountAnimation } from "./ui/count-animation";
 
@@ -31,9 +31,18 @@ export function PlayerCard({
 }: PlayerCardProps) {
   const [isEditingName, setIsEditingName] = useState(false);
   const [editedName, setEditedName] = useState(name);
+  const [isHighlighted, setIsHighlighted] = useState(false);
   const isTopPlayer = rank === 1 && Object.keys(roundPoints).length > 0;
   const hasCurrentRoundPoints = roundPoints[currentRound] !== undefined;
   const totalPoints = Object.values(roundPoints).reduce((sum, points) => sum + points, 0);
+
+  useEffect(() => {
+    if (hasCurrentRoundPoints) {
+      setIsHighlighted(true);
+      const timer = setTimeout(() => setIsHighlighted(false), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [roundPoints, currentRound, hasCurrentRoundPoints]);
 
   const handleNameSubmit = () => {
     if (editedName.trim() && onNameChange) {
@@ -48,7 +57,8 @@ export function PlayerCard({
         className={cn(
           "relative rounded-lg border transition-all duration-200",
           isTopPlayer ? "border-violet-500/30 shadow-lg shadow-violet-500/10" : "border-white/10",
-          gameStarted && !hasCurrentRoundPoints && "hover:border-violet-500/50 cursor-pointer"
+          gameStarted && !hasCurrentRoundPoints && "hover:border-violet-500/50 cursor-pointer",
+          isHighlighted && "animate-highlight"
         )}
       >
         <div 
