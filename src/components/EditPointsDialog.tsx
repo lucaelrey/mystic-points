@@ -1,8 +1,20 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerFooter,
+} from "@/components/ui/drawer";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface EditPointsDialogProps {
   playerName: string;
@@ -33,52 +45,56 @@ export function EditPointsDialog({
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px] bg-mystic-dark border-accent">
-        <DialogHeader>
-          <DialogTitle className="text-mystic-light">Edit Points for {playerName}</DialogTitle>
-        </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
-          <div className="space-y-2">
-            <label className="text-sm text-mystic-light">Select Round</label>
-            <Select
-              value={selectedRound}
-              onValueChange={setSelectedRound}
-            >
-              <SelectTrigger className="bg-mystic-dark border-accent text-mystic-light">
-                <SelectValue placeholder="Select round" />
-              </SelectTrigger>
-              <SelectContent className="bg-mystic-dark border-accent">
-                {[1, 2, 3, 4, 5].map((round) => (
-                  <SelectItem 
-                    key={round} 
-                    value={round.toString()}
-                    className="text-mystic-light hover:bg-accent/20"
-                  >
-                    Round {round}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-2">
-            <label className="text-sm text-mystic-light">Points</label>
-            <Input
-              type="number"
-              placeholder="Enter points"
-              value={points}
-              onChange={(e) => setPoints(e.target.value)}
-              className="bg-mystic-dark border-accent text-mystic-light placeholder:text-mystic-light/50"
-            />
-          </div>
-          <Button 
-            type="submit" 
-            className="w-full bg-primary hover:bg-primary/90 text-white"
-          >
-            Save Changes
-          </Button>
-        </form>
-      </DialogContent>
-    </Dialog>
+    <Drawer open={open} onOpenChange={onOpenChange}>
+      <DrawerContent className="bg-black/95 border-t border-white/10">
+        <div className="mx-auto w-full max-w-sm">
+          <DrawerHeader>
+            <DrawerTitle className="text-white/90">Edit Points for {playerName}</DrawerTitle>
+          </DrawerHeader>
+          <form onSubmit={handleSubmit} className="space-y-4 p-4">
+            <div className="space-y-2">
+              <label className="text-sm text-white/90">Select Round</label>
+              <Select
+                value={selectedRound}
+                onValueChange={setSelectedRound}
+              >
+                <SelectTrigger className="bg-black/50 border-white/10 text-white/90">
+                  <SelectValue placeholder="Select round" />
+                </SelectTrigger>
+                <SelectContent className="bg-black/95 border-white/10">
+                  {[1, 2, 3, 4, 5].map((round) => (
+                    <SelectItem 
+                      key={round} 
+                      value={round.toString()}
+                      className="text-white/90 hover:bg-[#debe5d]/20"
+                    >
+                      Round {round}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm text-white/90">Points</label>
+              <Input
+                type="number"
+                placeholder="Enter points"
+                value={points}
+                onChange={(e) => setPoints(e.target.value)}
+                className="bg-black/50 border-white/10 text-white/90 placeholder:text-white/50"
+              />
+            </div>
+            <DrawerFooter className="px-0">
+              <Button 
+                type="submit" 
+                className="w-full bg-[#debe5d] hover:bg-[#debe5d]/90 text-white"
+              >
+                Save Changes
+              </Button>
+            </DrawerFooter>
+          </form>
+        </div>
+      </DrawerContent>
+    </Drawer>
   );
 }
