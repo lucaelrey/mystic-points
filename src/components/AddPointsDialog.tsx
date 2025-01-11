@@ -72,7 +72,7 @@ export function AddPointsDialog({ playerName, open, onOpenChange, onAddPoints }:
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => handleNumberClick(num.toString())}
-                      className="h-16 text-2xl bg-black/50 hover:bg-violet-500/20 border border-white/10 text-white/90 transition-colors rounded-lg"
+                      className="h-16 text-2xl bg-black/50 hover:bg-[#debe5d]/20 border border-white/10 text-white/90 transition-colors rounded-lg"
                     >
                       {num}
                     </motion.button>
@@ -82,7 +82,7 @@ export function AddPointsDialog({ playerName, open, onOpenChange, onAddPoints }:
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleNumberClick("clear")}
-                    className="h-16 text-xl bg-black/50 hover:bg-violet-500/20 border border-white/10 text-white/90 transition-colors rounded-lg"
+                    className="h-16 text-xl bg-black/50 hover:bg-[#debe5d]/20 border border-white/10 text-white/90 transition-colors rounded-lg"
                   >
                     C
                   </motion.button>
@@ -91,7 +91,7 @@ export function AddPointsDialog({ playerName, open, onOpenChange, onAddPoints }:
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleNumberClick("0")}
-                    className="h-16 text-2xl bg-black/50 hover:bg-violet-500/20 border border-white/10 text-white/90 transition-colors rounded-lg"
+                    className="h-16 text-2xl bg-black/50 hover:bg-[#debe5d]/20 border border-white/10 text-white/90 transition-colors rounded-lg"
                   >
                     0
                   </motion.button>
@@ -100,7 +100,7 @@ export function AddPointsDialog({ playerName, open, onOpenChange, onAddPoints }:
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleNumberClick("backspace")}
-                    className="h-16 text-xl bg-black/50 hover:bg-violet-500/20 border border-white/10 text-white/90 transition-colors rounded-lg"
+                    className="h-16 text-xl bg-black/50 hover:bg-[#debe5d]/20 border border-white/10 text-white/90 transition-colors rounded-lg"
                   >
                     ←
                   </motion.button>
@@ -128,7 +128,7 @@ export function AddPointsDialog({ playerName, open, onOpenChange, onAddPoints }:
               >
                 <Button 
                   type="submit" 
-                  className="w-full bg-violet-500 hover:bg-violet-500/90 text-white transition-colors"
+                  className="w-full bg-[#debe5d] hover:bg-[#debe5d]/90 text-white transition-colors"
                 >
                   Add Points
                 </Button>
