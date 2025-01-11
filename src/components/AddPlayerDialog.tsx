@@ -33,8 +33,11 @@ export function AddPlayerDialog({ onAddPlayer }: AddPlayerDialogProps) {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg">
-          <Plus className="h-6 w-6" />
+        <Button 
+          className="w-full bg-black/50 border border-white/10 text-white/90 hover:bg-violet-500/20 hover:border-violet-500/50 transition-colors h-[72px] rounded-lg shadow-lg"
+        >
+          <Plus className="h-6 w-6 mr-2" />
+          Spieler hinzufügen
         </Button>
       </DrawerTrigger>
       <DrawerContent className="bg-mystic-dark/90 backdrop-blur-lg border-t-2 border-primary/20">
