@@ -46,19 +46,35 @@ export function PlayerCard({
 
   return (
     <div className="w-full relative group">
-      <div className="absolute inset-0 rounded-2xl border border-white/10" />
-      <div className="p-3 sm:p-4 rounded-2xl bg-black/90 backdrop-blur-xl relative">
-        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
+      <div className="absolute inset-0 rounded-xl border border-white/10" />
+      <div 
+        className={cn(
+          "p-2.5 rounded-xl bg-black/90 backdrop-blur-xl relative transition-all duration-200",
+          gameStarted && !hasCurrentRoundPoints && "hover:bg-white/5 cursor-pointer"
+        )}
+        onClick={() => {
+          if (gameStarted && !hasCurrentRoundPoints) {
+            onAddPoints();
+          }
+        }}
+      >
+        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1 z-10">
           {!gameStarted && !isEditingName && (
             <button
-              onClick={() => setIsEditingName(true)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsEditingName(true);
+              }}
               className="p-1.5 text-white/70 hover:text-white rounded-full hover:bg-white/5"
             >
               <Edit className="h-3.5 w-3.5" />
             </button>
           )}
           <button
-            onClick={onEditPoints}
+            onClick={(e) => {
+              e.stopPropagation();
+              onEditPoints();
+            }}
             className={cn(
               "p-1.5 rounded-full hover:bg-white/5",
               gameStarted ? "text-white/70 hover:text-white" : "hidden"
@@ -68,7 +84,10 @@ export function PlayerCard({
           </button>
           {!gameStarted && (
             <button
-              onClick={onDelete}
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete();
+              }}
               className="p-1.5 text-red-400/70 hover:text-red-400 rounded-full hover:bg-white/5"
             >
               <Trash2 className="h-3.5 w-3.5" />
@@ -79,7 +98,7 @@ export function PlayerCard({
         <div className="flex items-center gap-2 justify-between">
           <div className="flex items-center gap-2 flex-1 min-w-0">
             <span className={cn(
-              "text-lg sm:text-xl font-bold",
+              "text-lg font-bold",
               isTopPlayer ? "text-white" : "text-white/60"
             )}>#{rank}</span>
             
@@ -88,7 +107,7 @@ export function PlayerCard({
                 <Input
                   value={editedName}
                   onChange={(e) => setEditedName(e.target.value)}
-                  className="text-sm sm:text-base font-semibold text-white bg-white/5 border-white/20"
+                  className="text-sm font-semibold text-white bg-white/5 border-white/20"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       handleNameSubmit();
@@ -97,14 +116,17 @@ export function PlayerCard({
                   autoFocus
                 />
                 <button
-                  onClick={handleNameSubmit}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleNameSubmit();
+                  }}
                   className="p-1.5 text-white/70 hover:text-white rounded-full hover:bg-white/5"
                 >
                   <Check className="h-3.5 w-3.5" />
                 </button>
               </div>
             ) : (
-              <h3 className="text-sm sm:text-base font-semibold text-white flex items-center gap-2 truncate">
+              <h3 className="text-sm font-semibold text-white flex items-center gap-2 truncate">
                 {name}
                 {isTopPlayer && gameStarted && totalPoints > 0 && (
                   <Crown className="h-4 w-4 text-yellow-400 animate-pulse" />
@@ -113,7 +135,7 @@ export function PlayerCard({
             )}
             
             <div className={cn(
-              "text-lg sm:text-xl font-bold ml-auto",
+              "text-lg font-bold ml-auto",
               isTopPlayer ? "text-white" : "text-white/60"
             )}>
               <CountAnimation 
@@ -126,22 +148,12 @@ export function PlayerCard({
         </div>
         
         {gameStarted && (
-          <div className="mt-2">
-            {!hasCurrentRoundPoints && (
-              <button
-                onClick={onAddPoints}
-                className={cn(
-                  "w-full px-2 py-1 rounded-lg transition-colors text-xs",
-                  "bg-white/5 hover:bg-white/10",
-                  "border border-white/10 hover:border-white/20",
-                  "text-white font-medium backdrop-blur-sm"
-                )}
-              >
-                Add Round {currentRound} Points
-              </button>
-            )}
-            
-            {hasCurrentRoundPoints && (
+          <div className="mt-1.5">
+            {!hasCurrentRoundPoints ? (
+              <div className="text-xs text-white/60 text-center">
+                Tap to add Round {currentRound} points
+              </div>
+            ) : (
               <div className="text-xs text-white/60">
                 Round {currentRound} Points: {roundPoints[currentRound]}
               </div>
