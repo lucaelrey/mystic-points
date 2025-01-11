@@ -63,7 +63,7 @@ export function GameControls({
             <Button
               onClick={() => currentRound === 1 ? setShowRestartDialog(true) : onPreviousRound()}
               className={cn(
-                "w-full sm:w-auto px-6 py-3 text-base bg-mystic-dark hover:bg-mystic-dark/80 text-white",
+                "w-full sm:w-auto px-6 py-3 text-base bg-black/50 hover:bg-[#debe5d]/20 text-white",
                 "border-2 border-[#debe5d]/20 hover:border-[#debe5d]/40 transition-all duration-300",
                 "flex items-center justify-center gap-2"
               )}
@@ -86,7 +86,7 @@ export function GameControls({
               <Button
                 onClick={() => setShowEndGameDialog(true)}
                 className={cn(
-                  "w-full sm:w-auto px-6 py-3 text-base bg-mystic-dark hover:bg-mystic-dark/80 text-white",
+                  "w-full sm:w-auto px-6 py-3 text-base bg-black/50 hover:bg-[#debe5d]/20 text-white",
                   "border-2 border-[#debe5d]/20 hover:border-[#debe5d]/40 transition-all duration-300"
                 )}
                 variant="outline"
