@@ -44,9 +44,9 @@ export function AddPointsDialog({ playerName, open, onOpenChange, onAddPoints }:
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px] bg-mystic-dark border-accent">
+      <DialogContent className="sm:max-w-[425px] bg-black/50 backdrop-blur-sm border border-white/10">
         <DialogHeader>
-          <DialogTitle className="text-mystic-light">Add Points for {playerName}</DialogTitle>
+          <DialogTitle className="text-white/90">Add Points for {playerName}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
           {isMobile ? (
@@ -55,7 +55,7 @@ export function AddPointsDialog({ playerName, open, onOpenChange, onAddPoints }:
                 type="text"
                 value={points}
                 readOnly
-                className="text-center text-2xl h-12 bg-mystic-dark border-accent text-mystic-light"
+                className="text-center text-2xl h-12 bg-black/50 border-white/10 text-white/90"
               />
               <div className="grid grid-cols-3 gap-2">
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
@@ -64,7 +64,7 @@ export function AddPointsDialog({ playerName, open, onOpenChange, onAddPoints }:
                     type="button"
                     variant="outline"
                     onClick={() => handleNumberClick(num.toString())}
-                    className="h-16 text-2xl bg-mystic-dark hover:bg-accent/20 border-accent text-mystic-light"
+                    className="h-16 text-2xl bg-black/50 hover:bg-violet-500/20 border border-white/10 text-white/90 transition-colors"
                   >
                     {num}
                   </Button>
@@ -73,7 +73,7 @@ export function AddPointsDialog({ playerName, open, onOpenChange, onAddPoints }:
                   type="button"
                   variant="outline"
                   onClick={() => handleNumberClick("clear")}
-                  className="h-16 text-xl bg-mystic-dark hover:bg-accent/20 border-accent text-mystic-light"
+                  className="h-16 text-xl bg-black/50 hover:bg-violet-500/20 border border-white/10 text-white/90 transition-colors"
                 >
                   C
                 </Button>
@@ -81,7 +81,7 @@ export function AddPointsDialog({ playerName, open, onOpenChange, onAddPoints }:
                   type="button"
                   variant="outline"
                   onClick={() => handleNumberClick("0")}
-                  className="h-16 text-2xl bg-mystic-dark hover:bg-accent/20 border-accent text-mystic-light"
+                  className="h-16 text-2xl bg-black/50 hover:bg-violet-500/20 border border-white/10 text-white/90 transition-colors"
                 >
                   0
                 </Button>
@@ -89,7 +89,7 @@ export function AddPointsDialog({ playerName, open, onOpenChange, onAddPoints }:
                   type="button"
                   variant="outline"
                   onClick={() => handleNumberClick("backspace")}
-                  className="h-16 text-xl bg-mystic-dark hover:bg-accent/20 border-accent text-mystic-light"
+                  className="h-16 text-xl bg-black/50 hover:bg-violet-500/20 border border-white/10 text-white/90 transition-colors"
                 >
                   ←
                 </Button>
@@ -106,13 +106,13 @@ export function AddPointsDialog({ playerName, open, onOpenChange, onAddPoints }:
                   setPoints(value);
                 }
               }}
-              className="bg-mystic-dark border-accent text-mystic-light placeholder:text-mystic-light/50"
+              className="bg-black/50 border-white/10 text-white/90 placeholder:text-white/50"
               max="999"
             />
           )}
           <Button 
             type="submit" 
-            className="w-full bg-primary hover:bg-primary/90 text-white"
+            className="w-full bg-violet-500 hover:bg-violet-500/90 text-white transition-colors"
           >
             Add Points
           </Button>
