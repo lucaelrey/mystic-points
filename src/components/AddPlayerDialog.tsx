@@ -15,9 +15,10 @@ import {
 
 interface AddPlayerDialogProps {
   onAddPlayer: (name: string) => void;
+  children?: React.ReactNode;
 }
 
-export function AddPlayerDialog({ onAddPlayer }: AddPlayerDialogProps) {
+export function AddPlayerDialog({ onAddPlayer, children }: AddPlayerDialogProps) {
   const [name, setName] = useState("");
   const [open, setOpen] = useState(false);
 
@@ -33,12 +34,14 @@ export function AddPlayerDialog({ onAddPlayer }: AddPlayerDialogProps) {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button 
-          className="w-full bg-black/50 border border-white/10 text-white/90 hover:bg-violet-500/20 hover:border-violet-500/50 transition-colors h-[72px] rounded-lg shadow-lg"
-        >
-          <Plus className="h-6 w-6 mr-2" />
-          Spieler hinzufügen
-        </Button>
+        {children || (
+          <Button 
+            className="w-full bg-black/50 border border-white/10 text-white/90 hover:bg-violet-500/20 hover:border-violet-500/50 transition-colors h-[72px] rounded-lg shadow-lg"
+          >
+            <Plus className="h-6 w-6 mr-2" />
+            Spieler hinzufügen
+          </Button>
+        )}
       </DrawerTrigger>
       <DrawerContent className="bg-mystic-dark/90 backdrop-blur-lg border-t-2 border-primary/20">
         <div className="mx-auto w-full max-w-sm pb-6">

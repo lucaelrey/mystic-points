@@ -90,11 +90,15 @@ export function GameContent() {
           )}
 
           {players.length === 0 && (
-            <div className="text-center py-12 bg-black/80 backdrop-blur-lg rounded-xl border border-violet-500/20 shadow-lg">
-              <p className="text-violet-200/80">Noch keine Spieler hinzugefügt.</p>
-              <p className="text-violet-200/80 mt-2">Klicke auf + um Spieler hinzuzufügen.</p>
-            </div>
+            <AddPlayerDialog onAddPlayer={addPlayer}>
+              <div className="text-center py-12 bg-black/80 backdrop-blur-lg rounded-xl border border-violet-500/20 shadow-lg hover:bg-violet-500/5 hover:border-violet-500/50 transition-all cursor-pointer">
+                <p className="text-violet-200/80">Noch keine Spieler hinzugefügt.</p>
+                <p className="text-violet-200/80 mt-2">Klicke auf + um Spieler hinzuzufügen.</p>
+              </div>
+            </AddPlayerDialog>
           )}
+
+          {players.length > 0 && !gameStarted && <AddPlayerDialog onAddPlayer={addPlayer} />}
 
           <GameControls
             gameStarted={gameStarted}
@@ -108,8 +112,6 @@ export function GameContent() {
             canGoBack={currentRound > 1}
             canStartGame={players.length >= 2}
           />
-
-          {!gameStarted && <AddPlayerDialog onAddPlayer={addPlayer} />}
           
           <AddPointsDialog
             playerName={selectedPlayer?.name ?? ""}
