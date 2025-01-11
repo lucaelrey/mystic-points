@@ -84,14 +84,10 @@ export function GameControls({
             )}
           </>
         )}
-        {!gameStarted && !showEndGameDialog && (
+        {!gameStarted && !showEndGameDialog && canStartGame && (
           <RainbowButton
             onClick={onResetGame}
-            disabled={!canStartGame}
-            className={cn(
-              "px-8 py-4 text-lg",
-              !canStartGame && "opacity-50 cursor-not-allowed"
-            )}
+            className="px-8 py-4 text-lg"
           >
             Start New Game
           </RainbowButton>
