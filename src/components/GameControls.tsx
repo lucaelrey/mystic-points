@@ -41,7 +41,7 @@ export function GameControls({
           <>
             <Button
               onClick={() => currentRound === 1 ? setShowRestartDialog(true) : onPreviousRound()}
-              className="px-4 py-2 bg-mystic-dark hover:bg-mystic-dark/80 text-mystic-light border-2 border-accent/50"
+              className="px-8 py-4 text-lg bg-mystic-dark hover:bg-mystic-dark/80 text-white border-2 border-primary/20 hover:border-primary/40 transition-all duration-300"
               variant="outline"
             >
               {currentRound === 1 ? (
@@ -76,7 +76,7 @@ export function GameControls({
             {currentRound > 1 && (
               <Button
                 onClick={() => setShowEndGameDialog(true)}
-                className="px-4 py-2 bg-mystic-dark hover:bg-mystic-dark/80 text-mystic-light border-2 border-accent/50"
+                className="px-8 py-4 text-lg bg-mystic-dark hover:bg-mystic-dark/80 text-white border-2 border-primary/20 hover:border-primary/40 transition-all duration-300"
                 variant="outline"
               >
                 End Game Early
@@ -88,8 +88,8 @@ export function GameControls({
           <Button
             onClick={onResetGame}
             className={cn(
-              "px-8 py-4 text-lg",
-              canStartGame ? "bg-mystic-dark hover:bg-mystic-dark/80" : "opacity-50 cursor-not-allowed"
+              "px-8 py-4 text-lg bg-mystic-dark hover:bg-mystic-dark/80 text-white border-2 border-primary/20 hover:border-primary/40 transition-all duration-300",
+              !canStartGame && "opacity-50 cursor-not-allowed"
             )}
             disabled={!canStartGame}
           >
