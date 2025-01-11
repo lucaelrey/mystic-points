@@ -1,101 +1,102 @@
-import { Crown, Trophy, Medal, ArrowBigDown } from "lucide-react";
 import { Player } from "@/types/game";
-import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import confetti from "canvas-confetti";
+import { useEffect } from "react";
 
 interface WinnerDisplayProps {
   players: Player[];
 }
 
+const calculateTotalPoints = (roundPoints: { [key: number]: number }) => {
+  return Object.values(roundPoints).reduce((sum, points) => sum + points, 0);
+};
+
 export function WinnerDisplay({ players }: WinnerDisplayProps) {
+  useEffect(() => {
+    const duration = 3 * 1000;
+    const animationEnd = Date.now() + duration;
+
+    const randomInRange = (min: number, max: number) => {
+      return Math.random() * (max - min) + min;
+    };
+
+    const interval = setInterval(() => {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        clearInterval(interval);
+        return;
+      }
+
+      const particleCount = 50 * (timeLeft / duration);
+
+      confetti({
+        particleCount,
+        origin: { x: randomInRange(0.3, 0.7), y: randomInRange(0.3, 0.7) },
+        colors: ['#8B5CF6', '#D6BCFA', '#7E69AB'],
+        spread: 80,
+        decay: 0.95,
+      });
+    }, 250);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const sortedPlayers = [...players].sort((a, b) => {
-    const totalPointsA = Object.values(a.roundPoints).reduce((sum, points) => sum + points, 0);
-    const totalPointsB = Object.values(b.roundPoints).reduce((sum, points) => sum + points, 0);
+    const totalPointsA = calculateTotalPoints(a.roundPoints);
+    const totalPointsB = calculateTotalPoints(b.roundPoints);
     return totalPointsA - totalPointsB;
   });
 
-  const getRankIcon = (rank: number) => {
-    switch (rank) {
-      case 1:
-        return <Crown className="h-6 w-6 sm:h-8 sm:w-8 text-yellow-400" />;
-      case 2:
-        return <Trophy className="h-6 w-6 sm:h-8 sm:w-8 text-gray-400" />;
-      case 3:
-        return <Medal className="h-6 w-6 sm:h-8 sm:w-8 text-amber-700" />;
-      default:
-        return null;
-    }
-  };
+  const winner = sortedPlayers[0];
+
+  if (!winner) return null;
 
   return (
-    <div className="text-center mx-4 sm:mx-auto mb-8 p-4 sm:p-8 bg-white/5 backdrop-blur-lg rounded-xl border-2 border-violet-500/20 shadow-lg animate-mystic-glow">
-      <div className="flex justify-center mb-4">
-        <ArrowBigDown className="h-8 w-8 sm:h-12 sm:w-12 text-violet-400 animate-bounce" />
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="space-y-8 w-full max-w-2xl mx-auto p-6"
+    >
+      <div className="text-center space-y-4">
+        <h2 className="text-3xl font-bold text-violet-400">
+          🎉 Game Over! 🎉
+        </h2>
+        <p className="text-xl text-white/80">
+          {winner.name} wins with {calculateTotalPoints(winner.roundPoints)} points!
+        </p>
       </div>
-      
-      <h2 className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-400 mb-4 sm:mb-6">
-        Game Over!
-      </h2>
 
-      <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
-        {sortedPlayers.map((player, index) => {
-          const totalPoints = Object.values(player.roundPoints).reduce((sum, points) => sum + points, 0);
-          const rank = index + 1;
-          
-          return (
-            <div 
-              key={player.id}
-              className={cn(
-                "p-3 sm:p-4 rounded-xl border-2 transition-all backdrop-blur-sm",
-                rank === 1 
-                  ? "bg-white/10 border-violet-400/50 animate-pulse"
-                  : "bg-white/5 border-violet-500/20"
-              )}
-            >
-              <div className="flex items-center justify-between flex-wrap sm:flex-nowrap gap-2">
-                <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
-                  <span className="text-xl sm:text-2xl font-bold text-violet-400">#{rank}</span>
-                  {getRankIcon(rank)}
-                  <div className="text-left flex-1 sm:flex-none">
-                    <p className={cn(
-                      "text-lg sm:text-xl font-semibold truncate max-w-[150px] sm:max-w-none",
-                      rank === 1 ? "text-violet-300" : "text-white"
-                    )}>
-                      {player.name}
-                    </p>
-                    <div className="hidden sm:block space-y-1">
-                      {Object.entries(player.roundPoints).map(([round, points]) => (
-                        <p key={round} className="text-xs sm:text-sm text-white/60">
-                          Round {round}: {points} Points
-                        </p>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <div className="text-right flex items-center gap-2 sm:block ml-auto">
-                  <p className={cn(
-                    "text-xl sm:text-2xl font-bold",
-                    rank === 1 ? "text-violet-300" : "text-white"
-                  )}>
-                    {totalPoints} Points
-                  </p>
-                  <p className="text-xs sm:text-sm text-white/60">Total Score</p>
-                </div>
+      <div className="space-y-6">
+        <h3 className="text-xl font-semibold text-violet-300">Final Standings:</h3>
+        {sortedPlayers.map((player, index) => (
+          <motion.div
+            key={player.id}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: index * 0.1 }}
+            className="bg-black/50 backdrop-blur-lg border border-violet-500/20 rounded-lg p-4 shadow-lg hover:border-violet-500/50 transition-all"
+          >
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <h3 className="text-xl font-bold text-white">
+                  {index + 1}. {player.name}
+                </h3>
+                <span className="text-lg font-semibold text-violet-300">
+                  Total: {calculateTotalPoints(player.roundPoints)} Points
+                </span>
               </div>
-              <div className="sm:hidden mt-2 space-y-1">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {Object.entries(player.roundPoints).map(([round, points]) => (
-                  <p key={round} className="text-xs text-white/60">
+                  <p key={round} className="text-sm text-white/60">
                     Round {round}: {points} Points
                   </p>
                 ))}
               </div>
             </div>
-          );
-        })}
+          </motion.div>
+        ))}
       </div>
-
-      <div className="text-xs sm:text-sm text-white/60 italic">
-        (Lowest score wins!)
-      </div>
-    </div>
+    </motion.div>
   );
 }
