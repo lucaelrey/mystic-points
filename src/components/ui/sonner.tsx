@@ -10,7 +10,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
     <Sonner
       theme={theme as ToasterProps["theme"]}
       className="toaster group"
-      position="bottom-left"
+      position="bottom-right"
       duration={3000}
       toastOptions={{
         style: {
@@ -18,6 +18,8 @@ const Toaster = ({ ...props }: ToasterProps) => {
           color: "#D6BCFA",
           border: "2px solid rgba(155, 135, 245, 0.2)",
           backdropFilter: "blur(8px)",
+          marginBottom: "80px", // Add margin to avoid overlapping with the Add Player button
+          marginRight: "24px", // Add margin from the right edge
         },
       }}
       {...props}
