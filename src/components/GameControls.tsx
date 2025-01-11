@@ -97,17 +97,17 @@ export function GameControls({
           </>
         )}
         {!gameStarted && !showEndGameDialog && (
-          <Button
+          <RainbowButton
             onClick={onResetGame}
             className={cn(
-              "w-full sm:w-auto px-8 py-4 text-lg bg-mystic-dark hover:bg-mystic-dark/80 text-white",
-              "border-2 border-primary/20 hover:border-primary/40 transition-all duration-300",
+              "w-full sm:w-auto px-6 py-3 text-base",
+              "flex items-center justify-center gap-2",
               !canStartGame && "opacity-50 cursor-not-allowed"
             )}
             disabled={!canStartGame}
           >
             Start New Game
-          </Button>
+          </RainbowButton>
         )}
       </div>
 
