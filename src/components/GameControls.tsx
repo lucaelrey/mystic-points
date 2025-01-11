@@ -84,13 +84,17 @@ export function GameControls({
             )}
           </>
         )}
-        {!gameStarted && !showEndGameDialog && canStartGame && (
-          <RainbowButton
+        {!gameStarted && !showEndGameDialog && (
+          <Button
             onClick={onResetGame}
-            className="px-8 py-4 text-lg"
+            className={cn(
+              "px-8 py-4 text-lg",
+              canStartGame ? "bg-mystic-dark hover:bg-mystic-dark/80" : "opacity-50 cursor-not-allowed"
+            )}
+            disabled={!canStartGame}
           >
             Start New Game
-          </RainbowButton>
+          </Button>
         )}
       </div>
 
