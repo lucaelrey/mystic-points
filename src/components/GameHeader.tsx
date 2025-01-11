@@ -12,7 +12,7 @@ export function GameHeader({ currentRound, maxRounds, gameStarted }: GameHeaderP
       <img 
         src="/lovable-uploads/0189c651-c9bd-4a23-8cfb-f3a08ebc3dd2.png"
         alt="Mystic"
-        className="w-full max-w-[300px] sm:max-w-[400px] mx-auto mb-4 sm:mb-6 drop-shadow-[0_0_15px_rgba(218,165,32,0.3)]"
+        className="w-full max-w-[200px] sm:max-w-[400px] mx-auto mb-4 sm:mb-6 drop-shadow-[0_0_15px_rgba(218,165,32,0.3)]"
       />
       
       {gameStarted && (
