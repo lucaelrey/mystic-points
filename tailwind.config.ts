@@ -94,6 +94,16 @@ export default {
           "0%": { "background-position": "0%" },
           "100%": { "background-position": "200%" },
         },
+        scale: {
+          "0%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.05)" },
+          "100%": { transform: "scale(1)" },
+        },
+        highlight: {
+          "0%": { backgroundColor: "rgba(139, 92, 246, 0)" },
+          "50%": { backgroundColor: "rgba(139, 92, 246, 0.1)" },
+          "100%": { backgroundColor: "rgba(139, 92, 246, 0)" },
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -102,6 +112,8 @@ export default {
         "fade-in": "fade-in 0.3s ease-out",
         "mystic-glow": "glow 3s ease-in-out infinite",
         "rainbow": "rainbow var(--speed, 2s) infinite linear",
+        "scale-bounce": "scale 0.5s ease-in-out",
+        "highlight-pulse": "highlight 1s ease-in-out",
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

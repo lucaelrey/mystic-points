@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { motion } from "framer-motion";
 import {
   Drawer,
   DrawerContent,
@@ -65,40 +66,44 @@ export function AddPointsDialog({ playerName, open, onOpenChange, onAddPoints }:
                 />
                 <div className="grid grid-cols-3 gap-3">
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-                    <Button
+                    <motion.button
                       key={num}
                       type="button"
-                      variant="outline"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                       onClick={() => handleNumberClick(num.toString())}
-                      className="h-16 text-2xl bg-black/50 hover:bg-violet-500/20 border border-white/10 text-white/90 transition-colors"
+                      className="h-16 text-2xl bg-black/50 hover:bg-violet-500/20 border border-white/10 text-white/90 transition-colors rounded-lg"
                     >
                       {num}
-                    </Button>
+                    </motion.button>
                   ))}
-                  <Button
+                  <motion.button
                     type="button"
-                    variant="outline"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => handleNumberClick("clear")}
-                    className="h-16 text-xl bg-black/50 hover:bg-violet-500/20 border border-white/10 text-white/90 transition-colors"
+                    className="h-16 text-xl bg-black/50 hover:bg-violet-500/20 border border-white/10 text-white/90 transition-colors rounded-lg"
                   >
                     C
-                  </Button>
-                  <Button
+                  </motion.button>
+                  <motion.button
                     type="button"
-                    variant="outline"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => handleNumberClick("0")}
-                    className="h-16 text-2xl bg-black/50 hover:bg-violet-500/20 border border-white/10 text-white/90 transition-colors"
+                    className="h-16 text-2xl bg-black/50 hover:bg-violet-500/20 border border-white/10 text-white/90 transition-colors rounded-lg"
                   >
                     0
-                  </Button>
-                  <Button
+                  </motion.button>
+                  <motion.button
                     type="button"
-                    variant="outline"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => handleNumberClick("backspace")}
-                    className="h-16 text-xl bg-black/50 hover:bg-violet-500/20 border border-white/10 text-white/90 transition-colors"
+                    className="h-16 text-xl bg-black/50 hover:bg-violet-500/20 border border-white/10 text-white/90 transition-colors rounded-lg"
                   >
                     ←
-                  </Button>
+                  </motion.button>
                 </div>
               </div>
             ) : (
@@ -117,12 +122,17 @@ export function AddPointsDialog({ playerName, open, onOpenChange, onAddPoints }:
               />
             )}
             <DrawerFooter className="px-0">
-              <Button 
-                type="submit" 
-                className="w-full bg-violet-500 hover:bg-violet-500/90 text-white transition-colors"
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                Add Points
-              </Button>
+                <Button 
+                  type="submit" 
+                  className="w-full bg-violet-500 hover:bg-violet-500/90 text-white transition-colors"
+                >
+                  Add Points
+                </Button>
+              </motion.div>
             </DrawerFooter>
           </form>
         </div>

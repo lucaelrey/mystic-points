@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Drawer,
   DrawerClose,
@@ -34,14 +35,20 @@ export function AddPlayerDialog({ onAddPlayer, children }: AddPlayerDialogProps)
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        {children || (
-          <Button 
-            className="w-full bg-black/50 border border-white/10 text-white/90 hover:bg-violet-500/20 hover:border-violet-500/50 transition-colors h-[72px] rounded-lg shadow-lg"
-          >
-            <Plus className="h-6 w-6 mr-2" />
-            Spieler hinzufügen
-          </Button>
-        )}
+        <motion.div
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="w-full"
+        >
+          {children || (
+            <Button 
+              className="w-full bg-black/50 border border-white/10 text-white/90 hover:bg-violet-500/20 hover:border-violet-500/50 transition-colors h-[72px] rounded-lg shadow-lg"
+            >
+              <Plus className="h-6 w-6 mr-2" />
+              Spieler hinzufügen
+            </Button>
+          )}
+        </motion.div>
       </DrawerTrigger>
       <DrawerContent className="bg-[#1A1F2C]/95 backdrop-blur-lg border-t-2 border-[#8B5CF6]/20">
         <div className="mx-auto w-full max-w-sm pb-6">

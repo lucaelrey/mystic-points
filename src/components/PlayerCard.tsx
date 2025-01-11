@@ -1,8 +1,9 @@
 import { Crown, Trash2, Edit, Check, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "./ui/input";
 import { CountAnimation } from "./ui/count-animation";
+import { motion } from "framer-motion";
 
 interface PlayerCardProps {
   name: string;
@@ -31,9 +32,18 @@ export function PlayerCard({
 }: PlayerCardProps) {
   const [isEditingName, setIsEditingName] = useState(false);
   const [editedName, setEditedName] = useState(name);
+  const [isHighlighted, setIsHighlighted] = useState(false);
   const isTopPlayer = rank === 1 && Object.keys(roundPoints).length > 0;
   const hasCurrentRoundPoints = roundPoints[currentRound] !== undefined;
   const totalPoints = Object.values(roundPoints).reduce((sum, points) => sum + points, 0);
+
+  useEffect(() => {
+    if (hasCurrentRoundPoints) {
+      setIsHighlighted(true);
+      const timer = setTimeout(() => setIsHighlighted(false), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [roundPoints, currentRound]);
 
   const handleNameSubmit = () => {
     if (editedName.trim() && onNameChange) {
@@ -43,12 +53,19 @@ export function PlayerCard({
   };
 
   return (
-    <div className="relative group">
+    <motion.div 
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.2 }}
+      className="relative group"
+    >
       <div 
         className={cn(
           "relative rounded-lg border transition-all duration-200",
           isTopPlayer ? "border-violet-500/30 shadow-lg shadow-violet-500/10" : "border-white/10",
-          gameStarted && !hasCurrentRoundPoints && "hover:border-violet-500/50 cursor-pointer"
+          gameStarted && !hasCurrentRoundPoints && "hover:border-violet-500/50 cursor-pointer",
+          isHighlighted && "animate-highlight-pulse"
         )}
       >
         <div 
@@ -63,7 +80,6 @@ export function PlayerCard({
           }}
         >
           <div className="flex items-center justify-between gap-4">
-            {/* Left section: Rank and Name */}
             <div className="flex items-center gap-3 flex-1 min-w-0">
               <div className={cn(
                 "flex items-center justify-center w-8 h-8 rounded-full shrink-0",
@@ -105,17 +121,19 @@ export function PlayerCard({
               )}
             </div>
 
-            {/* Right section: Points and Actions */}
             <div className="flex items-center gap-4">
-              <div className={cn(
-                "flex items-center gap-1.5",
-                isTopPlayer ? "text-violet-300" : "text-white/60"
-              )}>
+              <motion.div 
+                className={cn(
+                  "flex items-center gap-1.5",
+                  isTopPlayer ? "text-violet-300" : "text-white/60"
+                )}
+                animate={{ scale: hasCurrentRoundPoints ? [1, 1.1, 1] : 1 }}
+                transition={{ duration: 0.3 }}
+              >
                 <CountAnimation number={totalPoints} className="text-lg font-bold" />
                 <span className="text-xs opacity-60">pts</span>
-              </div>
+              </motion.div>
 
-              {/* Actions */}
               {!gameStarted && (
                 <div className="flex items-center gap-1">
                   {!isEditingName && (
@@ -154,7 +172,6 @@ export function PlayerCard({
             </div>
           </div>
 
-          {/* Round Points */}
           {gameStarted && (
             <div className={cn(
               "mt-2 pt-2 border-t border-white/5",
@@ -166,14 +183,18 @@ export function PlayerCard({
                   <span>Add Round {currentRound} points</span>
                 </div>
               ) : (
-                <div className="text-xs text-white/60 text-center">
+                <motion.div 
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-xs text-white/60 text-center"
+                >
                   Round {currentRound}: {roundPoints[currentRound]} points
-                </div>
+                </motion.div>
               )}
             </div>
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
