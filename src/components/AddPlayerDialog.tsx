@@ -64,6 +64,7 @@ export function AddPlayerDialog({ onAddPlayer, children }: AddPlayerDialogProps)
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="bg-transparent border-2 border-[#8B5CF6]/20 text-[#D6BCFA] placeholder:text-[#D6BCFA]/50"
+              autoFocus
             />
             <div className="flex flex-col gap-2">
               <Button 
