@@ -69,7 +69,7 @@ export function AddPlayerDialog({ onAddPlayer, children }: AddPlayerDialogProps)
             <div className="flex flex-col gap-2">
               <Button 
                 type="submit" 
-                className="w-full bg-violet-500 hover:bg-violet-500/90 text-white"
+                className="w-full bg-[#debe5d] hover:bg-[#debe5d]/90 text-white"
               >
                 Add Player
               </Button>
