@@ -1,0 +1,22 @@
+{
+  "game": {
+    "addPlayer": "Spieler hinzufügen",
+    "nextRound": "Nächste Runde",
+    "endGame": "Spiel beenden",
+    "continue": "Weiterspielen",
+    "newGame": "Neues Spiel",
+    "round": "Runde",
+    "of": "von",
+    "finish": "Beenden",
+    "previous": "Zurück",
+    "restart": "Neustart",
+    "endEarly": "Früher beenden",
+    "addPoints": "Punkte hinzufügen",
+    "editPoints": "Punkte bearbeiten",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "points": "Punkte",
+    "selectRound": "Runde auswählen",
+    "language": "Sprache"
+  }
+}

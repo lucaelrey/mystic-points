@@ -1,0 +1,22 @@
+{
+  "game": {
+    "addPlayer": "Add Player",
+    "nextRound": "Next Round",
+    "endGame": "End Game",
+    "continue": "Continue",
+    "newGame": "New Game",
+    "round": "Round",
+    "of": "of",
+    "finish": "Finish",
+    "previous": "Previous",
+    "restart": "Restart",
+    "endEarly": "End Early",
+    "addPoints": "Add Points",
+    "editPoints": "Edit Points",
+    "cancel": "Cancel",
+    "save": "Save",
+    "points": "Points",
+    "selectRound": "Select Round",
+    "language": "Language"
+  }
+}
