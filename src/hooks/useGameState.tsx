@@ -34,6 +34,8 @@ export function useGameState() {
     startGame: startGameBase,
     resetGame: resetGameBase,
     endGame: endGameBase,
+    setGameStarted,
+    setShowWinner,
   } = useGameFlow();
 
   const startGame = () => {

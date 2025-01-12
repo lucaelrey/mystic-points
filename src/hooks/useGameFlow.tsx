@@ -51,7 +51,9 @@ export function useGameFlow() {
 
   return {
     gameStarted,
+    setGameStarted,
     showWinner,
+    setShowWinner,
     showEndGameDialog,
     setShowEndGameDialog,
     startGame,
