@@ -36,16 +36,25 @@ export function GameControls({
   const [showRestartDialog, setShowRestartDialog] = useState(false);
   const isMobile = useIsMobile();
 
+  const primaryButtonClass = cn(
+    "w-full sm:w-auto px-6 py-3 text-base bg-[#debe5d] hover:bg-[#debe5d]/90 text-black",
+    "border-2 border-[#debe5d] transition-all duration-300"
+  );
+
+  const secondaryButtonClass = cn(
+    "w-full sm:w-auto px-6 py-3 text-base bg-black/50 hover:bg-[#debe5d]/20 text-white",
+    "border-2 border-[#debe5d]/20 hover:border-[#debe5d]/40 transition-all duration-300"
+  );
+
   return (
     <>
       <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-3 px-4 w-full max-w-xl mx-auto">
         {gameStarted && (
           <>
-            <StarBorder
+            <Button
               onClick={onAdvanceRound}
               disabled={!canAdvanceRound}
-              className="w-full sm:w-auto"
-              color="#debe5d"
+              className={primaryButtonClass}
             >
               <div className="flex items-center justify-center gap-2">
                 {currentRound === maxRounds ? (
@@ -57,15 +66,11 @@ export function GameControls({
                   <span>Next Round</span>
                 )}
               </div>
-            </StarBorder>
+            </Button>
 
             <Button
               onClick={() => currentRound === 1 ? setShowRestartDialog(true) : onPreviousRound()}
-              className={cn(
-                "w-full sm:w-auto px-6 py-3 text-base bg-black/50 hover:bg-[#debe5d]/20 text-white",
-                "border-2 border-[#debe5d]/20 hover:border-[#debe5d]/40 transition-all duration-300",
-                "flex items-center justify-center gap-2"
-              )}
+              className={secondaryButtonClass}
               variant="outline"
             >
               {currentRound === 1 ? (
@@ -84,10 +89,7 @@ export function GameControls({
             {currentRound > 1 && (
               <Button
                 onClick={() => setShowEndGameDialog(true)}
-                className={cn(
-                  "w-full sm:w-auto px-6 py-3 text-base bg-black/50 hover:bg-[#debe5d]/20 text-white",
-                  "border-2 border-[#debe5d]/20 hover:border-[#debe5d]/40 transition-all duration-300"
-                )}
+                className={secondaryButtonClass}
                 variant="outline"
               >
                 End Early
@@ -96,16 +98,15 @@ export function GameControls({
           </>
         )}
         {!gameStarted && !showEndGameDialog && (
-          <StarBorder
+          <Button
             onClick={onResetGame}
             disabled={!canStartGame}
-            className="w-full sm:w-auto"
-            color="#debe5d"
+            className={primaryButtonClass}
           >
             <div className="flex items-center justify-center gap-2">
               Start New Game
             </div>
-          </StarBorder>
+          </Button>
         )}
       </div>
 
