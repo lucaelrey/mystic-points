@@ -53,13 +53,7 @@ export function PlayerCard({
   };
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.2 }}
-      className="relative group"
-    >
+    <div className="relative group">
       <div 
         className={cn(
           "relative rounded-lg border transition-all duration-200",
@@ -195,6 +189,6 @@ export function PlayerCard({
           )}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
