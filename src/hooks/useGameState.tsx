@@ -36,25 +36,20 @@ export function useGameState() {
   } = useGameFlow();
 
   const startGame = () => {
-    resetPlayerScores();
+    resetPlayerScores(); // Hier wird resetPlayerScores aufgerufen
     setCurrentRound(1);
     startGameBase(players);
   };
 
   const resetGame = () => {
-    resetPlayerScores();
+    resetPlayerScores(); // Hier wird resetPlayerScores aufgerufen
     setCurrentRound(1);
     resetGameBase();
   };
 
   const endGame = () => {
-    // Zuerst das Spiel beenden und Gewinner anzeigen
     endGameBase(players);
-    // Verzögere das Zurücksetzen der Scores
-    setTimeout(() => {
-      resetPlayerScores();
-      setCurrentRound(1);
-    }, 100);
+    setCurrentRound(1);
   };
 
   return {
