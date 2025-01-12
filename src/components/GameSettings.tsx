@@ -1,7 +1,7 @@
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Input } from "@/components/ui/number-input";
 import { useState } from "react";
-import { CircleIcon, Hash3, Hash5, HashIcon, Settings2 } from "lucide-react";
+import { CircleIcon, Hash, HashIcon, Settings2 } from "lucide-react";
 
 interface GameSettingsProps {
   onStartGame: () => void;
@@ -45,7 +45,7 @@ export function GameSettings({ onStartGame, canStartGame, onRoundsChange }: Game
               value="3"
               className="sr-only after:absolute after:inset-0"
             />
-            <Hash3 className="opacity-60" size={20} aria-hidden="true" />
+            <Hash className="opacity-60" size={20} aria-hidden="true" />
             <p className="text-xs font-medium leading-none text-foreground">3 Runden</p>
           </label>
 
@@ -56,7 +56,7 @@ export function GameSettings({ onStartGame, canStartGame, onRoundsChange }: Game
               value="5"
               className="sr-only after:absolute after:inset-0"
             />
-            <Hash5 className="opacity-60" size={20} aria-hidden="true" />
+            <Hash className="opacity-60" size={20} aria-hidden="true" />
             <p className="text-xs font-medium leading-none text-foreground">5 Runden</p>
           </label>
 
