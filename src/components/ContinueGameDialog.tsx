@@ -25,9 +25,9 @@ export function ContinueGameDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md p-6">
         <DialogHeader>
-          <DialogTitle className="text-center text-xl">Weiterspielen?</DialogTitle>
+          <DialogTitle className="text-center text-xl">Continue Playing?</DialogTitle>
           <DialogDescription className="text-center">
-            Es gibt ein laufendes Spiel. Möchtest du weiterspielen?
+            There is an ongoing game. Would you like to continue?
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col space-y-4 pt-4">
@@ -36,7 +36,7 @@ export function ContinueGameDialog({
             className="w-full bg-[#debe5d] hover:bg-[#debe5d]/90"
           >
             <Play className="mr-2" />
-            Weiterspielen
+            Continue Game
           </Button>
           <Button
             onClick={onNewGame}
@@ -44,7 +44,7 @@ export function ContinueGameDialog({
             className="w-full"
           >
             <RefreshCw className="mr-2" />
-            Neues Spiel
+            New Game
           </Button>
         </div>
       </DialogContent>
