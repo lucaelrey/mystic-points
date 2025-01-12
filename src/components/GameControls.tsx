@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { RainbowButton } from "@/components/ui/rainbow-button";
+import { StarBorder } from "@/components/ui/star-border";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, Crown, RotateCcw } from "lucide-react";
 import { useState } from "react";
@@ -41,24 +41,23 @@ export function GameControls({
       <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-3 px-4 w-full max-w-xl mx-auto">
         {gameStarted && (
           <>
-            <RainbowButton
+            <StarBorder
               onClick={onAdvanceRound}
               disabled={!canAdvanceRound}
-              className={cn(
-                "w-full sm:w-auto px-6 py-3 text-base",
-                "flex items-center justify-center gap-2",
-                !canAdvanceRound && "opacity-50 cursor-not-allowed"
-              )}
+              className="w-full sm:w-auto"
+              color="#debe5d"
             >
-              {currentRound === maxRounds ? (
-                <>
-                  <Crown className="h-4 w-4" />
-                  <span>Finish</span>
-                </>
-              ) : (
-                <span>Next Round</span>
-              )}
-            </RainbowButton>
+              <div className="flex items-center justify-center gap-2">
+                {currentRound === maxRounds ? (
+                  <>
+                    <Crown className="h-4 w-4" />
+                    <span>Finish</span>
+                  </>
+                ) : (
+                  <span>Next Round</span>
+                )}
+              </div>
+            </StarBorder>
 
             <Button
               onClick={() => currentRound === 1 ? setShowRestartDialog(true) : onPreviousRound()}
@@ -97,17 +96,16 @@ export function GameControls({
           </>
         )}
         {!gameStarted && !showEndGameDialog && (
-          <RainbowButton
+          <StarBorder
             onClick={onResetGame}
-            className={cn(
-              "w-full sm:w-auto px-6 py-3 text-base",
-              "flex items-center justify-center gap-2",
-              !canStartGame && "opacity-50 cursor-not-allowed"
-            )}
             disabled={!canStartGame}
+            className="w-full sm:w-auto"
+            color="#debe5d"
           >
-            Start New Game
-          </RainbowButton>
+            <div className="flex items-center justify-center gap-2">
+              Start New Game
+            </div>
+          </StarBorder>
         )}
       </div>
 
