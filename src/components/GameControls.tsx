@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { StarBorder } from "@/components/ui/star-border";
+import { RainbowButton } from "@/components/ui/rainbow-button";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, Crown, RotateCcw } from "lucide-react";
 import { useState } from "react";
@@ -41,27 +41,24 @@ export function GameControls({
       <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-3 px-4 w-full max-w-xl mx-auto">
         {gameStarted && (
           <>
-            <StarBorder
+            <RainbowButton
               onClick={onAdvanceRound}
               disabled={!canAdvanceRound}
               className={cn(
-                "w-full sm:w-auto",
-                "disabled:opacity-50",
-                "[&>div:last-child]:bg-[#debe5d] [&>div:last-child]:text-black"
+                "w-full sm:w-auto px-6 py-3 text-base",
+                "flex items-center justify-center gap-2",
+                !canAdvanceRound && "opacity-50 cursor-not-allowed"
               )}
-              color="#debe5d"
             >
-              <div className="flex items-center justify-center gap-2">
-                {currentRound === maxRounds ? (
-                  <>
-                    <Crown className="h-4 w-4" />
-                    <span>Finish</span>
-                  </>
-                ) : (
-                  <span>Next Round</span>
-                )}
-              </div>
-            </StarBorder>
+              {currentRound === maxRounds ? (
+                <>
+                  <Crown className="h-4 w-4" />
+                  <span>Finish</span>
+                </>
+              ) : (
+                <span>Next Round</span>
+              )}
+            </RainbowButton>
 
             <Button
               onClick={() => currentRound === 1 ? setShowRestartDialog(true) : onPreviousRound()}
@@ -100,20 +97,17 @@ export function GameControls({
           </>
         )}
         {!gameStarted && !showEndGameDialog && (
-          <StarBorder
+          <RainbowButton
             onClick={onResetGame}
-            disabled={!canStartGame}
             className={cn(
-              "w-full sm:w-auto",
-              "disabled:opacity-50",
-              "[&>div:last-child]:bg-[#debe5d] [&>div:last-child]:text-black"
+              "w-full sm:w-auto px-6 py-3 text-base",
+              "flex items-center justify-center gap-2",
+              !canStartGame && "opacity-50 cursor-not-allowed"
             )}
-            color="#debe5d"
+            disabled={!canStartGame}
           >
-            <div className="flex items-center justify-center gap-2">
-              Start New Game
-            </div>
-          </StarBorder>
+            Start New Game
+          </RainbowButton>
         )}
       </div>
 

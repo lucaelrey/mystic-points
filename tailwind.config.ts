@@ -80,14 +80,6 @@ export default {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
         },
-        'star-movement-bottom': {
-          '0%': { transform: 'translate(0%, 0%)', opacity: '1' },
-          '100%': { transform: 'translate(-100%, 0%)', opacity: '0' },
-        },
-        'star-movement-top': {
-          '0%': { transform: 'translate(0%, 0%)', opacity: '1' },
-          '100%': { transform: 'translate(100%, 0%)', opacity: '0' },
-        },
         glow: {
           "0%, 100%": { 
             boxShadow: "0 0 15px rgba(222, 190, 93, 0.3)",
@@ -122,8 +114,6 @@ export default {
         "rainbow": "rainbow var(--speed, 2s) infinite linear",
         "scale-bounce": "scale 0.5s ease-in-out",
         "highlight-pulse": "highlight 1s ease-in-out",
-        'star-movement-bottom': 'star-movement-bottom linear infinite alternate',
-        'star-movement-top': 'star-movement-top linear infinite alternate',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
