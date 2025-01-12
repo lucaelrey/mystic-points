@@ -58,18 +58,22 @@ export function useGameState() {
     endGame: endGameBase,
     setGameStarted,
     setShowWinner,
-  } = useGameFlow(gameState.gameStarted, gameState.showWinner, (started, winner) => {
+  } = useGameFlow();
+
+  // Update game state when game status changes
+  const updateGameState = (started: boolean, winner: boolean) => {
     setGameState(prev => ({ 
       ...prev, 
       gameStarted: started,
       showWinner: winner 
     }));
-  });
+  };
 
   const startGame = () => {
     resetPlayerScores();
     setCurrentRound(1);
     startGameBase(players);
+    updateGameState(true, false);
   };
 
   const resetGame = () => {
@@ -88,6 +92,7 @@ export function useGameState() {
 
   const endGame = () => {
     endGameBase(players);
+    updateGameState(false, true);
   };
 
   const handleRoundsChange = (rounds: number) => {
