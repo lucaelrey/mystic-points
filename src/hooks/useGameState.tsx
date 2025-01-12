@@ -2,11 +2,29 @@ import { useState } from "react";
 import { usePlayerManagement } from "./usePlayerManagement";
 import { useRoundManagement } from "./useRoundManagement";
 import { useGameFlow } from "./useGameFlow";
+import { useLocalStorage } from "./useLocalStorage";
+import { Player } from "@/types/game";
+
+interface GameState {
+  players: Player[];
+  currentRound: number;
+  maxRounds: number;
+  gameStarted: boolean;
+  showWinner: boolean;
+}
 
 export function useGameState() {
   const [isEditing, setIsEditing] = useState(false);
-  const [maxRounds, setMaxRounds] = useState(5);
   
+  // Use localStorage for game state
+  const [gameState, setGameState] = useLocalStorage<GameState>("gameState", {
+    players: [],
+    currentRound: 1,
+    maxRounds: 5,
+    gameStarted: false,
+    showWinner: false,
+  });
+
   const {
     players,
     setPlayers,
@@ -16,7 +34,9 @@ export function useGameState() {
     deletePlayer,
     updatePlayerPoints,
     resetPlayerScores,
-  } = usePlayerManagement();
+  } = usePlayerManagement(gameState.players, (newPlayers) => {
+    setGameState(prev => ({ ...prev, players: newPlayers }));
+  });
 
   const {
     currentRound,
@@ -24,7 +44,9 @@ export function useGameState() {
     canAdvanceRound,
     handlePreviousRound,
     handleAdvanceRound,
-  } = useRoundManagement(players);
+  } = useRoundManagement(players, gameState.currentRound, (newRound) => {
+    setGameState(prev => ({ ...prev, currentRound: newRound }));
+  });
 
   const {
     gameStarted,
@@ -36,7 +58,13 @@ export function useGameState() {
     endGame: endGameBase,
     setGameStarted,
     setShowWinner,
-  } = useGameFlow();
+  } = useGameFlow(gameState.gameStarted, gameState.showWinner, (started, winner) => {
+    setGameState(prev => ({ 
+      ...prev, 
+      gameStarted: started,
+      showWinner: winner 
+    }));
+  });
 
   const startGame = () => {
     resetPlayerScores();
@@ -48,6 +76,14 @@ export function useGameState() {
     resetPlayerScores();
     setCurrentRound(1);
     resetGameBase();
+    // Clear localStorage when resetting the game
+    setGameState({
+      players: [],
+      currentRound: 1,
+      maxRounds: 5,
+      gameStarted: false,
+      showWinner: false,
+    });
   };
 
   const endGame = () => {
@@ -55,13 +91,16 @@ export function useGameState() {
   };
 
   const handleRoundsChange = (rounds: number) => {
-    setMaxRounds(rounds);
+    setGameState(prev => ({ ...prev, maxRounds: rounds }));
   };
 
   const addAdditionalRounds = (additionalRounds: number) => {
-    setMaxRounds(prev => prev + additionalRounds);
-    setShowWinner(false);
-    setGameStarted(true);
+    setGameState(prev => ({ 
+      ...prev,
+      maxRounds: prev.maxRounds + additionalRounds,
+      showWinner: false,
+      gameStarted: true 
+    }));
   };
 
   return {
@@ -77,11 +116,11 @@ export function useGameState() {
     
     // Round Management
     currentRound,
-    maxRounds,
+    maxRounds: gameState.maxRounds,
     handleRoundsChange,
     canAdvanceRound,
     handlePreviousRound: () => handlePreviousRound(resetGame),
-    handleAdvanceRound: () => handleAdvanceRound(endGame, maxRounds),
+    handleAdvanceRound: () => handleAdvanceRound(endGame, gameState.maxRounds),
     addAdditionalRounds,
     
     // Game Flow

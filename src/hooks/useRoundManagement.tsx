@@ -2,9 +2,18 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Player } from "@/types/game";
 
-export function useRoundManagement(players: Player[]) {
-  const [currentRound, setCurrentRound] = useState(1);
+export function useRoundManagement(
+  players: Player[], 
+  initialRound: number = 1,
+  onRoundChange?: (round: number) => void
+) {
+  const [currentRound, setCurrentRound] = useState(initialRound);
   const { toast } = useToast();
+
+  const updateRound = (round: number) => {
+    setCurrentRound(round);
+    onRoundChange?.(round);
+  };
 
   const canAdvanceRound = () => {
     return players.length > 0 && players.every((player) => 
@@ -21,7 +30,7 @@ export function useRoundManagement(players: Player[]) {
         description: "The game has been reset. Players are ready for a new game.",
       });
     } else {
-      setCurrentRound(prev => prev - 1);
+      updateRound(currentRound - 1);
       toast({
         title: "Round Changed",
         description: `Returned to round ${currentRound - 1}`,
@@ -40,7 +49,7 @@ export function useRoundManagement(players: Player[]) {
     }
 
     if (currentRound < maxRounds) {
-      setCurrentRound((prev) => prev + 1);
+      updateRound(currentRound + 1);
       toast({
         title: "Round Advanced",
         description: `Starting round ${currentRound + 1}`,
@@ -52,7 +61,7 @@ export function useRoundManagement(players: Player[]) {
 
   return {
     currentRound,
-    setCurrentRound,
+    setCurrentRound: updateRound,
     canAdvanceRound,
     handlePreviousRound,
     handleAdvanceRound,

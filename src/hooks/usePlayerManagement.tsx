@@ -2,10 +2,18 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Player } from "@/types/game";
 
-export function usePlayerManagement() {
-  const [players, setPlayers] = useState<Player[]>([]);
+export function usePlayerManagement(
+  initialPlayers: Player[] = [], 
+  onPlayersChange?: (players: Player[]) => void
+) {
+  const [players, setPlayers] = useState<Player[]>(initialPlayers);
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
   const { toast } = useToast();
+
+  const updatePlayers = (newPlayers: Player[]) => {
+    setPlayers(newPlayers);
+    onPlayersChange?.(newPlayers);
+  };
 
   const addPlayer = (name: string) => {
     const newPlayer: Player = {
@@ -14,7 +22,7 @@ export function usePlayerManagement() {
       points: 0,
       roundPoints: {},
     };
-    setPlayers((prev) => [...prev, newPlayer]);
+    updatePlayers([...players, newPlayer]);
     toast({
       title: "Player added",
       description: `${name} has been added to the game`,
@@ -22,7 +30,7 @@ export function usePlayerManagement() {
   };
 
   const deletePlayer = (id: string) => {
-    setPlayers((prev) => prev.filter((p) => p.id !== id));
+    updatePlayers(players.filter((p) => p.id !== id));
     toast({
       title: "Player removed",
       description: "Player has been removed from the game",
@@ -30,8 +38,8 @@ export function usePlayerManagement() {
   };
 
   const updatePlayerPoints = (playerId: string, round: number, points: number) => {
-    setPlayers((prevPlayers) =>
-      prevPlayers.map((p) => {
+    updatePlayers(
+      players.map((p) => {
         if (p.id === playerId) {
           const updatedRoundPoints = {
             ...p.roundPoints,
@@ -50,8 +58,8 @@ export function usePlayerManagement() {
   };
 
   const resetPlayerScores = () => {
-    setPlayers((prevPlayers) =>
-      prevPlayers.map((p) => ({
+    updatePlayers(
+      players.map((p) => ({
         ...p,
         points: 0,
         roundPoints: {},
@@ -61,7 +69,7 @@ export function usePlayerManagement() {
 
   return {
     players,
-    setPlayers,
+    setPlayers: updatePlayers,
     selectedPlayer,
     setSelectedPlayer,
     addPlayer,
