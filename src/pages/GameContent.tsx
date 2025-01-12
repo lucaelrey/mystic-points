@@ -1,8 +1,8 @@
-import { PlayerCard } from "@/components/PlayerCard";
 import { AddPlayerDialog } from "@/components/AddPlayerDialog";
 import { AddPointsDialog } from "@/components/AddPointsDialog";
 import { EditPointsDialog } from "@/components/EditPointsDialog";
 import { GameHeader } from "@/components/GameHeader";
+import { WinnerDisplay } from "@/components/WinnerDisplay";
 import { GameControls } from "@/components/GameControls";
 import { EndGameDialog } from "@/components/EndGameDialog";
 import { useGameState } from "@/hooks/useGameState";
@@ -20,16 +20,14 @@ export function GameContent() {
     showWinner,
     showEndGameDialog,
     setShowEndGameDialog,
-    addPlayer,
-    deletePlayer,
+    canAdvanceRound,
+    handlePreviousRound,
+    handleAdvanceRound,
     startGame,
     resetGame,
-    handlePreviousRound,
-    canAdvanceRound,
-    handleAdvanceRound,
     endGame,
-    resetPlayerScores,
-    updatePlayerPoints,
+    deletePlayer,
+    addPlayer,
   } = useGameState();
 
   const calculateTotalPoints = (roundPoints: { [key: number]: number }) => {
@@ -51,50 +49,56 @@ export function GameContent() {
           gameStarted={gameStarted}
         />
 
-        <div className="grid gap-6 md:grid-cols-2 mb-8">
-          {sortedPlayers.map((player, index) => (
-            <PlayerCard
-              key={player.id}
-              name={player.name}
-              points={calculateTotalPoints(player.roundPoints)}
-              rank={index + 1}
-              currentRound={currentRound}
-              roundPoints={player.roundPoints}
-              onDelete={() => deletePlayer(player.id)}
-              onAddPoints={() => {
-                setSelectedPlayer(player);
-                setIsEditing(false);
-              }}
-              onEditPoints={() => {
-                setSelectedPlayer(player);
-                setIsEditing(true);
-              }}
-              gameStarted={gameStarted}
-              onNameChange={(newName) => {
-                setPlayers(players.map(p =>
-                  p.id === player.id ? { ...p, name: newName } : p
-                ));
-              }}
-            />
-          ))}
-        </div>
-
-        {players.length === 0 && (
-          <AddPlayerDialog onAddPlayer={addPlayer}>
-            <div className="text-center py-12 backdrop-blur-lg rounded-xl border border-[#debe5d]/20 shadow-lg hover:border-[#debe5d]/50 transition-all cursor-pointer">
-              <p className="text-violet-200/80 mb-2">Noch keine Spieler vorhanden</p>
-              <p className="text-violet-200/80">Hier klicken um Spieler hinzuzufügen</p>
+        {!gameStarted && showWinner ? (
+          <WinnerDisplay players={players} />
+        ) : (
+          <>
+            <div className="grid gap-6 md:grid-cols-2 mb-8">
+              {sortedPlayers.map((player, index) => (
+                <PlayerCard
+                  key={player.id}
+                  name={player.name}
+                  points={calculateTotalPoints(player.roundPoints)}
+                  rank={index + 1}
+                  currentRound={currentRound}
+                  roundPoints={player.roundPoints}
+                  onDelete={() => deletePlayer(player.id)}
+                  onAddPoints={() => {
+                    setSelectedPlayer(player);
+                    setIsEditing(false);
+                  }}
+                  onEditPoints={() => {
+                    setSelectedPlayer(player);
+                    setIsEditing(true);
+                  }}
+                  gameStarted={gameStarted}
+                  onNameChange={(newName) => {
+                    setPlayers(players.map(p =>
+                      p.id === player.id ? { ...p, name: newName } : p
+                    ));
+                  }}
+                />
+              ))}
             </div>
-          </AddPlayerDialog>
-        )}
 
-        {players.length > 0 && !gameStarted && <AddPlayerDialog onAddPlayer={addPlayer} />}
+            {players.length === 0 && (
+              <AddPlayerDialog onAddPlayer={addPlayer}>
+                <div className="text-center py-12 backdrop-blur-lg rounded-xl border border-[#debe5d]/20 shadow-lg hover:border-[#debe5d]/50 transition-all cursor-pointer">
+                  <p className="text-violet-200/80 mb-2">Noch keine Spieler vorhanden</p>
+                  <p className="text-violet-200/80">Hier klicken um Spieler hinzuzufügen</p>
+                </div>
+              </AddPlayerDialog>
+            )}
+
+            {players.length > 0 && !gameStarted && <AddPlayerDialog onAddPlayer={addPlayer} />}
+          </>
+        )}
 
         <GameControls
           gameStarted={gameStarted}
           currentRound={currentRound}
           maxRounds={5}
-          canAdvanceRound={canAdvanceRound()}
+          canAdvanceRound={canAdvanceRound}
           onAdvanceRound={handleAdvanceRound}
           onPreviousRound={handlePreviousRound}
           onEndGame={endGame}
