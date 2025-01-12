@@ -39,7 +39,7 @@ export function GameContent() {
   const sortedPlayers = [...players].sort((a, b) => {
     const totalPointsA = calculateTotalPoints(a.roundPoints);
     const totalPointsB = calculateTotalPoints(b.roundPoints);
-    return totalPointsB - totalPointsA;
+    return totalPointsA - totalPointsB;
   });
 
   return (
