@@ -45,7 +45,7 @@ export function AddPlayerDialog({ onAddPlayer, children }: AddPlayerDialogProps)
               className="w-full bg-black/50 border border-white/10 text-white/90 hover:bg-[#debe5d]/20 hover:border-[#debe5d]/50 transition-colors h-[72px] rounded-lg shadow-lg"
             >
               <Plus className="h-6 w-6 mr-2" />
-              Spieler hinzufügen
+              Add Player
             </Button>
           )}
         </motion.div>
