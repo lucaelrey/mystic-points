@@ -4,8 +4,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
 import Index from "./pages/Index";
-import "./i18n";
-import { LanguageSelector } from "./components/LanguageSelector";
 
 const queryClient = new QueryClient();
 
@@ -38,7 +36,6 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Index />} />
               </Routes>
-              <LanguageSelector />
             </BrowserRouter>
           </TooltipProvider>
         </QueryClientProvider>
