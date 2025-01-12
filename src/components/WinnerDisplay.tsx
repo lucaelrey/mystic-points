@@ -3,8 +3,15 @@ import { Crown } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { useState } from "react";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/number-input";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/ui/drawer";
 
 interface WinnerDisplayProps {
   players: Player[];
@@ -12,7 +19,7 @@ interface WinnerDisplayProps {
 }
 
 export function WinnerDisplay({ players, onContinueGame }: WinnerDisplayProps) {
-  const [showAddRoundsDialog, setShowAddRoundsDialog] = useState(false);
+  const [showAddRoundsDrawer, setShowAddRoundsDrawer] = useState(false);
   const [additionalRounds, setAdditionalRounds] = useState(3);
 
   const sortedPlayers = [...players].sort((a, b) => {
@@ -36,7 +43,7 @@ export function WinnerDisplay({ players, onContinueGame }: WinnerDisplayProps) {
 
   const handleContinueGame = () => {
     onContinueGame?.(additionalRounds);
-    setShowAddRoundsDialog(false);
+    setShowAddRoundsDrawer(false);
   };
 
   return (
@@ -87,7 +94,7 @@ export function WinnerDisplay({ players, onContinueGame }: WinnerDisplayProps) {
       {onContinueGame && (
         <div className="flex justify-center mt-8">
           <Button
-            onClick={() => setShowAddRoundsDialog(true)}
+            onClick={() => setShowAddRoundsDrawer(true)}
             className="bg-[#debe5d] text-black hover:bg-[#debe5d]/90"
           >
             Weitere Runden hinzufügen
@@ -95,43 +102,45 @@ export function WinnerDisplay({ players, onContinueGame }: WinnerDisplayProps) {
         </div>
       )}
 
-      <Dialog open={showAddRoundsDialog} onOpenChange={setShowAddRoundsDialog}>
-        <DialogContent className="bg-black/95 backdrop-blur-lg border border-white/10">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-white">Weitere Runden hinzufügen</DialogTitle>
-            <DialogDescription className="text-white/80">
-              Wählen Sie die Anzahl der zusätzlichen Runden
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="py-4">
-            <div className="flex flex-col items-center gap-2">
-              <Input
-                value={additionalRounds}
-                onChange={setAdditionalRounds}
-                min={1}
-                max={10}
-              />
+      <Drawer open={showAddRoundsDrawer} onOpenChange={setShowAddRoundsDrawer}>
+        <DrawerContent>
+          <div className="mx-auto w-full max-w-sm">
+            <DrawerHeader>
+              <DrawerTitle>Weitere Runden hinzufügen</DrawerTitle>
+              <DrawerDescription>
+                Wählen Sie die Anzahl der zusätzlichen Runden
+              </DrawerDescription>
+            </DrawerHeader>
+            
+            <div className="p-4 pb-0">
+              <div className="flex flex-col items-center gap-4">
+                <Input
+                  value={additionalRounds}
+                  onChange={setAdditionalRounds}
+                  min={1}
+                  max={10}
+                />
+              </div>
             </div>
-          </div>
 
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setShowAddRoundsDialog(false)}
-              className="bg-transparent border border-white/20 text-white hover:bg-white/10"
-            >
-              Abbrechen
-            </Button>
-            <Button
-              onClick={handleContinueGame}
-              className="bg-[#debe5d] text-black hover:bg-[#debe5d]/90"
-            >
-              Runden hinzufügen
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+            <DrawerFooter>
+              <Button
+                onClick={handleContinueGame}
+                className="bg-[#debe5d] text-black hover:bg-[#debe5d]/90"
+              >
+                Runden hinzufügen
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => setShowAddRoundsDrawer(false)}
+                className="bg-transparent border border-white/20 text-white hover:bg-white/10"
+              >
+                Abbrechen
+              </Button>
+            </DrawerFooter>
+          </div>
+        </DrawerContent>
+      </Drawer>
     </div>
   );
 }
