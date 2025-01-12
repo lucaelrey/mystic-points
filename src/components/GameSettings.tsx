@@ -1,7 +1,7 @@
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Input } from "@/components/ui/number-input";
 import { useState } from "react";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
+import { CircleIcon, Hash3, Hash5, HashIcon, Settings2 } from "lucide-react";
 
 interface GameSettingsProps {
   onStartGame: () => void;
@@ -36,24 +36,51 @@ export function GameSettings({ onStartGame, canStartGame, onRoundsChange }: Game
         <RadioGroup
           defaultValue="5"
           onValueChange={handleRoundsChange}
-          className="flex flex-col space-y-3"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-2xl mx-auto"
         >
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="3" id="rounds-3" />
-            <Label htmlFor="rounds-3" className="text-white">3 Runden</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="5" id="rounds-5" />
-            <Label htmlFor="rounds-5" className="text-white">5 Runden</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="10" id="rounds-10" />
-            <Label htmlFor="rounds-10" className="text-white">10 Runden</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="custom" id="rounds-custom" />
-            <Label htmlFor="rounds-custom" className="text-white">Individuelle Rundenzahl</Label>
-          </div>
+          {/* 3 Rounds */}
+          <label className="relative flex cursor-pointer flex-col items-center gap-3 rounded-lg border border-input px-2 py-3 text-center shadow-sm shadow-black/5 outline-offset-2 transition-colors has-[[data-state=checked]]:border-ring has-[[data-state=checked]]:bg-accent has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-ring/70">
+            <RadioGroupItem
+              id="rounds-3"
+              value="3"
+              className="sr-only after:absolute after:inset-0"
+            />
+            <Hash3 className="opacity-60" size={20} aria-hidden="true" />
+            <p className="text-xs font-medium leading-none text-foreground">3 Runden</p>
+          </label>
+
+          {/* 5 Rounds */}
+          <label className="relative flex cursor-pointer flex-col items-center gap-3 rounded-lg border border-input px-2 py-3 text-center shadow-sm shadow-black/5 outline-offset-2 transition-colors has-[[data-state=checked]]:border-ring has-[[data-state=checked]]:bg-accent has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-ring/70">
+            <RadioGroupItem
+              id="rounds-5"
+              value="5"
+              className="sr-only after:absolute after:inset-0"
+            />
+            <Hash5 className="opacity-60" size={20} aria-hidden="true" />
+            <p className="text-xs font-medium leading-none text-foreground">5 Runden</p>
+          </label>
+
+          {/* 10 Rounds */}
+          <label className="relative flex cursor-pointer flex-col items-center gap-3 rounded-lg border border-input px-2 py-3 text-center shadow-sm shadow-black/5 outline-offset-2 transition-colors has-[[data-state=checked]]:border-ring has-[[data-state=checked]]:bg-accent has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-ring/70">
+            <RadioGroupItem
+              id="rounds-10"
+              value="10"
+              className="sr-only after:absolute after:inset-0"
+            />
+            <HashIcon className="opacity-60" size={20} aria-hidden="true" />
+            <p className="text-xs font-medium leading-none text-foreground">10 Runden</p>
+          </label>
+
+          {/* Custom Rounds */}
+          <label className="relative flex cursor-pointer flex-col items-center gap-3 rounded-lg border border-input px-2 py-3 text-center shadow-sm shadow-black/5 outline-offset-2 transition-colors has-[[data-state=checked]]:border-ring has-[[data-state=checked]]:bg-accent has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-ring/70">
+            <RadioGroupItem
+              id="rounds-custom"
+              value="custom"
+              className="sr-only after:absolute after:inset-0"
+            />
+            <Settings2 className="opacity-60" size={20} aria-hidden="true" />
+            <p className="text-xs font-medium leading-none text-foreground">Individuelle Runden</p>
+          </label>
         </RadioGroup>
 
         {customRounds && (
