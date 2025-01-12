@@ -97,7 +97,7 @@ export function WinnerDisplay({ players, onContinueGame }: WinnerDisplayProps) {
             onClick={() => setShowAddRoundsDrawer(true)}
             className="bg-[#debe5d] text-black hover:bg-[#debe5d]/90"
           >
-            Weitere Runden hinzufügen
+            Add More Rounds
           </Button>
         </div>
       )}
@@ -106,9 +106,9 @@ export function WinnerDisplay({ players, onContinueGame }: WinnerDisplayProps) {
         <DrawerContent>
           <div className="mx-auto w-full max-w-sm">
             <DrawerHeader>
-              <DrawerTitle>Weitere Runden hinzufügen</DrawerTitle>
+              <DrawerTitle>Add More Rounds</DrawerTitle>
               <DrawerDescription>
-                Wählen Sie die Anzahl der zusätzlichen Runden
+                Choose the number of additional rounds
               </DrawerDescription>
             </DrawerHeader>
             
@@ -128,14 +128,14 @@ export function WinnerDisplay({ players, onContinueGame }: WinnerDisplayProps) {
                 onClick={handleContinueGame}
                 className="bg-[#debe5d] text-black hover:bg-[#debe5d]/90"
               >
-                Runden hinzufügen
+                Add Rounds
               </Button>
               <Button
                 variant="outline"
                 onClick={() => setShowAddRoundsDrawer(false)}
                 className="bg-transparent border border-white/20 text-white hover:bg-white/10"
               >
-                Abbrechen
+                Cancel
               </Button>
             </DrawerFooter>
           </div>

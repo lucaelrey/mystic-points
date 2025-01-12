@@ -46,7 +46,7 @@ export function GameSettings({ onStartGame, canStartGame, onRoundsChange }: Game
               className="sr-only after:absolute after:inset-0"
             />
             <span className="text-2xl font-bold opacity-60">5</span>
-            <p className="text-xs font-medium leading-none text-foreground">Runden</p>
+            <p className="text-xs font-medium leading-none text-foreground">Rounds</p>
           </label>
 
           {/* Custom Rounds */}
@@ -57,13 +57,13 @@ export function GameSettings({ onStartGame, canStartGame, onRoundsChange }: Game
               className="sr-only after:absolute after:inset-0"
             />
             <Settings2 className="opacity-60" size={20} aria-hidden="true" />
-            <p className="text-xs font-medium leading-none text-foreground">Individuelle Runden</p>
+            <p className="text-xs font-medium leading-none text-foreground">Custom Rounds</p>
           </label>
         </RadioGroup>
 
         {customRounds && (
           <div className="flex flex-col items-center gap-2 mt-2">
-            <label className="text-sm text-violet-200/80">Anzahl der Runden</label>
+            <label className="text-sm text-violet-200/80">Number of Rounds</label>
             <div className="w-32">
               <Input
                 value={rounds}
