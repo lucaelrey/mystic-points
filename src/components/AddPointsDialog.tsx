@@ -51,13 +51,13 @@ export function AddPointsDialog({ playerName, open, onOpenChange, onAddPoints }:
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerContent className="bg-black/95 border-t border-white/10">
-        <div className="mx-auto w-full max-w-sm">
-          <DrawerHeader>
+        <div className="mx-auto w-full max-w-sm px-4 sm:px-6 pb-6">
+          <DrawerHeader className="space-y-2 pt-6">
             <DrawerTitle className="text-white/90">Add Points for {playerName}</DrawerTitle>
           </DrawerHeader>
-          <form onSubmit={handleSubmit} className="space-y-4 p-4">
+          <form onSubmit={handleSubmit} className="space-y-6 p-4">
             {isMobile ? (
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <Input
                   type="text"
                   value={points}
@@ -121,7 +121,7 @@ export function AddPointsDialog({ playerName, open, onOpenChange, onAddPoints }:
                 max="999"
               />
             )}
-            <DrawerFooter className="px-0">
+            <DrawerFooter className="px-0 mt-6">
               <motion.div
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}

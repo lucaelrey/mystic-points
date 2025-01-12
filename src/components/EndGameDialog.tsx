@@ -20,14 +20,14 @@ export function EndGameDialog({ open, onOpenChange, onConfirm }: EndGameDialogPr
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerContent className="bg-black/50 backdrop-blur-lg border-t border-white/10">
-        <div className="mx-auto w-full max-w-sm pb-6">
-          <DrawerHeader>
+        <div className="mx-auto w-full max-w-sm px-4 sm:px-6 pb-6">
+          <DrawerHeader className="space-y-2 pt-6">
             <DrawerTitle className="text-2xl font-bold text-white">End Game Early</DrawerTitle>
             <DrawerDescription className="text-white/60">
               Are you sure you want to end the game now? Final scores will be calculated based on current points.
             </DrawerDescription>
           </DrawerHeader>
-          <div className="flex flex-col gap-2 p-4">
+          <div className="flex flex-col gap-3 p-4">
             <Button
               onClick={onConfirm}
               className="bg-[#debe5d] hover:bg-[#debe5d]/90 text-white"

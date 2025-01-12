@@ -51,14 +51,14 @@ export function AddPlayerDialog({ onAddPlayer, children }: AddPlayerDialogProps)
         </motion.div>
       </DrawerTrigger>
       <DrawerContent className="bg-black/50 backdrop-blur-lg border-t border-white/10">
-        <div className="mx-auto w-full max-w-sm pb-6">
-          <DrawerHeader>
+        <div className="mx-auto w-full max-w-sm pb-6 px-4 sm:px-6">
+          <DrawerHeader className="space-y-2 pt-6">
             <DrawerTitle className="text-2xl font-bold text-white">Add New Player</DrawerTitle>
             <DrawerDescription className="text-white/60">
               Enter the name of the new player below.
             </DrawerDescription>
           </DrawerHeader>
-          <form onSubmit={handleSubmit} className="space-y-4 p-4">
+          <form onSubmit={handleSubmit} className="space-y-6 p-4">
             <Input
               placeholder="Enter player name"
               value={name}
@@ -66,7 +66,7 @@ export function AddPlayerDialog({ onAddPlayer, children }: AddPlayerDialogProps)
               className="bg-transparent border border-white/10 text-white placeholder:text-white/50 focus-visible:ring-[#debe5d]/50"
               autoFocus
             />
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-3 mt-6">
               <Button 
                 type="submit" 
                 className="w-full bg-[#debe5d] hover:bg-[#debe5d]/90 text-white"

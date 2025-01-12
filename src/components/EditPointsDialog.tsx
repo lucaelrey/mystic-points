@@ -47,11 +47,11 @@ export function EditPointsDialog({
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerContent className="bg-black/95 border-t border-white/10">
-        <div className="mx-auto w-full max-w-sm">
-          <DrawerHeader>
+        <div className="mx-auto w-full max-w-sm px-4 sm:px-6 pb-6">
+          <DrawerHeader className="space-y-2 pt-6">
             <DrawerTitle className="text-white/90">Edit Points for {playerName}</DrawerTitle>
           </DrawerHeader>
-          <form onSubmit={handleSubmit} className="space-y-4 p-4">
+          <form onSubmit={handleSubmit} className="space-y-6 p-4">
             <div className="space-y-2">
               <label className="text-sm text-white/90">Select Round</label>
               <Select
@@ -84,7 +84,7 @@ export function EditPointsDialog({
                 className="bg-black/50 border-white/10 text-white/90 placeholder:text-white/50"
               />
             </div>
-            <DrawerFooter className="px-0">
+            <DrawerFooter className="px-0 mt-6">
               <Button 
                 type="submit" 
                 className="w-full bg-[#debe5d] hover:bg-[#debe5d]/90 text-white"
