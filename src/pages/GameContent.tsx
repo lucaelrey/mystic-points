@@ -8,8 +8,11 @@ import { EndGameDialog } from "@/components/EndGameDialog";
 import { useGameState } from "@/hooks/useGameState";
 import { PlayerCard } from "@/components/PlayerCard";
 import { GameSettings } from "@/components/GameSettings";
+import { ContinueGameDialog } from "@/components/ContinueGameDialog";
+import { useEffect, useState } from "react";
 
 export function GameContent() {
+  const [showContinueDialog, setShowContinueDialog] = useState(false);
   const {
     players,
     setPlayers,
@@ -36,6 +39,25 @@ export function GameContent() {
     addAdditionalRounds,
   } = useGameState();
 
+  useEffect(() => {
+    const gameState = localStorage.getItem("gameState");
+    if (gameState) {
+      const parsedState = JSON.parse(gameState);
+      if (parsedState.gameStarted || parsedState.showWinner) {
+        setShowContinueDialog(true);
+      }
+    }
+  }, []);
+
+  const handleContinueGame = () => {
+    setShowContinueDialog(false);
+  };
+
+  const handleNewGame = () => {
+    resetGame();
+    setShowContinueDialog(false);
+  };
+
   const calculateTotalPoints = (roundPoints: { [key: number]: number }) => {
     return Object.values(roundPoints).reduce((sum, points) => sum + points, 0);
   };
@@ -53,6 +75,13 @@ export function GameContent() {
           currentRound={currentRound}
           maxRounds={maxRounds}
           gameStarted={gameStarted}
+        />
+
+        <ContinueGameDialog
+          open={showContinueDialog}
+          onOpenChange={setShowContinueDialog}
+          onContinue={handleContinueGame}
+          onNewGame={handleNewGame}
         />
 
         {!gameStarted && !showWinner && (
