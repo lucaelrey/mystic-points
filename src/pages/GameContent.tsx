@@ -101,8 +101,8 @@ export function GameContent() {
             {players.length === 0 && (
               <AddPlayerDialog onAddPlayer={addPlayer}>
                 <div className="text-center py-12 backdrop-blur-lg rounded-xl border border-[#debe5d]/20 shadow-lg hover:border-[#debe5d]/50 transition-all cursor-pointer">
-                  <p className="text-violet-200/80 mb-2">Noch keine Spieler vorhanden</p>
-                  <p className="text-violet-200/80">Hier klicken um Spieler hinzuzufügen</p>
+                  <p className="text-white mb-2">Noch keine Spieler vorhanden</p>
+                  <p className="text-white">Hier klicken um Spieler hinzuzufügen</p>
                 </div>
               </AddPlayerDialog>
             )}
