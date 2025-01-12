@@ -38,7 +38,7 @@ export function GameControls({
 
   return (
     <>
-      <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-3 px-4 w-full max-w-xl mx-auto bg-gradient-to-r from-[#debe5d] via-[#e5cc7d] to-[#f5e4a1] bg-opacity-10 rounded-lg p-6">
+      <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-3 px-4 w-full max-w-xl mx-auto">
         {gameStarted && (
           <>
             <RainbowButton
