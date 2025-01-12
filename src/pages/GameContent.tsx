@@ -47,7 +47,7 @@ export function GameContent() {
   });
 
   return (
-    <div className="min-h-screen bg-[#121212]/0 py-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <div className="min-h-screen bg-[#121212]/0 py-8 px-4 sm:px-6 lg:px-8 overflow-hidden font-medium">
       <div className="max-w-4xl mx-auto">
         <GameHeader
           currentRound={currentRound}
@@ -101,8 +101,8 @@ export function GameContent() {
             {players.length === 0 && (
               <AddPlayerDialog onAddPlayer={addPlayer}>
                 <div className="text-center py-12 backdrop-blur-lg rounded-xl border border-[#debe5d]/20 shadow-lg hover:border-[#debe5d]/50 transition-all cursor-pointer">
-                  <p className="text-white mb-2">Noch keine Spieler vorhanden</p>
-                  <p className="text-white">Hier klicken um Spieler hinzuzufügen</p>
+                  <p className="text-white font-medium mb-2">Noch keine Spieler vorhanden</p>
+                  <p className="text-white font-medium">Hier klicken um Spieler hinzuzufügen</p>
                 </div>
               </AddPlayerDialog>
             )}

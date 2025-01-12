@@ -59,7 +59,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-[#121212] text-foreground;
+    @apply bg-[#121212] text-foreground font-medium;
     background-image: url('/lovable-uploads/220982b5-43c7-487e-9f2a-d518b093fa89.png');
     background-size: cover;
     background-position: center;
@@ -67,6 +67,9 @@
     background-attachment: fixed;
     min-height: 100vh;
     width: 100%;
+  }
+  button {
+    @apply font-bold;
   }
 }
 
