@@ -67,6 +67,8 @@ export function useGameState() {
       gameStarted: started,
       showWinner: winner 
     }));
+    setGameStarted(started);
+    setShowWinner(winner);
   };
 
   const startGame = () => {
@@ -108,6 +110,14 @@ export function useGameState() {
     }));
   };
 
+  // Initialize game state from localStorage
+  const initializeFromSavedState = () => {
+    setGameStarted(gameState.gameStarted);
+    setShowWinner(gameState.showWinner);
+    setCurrentRound(gameState.currentRound);
+    setPlayers(gameState.players);
+  };
+
   return {
     // Player Management
     players,
@@ -140,5 +150,8 @@ export function useGameState() {
     // UI State
     isEditing,
     setIsEditing,
+
+    // Game State Management
+    initializeFromSavedState,
   };
 }

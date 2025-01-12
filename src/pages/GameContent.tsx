@@ -37,6 +37,7 @@ export function GameContent() {
     updatePlayerPoints,
     handleRoundsChange,
     addAdditionalRounds,
+    initializeFromSavedState,
   } = useGameState();
 
   useEffect(() => {
@@ -50,6 +51,7 @@ export function GameContent() {
   }, []);
 
   const handleContinueGame = () => {
+    initializeFromSavedState();
     setShowContinueDialog(false);
   };
 
