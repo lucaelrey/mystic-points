@@ -6,6 +6,7 @@ import { WinnerDisplay } from "@/components/WinnerDisplay";
 import { GameControls } from "@/components/GameControls";
 import { EndGameDialog } from "@/components/EndGameDialog";
 import { useGameState } from "@/hooks/useGameState";
+import { PlayerCard } from "@/components/PlayerCard";
 
 export function GameContent() {
   const {
@@ -28,6 +29,7 @@ export function GameContent() {
     endGame,
     deletePlayer,
     addPlayer,
+    updatePlayerPoints,
   } = useGameState();
 
   const calculateTotalPoints = (roundPoints: { [key: number]: number }) => {
@@ -37,7 +39,7 @@ export function GameContent() {
   const sortedPlayers = [...players].sort((a, b) => {
     const totalPointsA = calculateTotalPoints(a.roundPoints);
     const totalPointsB = calculateTotalPoints(b.roundPoints);
-    return totalPointsA - totalPointsB;
+    return totalPointsB - totalPointsA;
   });
 
   return (
@@ -98,7 +100,7 @@ export function GameContent() {
           gameStarted={gameStarted}
           currentRound={currentRound}
           maxRounds={5}
-          canAdvanceRound={canAdvanceRound}
+          canAdvanceRound={canAdvanceRound()}
           onAdvanceRound={handleAdvanceRound}
           onPreviousRound={handlePreviousRound}
           onEndGame={endGame}
