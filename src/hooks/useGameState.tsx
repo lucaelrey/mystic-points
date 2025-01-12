@@ -52,7 +52,6 @@ export function useGameState() {
 
   const endGame = () => {
     endGameBase(players);
-    setCurrentRound(1);
   };
 
   const handleRoundsChange = (rounds: number) => {
