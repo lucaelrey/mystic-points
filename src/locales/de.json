@@ -17,6 +17,26 @@
     "save": "Speichern",
     "points": "Punkte",
     "selectRound": "Runde auswählen",
-    "language": "Sprache"
+    "language": "Sprache",
+    "beginJourney": "Beginne deine mystische Reise, indem du Spieler hinzufügst",
+    "gameReset": "Das Spiel wurde zurückgesetzt. Die Spieler sind bereit für ein neues Spiel.",
+    "confirmEndGame": "Möchtest du das Spiel wirklich jetzt beenden? Die Endpunktzahl wird basierend auf den aktuellen Punkten berechnet.",
+    "addRounds": "Weitere Runden hinzufügen",
+    "selectAdditionalRounds": "Wähle die Anzahl der zusätzlichen Runden",
+    "noPlayers": "Noch keine Spieler vorhanden",
+    "clickToAdd": "Hier klicken um Spieler hinzuzufügen",
+    "enterPlayerName": "Spielername eingeben",
+    "playerAdded": "Spieler wurde hinzugefügt",
+    "playerRemoved": "Spieler wurde entfernt",
+    "gameStarted": "Spiel gestartet",
+    "roundChanged": "Runde gewechselt",
+    "cannotAdvance": "Runde kann nicht fortgesetzt werden",
+    "allPlayersNeedPoints": "Alle Spieler müssen Punkte für die aktuelle Runde haben",
+    "roundAdvanced": "Nächste Runde startet",
+    "finalResults": "Endergebnisse",
+    "totalPoints": "Gesamtpunkte",
+    "place": "Platz",
+    "continueGame": "Weiterspielen?",
+    "ongoingGame": "Es gibt ein laufendes Spiel. Möchtest du weiterspielen?"
   }
 }
