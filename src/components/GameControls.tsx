@@ -44,7 +44,11 @@ export function GameControls({
             <StarBorder
               onClick={onAdvanceRound}
               disabled={!canAdvanceRound}
-              className="w-full sm:w-auto"
+              className={cn(
+                "w-full sm:w-auto",
+                "disabled:opacity-50",
+                "[&>div:last-child]:bg-[#debe5d] [&>div:last-child]:text-black"
+              )}
               color="#debe5d"
             >
               <div className="flex items-center justify-center gap-2">
@@ -99,7 +103,11 @@ export function GameControls({
           <StarBorder
             onClick={onResetGame}
             disabled={!canStartGame}
-            className="w-full sm:w-auto"
+            className={cn(
+              "w-full sm:w-auto",
+              "disabled:opacity-50",
+              "[&>div:last-child]:bg-[#debe5d] [&>div:last-child]:text-black"
+            )}
             color="#debe5d"
           >
             <div className="flex items-center justify-center gap-2">
