@@ -10,7 +10,7 @@ export function WinnerDisplay({ players }: WinnerDisplayProps) {
   const sortedPlayers = [...players].sort((a, b) => {
     const totalPointsA = Object.values(a.roundPoints).reduce((sum, points) => sum + points, 0);
     const totalPointsB = Object.values(b.roundPoints).reduce((sum, points) => sum + points, 0);
-    return totalPointsA - totalPointsB;
+    return totalPointsB - totalPointsA;
   });
 
   const getPlacementText = (index: number) => {
