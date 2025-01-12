@@ -29,7 +29,7 @@ export function useRoundManagement(players: Player[]) {
     }
   };
 
-  const handleAdvanceRound = (endGameFn: () => void) => {
+  const handleAdvanceRound = (endGameFn: () => void, maxRounds: number) => {
     if (!canAdvanceRound()) {
       toast({
         title: "Cannot Advance Round",
@@ -39,13 +39,13 @@ export function useRoundManagement(players: Player[]) {
       return;
     }
 
-    if (currentRound < 5) {
+    if (currentRound < maxRounds) {
       setCurrentRound((prev) => prev + 1);
       toast({
         title: "Round Advanced",
         description: `Starting round ${currentRound + 1}`,
       });
-    } else if (currentRound === 5) {
+    } else if (currentRound === maxRounds) {
       endGameFn();
     }
   };

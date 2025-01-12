@@ -7,6 +7,7 @@ import { GameControls } from "@/components/GameControls";
 import { EndGameDialog } from "@/components/EndGameDialog";
 import { useGameState } from "@/hooks/useGameState";
 import { PlayerCard } from "@/components/PlayerCard";
+import { GameSettings } from "@/components/GameSettings";
 
 export function GameContent() {
   const {
@@ -17,6 +18,7 @@ export function GameContent() {
     isEditing,
     setIsEditing,
     currentRound,
+    maxRounds,
     gameStarted,
     showWinner,
     showEndGameDialog,
@@ -30,6 +32,8 @@ export function GameContent() {
     deletePlayer,
     addPlayer,
     updatePlayerPoints,
+    handleRoundsChange,
+    addAdditionalRounds,
   } = useGameState();
 
   const calculateTotalPoints = (roundPoints: { [key: number]: number }) => {
@@ -47,12 +51,23 @@ export function GameContent() {
       <div className="max-w-4xl mx-auto">
         <GameHeader
           currentRound={currentRound}
-          maxRounds={5}
+          maxRounds={maxRounds}
           gameStarted={gameStarted}
         />
 
+        {!gameStarted && !showWinner && (
+          <GameSettings
+            onStartGame={startGame}
+            canStartGame={players.length >= 2}
+            onRoundsChange={handleRoundsChange}
+          />
+        )}
+
         {!gameStarted && showWinner ? (
-          <WinnerDisplay players={players} />
+          <WinnerDisplay 
+            players={players} 
+            onContinueGame={addAdditionalRounds}
+          />
         ) : (
           <>
             <div className="grid gap-6 md:grid-cols-2 mb-8">
@@ -99,7 +114,7 @@ export function GameContent() {
         <GameControls
           gameStarted={gameStarted}
           currentRound={currentRound}
-          maxRounds={5}
+          maxRounds={maxRounds}
           canAdvanceRound={canAdvanceRound()}
           onAdvanceRound={handleAdvanceRound}
           onPreviousRound={handlePreviousRound}

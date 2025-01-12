@@ -5,6 +5,7 @@ import { useGameFlow } from "./useGameFlow";
 
 export function useGameState() {
   const [isEditing, setIsEditing] = useState(false);
+  const [maxRounds, setMaxRounds] = useState(5);
   
   const {
     players,
@@ -36,13 +37,13 @@ export function useGameState() {
   } = useGameFlow();
 
   const startGame = () => {
-    resetPlayerScores(); // Hier wird resetPlayerScores aufgerufen
+    resetPlayerScores();
     setCurrentRound(1);
     startGameBase(players);
   };
 
   const resetGame = () => {
-    resetPlayerScores(); // Hier wird resetPlayerScores aufgerufen
+    resetPlayerScores();
     setCurrentRound(1);
     resetGameBase();
   };
@@ -50,6 +51,16 @@ export function useGameState() {
   const endGame = () => {
     endGameBase(players);
     setCurrentRound(1);
+  };
+
+  const handleRoundsChange = (rounds: number) => {
+    setMaxRounds(rounds);
+  };
+
+  const addAdditionalRounds = (additionalRounds: number) => {
+    setMaxRounds(prev => prev + additionalRounds);
+    setShowWinner(false);
+    setGameStarted(true);
   };
 
   return {
@@ -65,9 +76,12 @@ export function useGameState() {
     
     // Round Management
     currentRound,
+    maxRounds,
+    handleRoundsChange,
     canAdvanceRound,
     handlePreviousRound: () => handlePreviousRound(resetGame),
-    handleAdvanceRound: () => handleAdvanceRound(endGame),
+    handleAdvanceRound: () => handleAdvanceRound(endGame, maxRounds),
+    addAdditionalRounds,
     
     // Game Flow
     gameStarted,
