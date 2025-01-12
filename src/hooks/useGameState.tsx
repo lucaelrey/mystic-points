@@ -48,9 +48,13 @@ export function useGameState() {
   };
 
   const endGame = () => {
+    // Zuerst das Spiel beenden und Gewinner anzeigen
     endGameBase(players);
-    resetPlayerScores();
-    setCurrentRound(1);
+    // Verzögere das Zurücksetzen der Scores
+    setTimeout(() => {
+      resetPlayerScores();
+      setCurrentRound(1);
+    }, 100);
   };
 
   return {
